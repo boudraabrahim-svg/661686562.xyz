@@ -4,22 +4,20 @@
     <meta charset="UTF-8">
     <title>Brahim Boudra - Consultant structuration commerciale & Odoo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Consultant en structuration commerciale et intégration Odoo. J'aide les entreprises à structurer la prospection, renforcer la discipline commerciale et digitaliser les processus.">
     <style>
         :root {
             --bg: #0d1b2a;
             --card: rgba(15, 23, 42, 0.9);
             --accent: #22c55e;
-            --accent-soft: rgba(34, 197, 94, 0.15);
             --text: #e5e7eb;
             --muted: #9ca3af;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         body {
@@ -30,144 +28,80 @@
 
         header {
             text-align: center;
-            padding: 40px 16px 10px;
+            padding: 40px 16px;
         }
 
         header h1 {
             font-size: 28px;
-            letter-spacing: 0.08em;
             text-transform: uppercase;
+            letter-spacing: 0.06em;
         }
 
         header h2 {
-            font-size: 16px;
-            font-weight: 300;
+            font-size: 14px;
             color: var(--muted);
             margin-top: 6px;
         }
 
-        .badge-line {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.5);
-            background: rgba(15, 23, 42, 0.75);
-            color: var(--muted);
-        }
-
         .container {
-            max-width: 960px;
-            margin: 0 auto;
+            max-width: 900px;
+            margin: auto;
             padding: 16px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.4fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 780px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         .card {
             background: var(--card);
-            border-radius: 18px;
-            padding: 18px;
-            border: 1px solid rgba(148, 163, 184, 0.35);
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            margin-bottom: 18px;
         }
 
         .section-title {
             font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
             color: var(--muted);
-            margin-bottom: 8px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
         }
 
-        .highlight {
-            display: inline-block;
-            margin-top: 6px;
-            padding: 3px 10px;
-            border-radius: 999px;
-            background: var(--accent-soft);
-            font-size: 12px;
-        }
-
-        .list {
-            list-style: none;
-            margin-top: 8px;
-        }
-
-        .list li {
-            font-size: 14px;
-            margin-bottom: 4px;
-            display: flex;
-            gap: 6px;
-        }
-
-        .list li::before {
-            content: "▹";
-            color: var(--accent);
-            font-size: 12px;
-            margin-top: 3px;
-        }
-
-        .images {
-            margin-top: 10px;
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-        }
-
-        .images img {
+        .banner {
             width: 100%;
             border-radius: 12px;
-            display: block;
-            object-fit: cover;
-            max-height: 200px;
+            margin-bottom: 10px;
         }
 
-        .cta-buttons {
+        ul {
+            margin-top: 6px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .btn-group {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 10px;
         }
 
-        .btn {
-            flex: 1 1 140px;
-            text-align: center;
-            padding: 9px 12px;
+        a.button {
+            flex: 1 1 auto;
+            padding: 10px 12px;
             border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148,163,184,0.6);
             text-decoration: none;
-            font-size: 13px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.95);
             color: var(--text);
-            transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+            font-size: 13px;
+            text-align: center;
         }
 
-        .btn.primary {
+        a.button.primary {
             border-color: var(--accent);
-            background: radial-gradient(circle at 0 0, #22c55e33, #052e16);
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(34,197,94,0.2);
         }
 
         form {
@@ -176,44 +110,31 @@
             gap: 8px;
         }
 
-        label {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
         input, textarea {
-            width: 100%;
-            padding: 7px 9px;
-            border-radius: 8px;
-            border: 1px solid rgba(148, 163, 184, 0.5);
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15,23,42,0.85);
+            border: 1px solid rgba(148,163,184,0.4);
             color: var(--text);
+            padding: 7px;
+            border-radius: 8px;
             font-size: 13px;
         }
 
         textarea {
             min-height: 90px;
-            resize: vertical;
         }
 
-        .submit-btn {
-            margin-top: 4px;
-            padding: 9px 12px;
-            border-radius: 999px;
-            border: none;
+        button.submit-btn {
             background: #1f6feb;
-            color: #fff;
-            font-size: 13px;
+            color: white;
+            border: none;
+            padding: 9px;
+            border-radius: 999px;
             cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            background: #0a58ca;
         }
 
         footer {
             text-align: center;
-            padding: 18px;
+            padding: 20px;
             font-size: 11px;
             color: var(--muted);
         }
@@ -224,105 +145,56 @@
 <header>
     <h1>Brahim Boudra</h1>
     <h2>Consultant en structuration commerciale & intégration Odoo</h2>
-    <div class="badge-line">
-        <span class="badge">Prospection & routines commerciales</span>
-        <span class="badge">Discipline terrain</span>
-        <span class="badge">ERP Odoo & process</span>
-        <span class="badge">Algérie</span>
-    </div>
 </header>
 
 <div class="container">
 
-    <div class="grid">
-        <!-- Colonne gauche : présentation & expertise -->
-        <section class="card">
-            <div class="section-title">À propos</div>
-            <p>
-                Je crois que le succès commercial ne vient pas du discours, mais de l’exécution.
-                J’aide les entreprises à structurer leur prospection, clarifier leurs priorités,
-                renforcer les routines commerciales et digitaliser les processus — notamment via
-                l’intégration pragmatique d’Odoo.
-            </p>
-            <span class="highlight">Transformer le terrain en méthode, les intentions en processus, les résultats en habitudes.</span>
+    <section class="card">
+        <div class="section-title">À propos</div>
+        <img src="headway-5QgIuuBxKwM-unsplash.jpg" class="banner" alt="Consulting">
+        <p>
+            Je crois que le succès commercial ne vient pas du discours, mais de l’exécution.
+            J’aide les entreprises à structurer leur prospection, renforcer leurs routines,
+            accompagner les équipes et digitaliser leurs processus — notamment via Odoo.
+        </p>
+    </section>
 
-            <div style="margin-top:16px;">
-                <div class="section-title">Ce que je fais</div>
-                <ul class="list">
-                    <li>Structuration de la prospection et des routines commerciales.</li>
-                    <li>Accompagnement terrain des équipes vente (coaching, suivi, correction).</li>
-                    <li>Création d’outils simples : scripts, playbooks, tableaux de suivi.</li>
-                    <li>Intégration et optimisation d’Odoo pour soutenir l’exécution.</li>
-                </ul>
-            </div>
+    <section class="card">
+        <div class="section-title">Domaines d’expertise</div>
+        <ul>
+            <li>Structuration commerciale et routines de prospection</li>
+            <li>Accompagnement terrain & discipline d’exécution</li>
+            <li>Création d’outils pratiques : scripts, playbooks, tableaux</li>
+            <li>Intégration et optimisation Odoo</li>
+        </ul>
+    </section>
 
-            <div style="margin-top:16px;">
-                <div class="section-title">Univers d’intervention</div>
-                <div class="images">
-                    <!-- À toi d’uploader ces fichiers dans /images/ de ton repo -->
-                    <img src="images/headway-5QgIuuBxKwM-unsplash.jpg" alt="Réunion de travail">
-                    <img src="images/markus-winkler-IrRbSND5EUc-unsplash.jpg" alt="Graphique de performance">
-                    <img src="images/scott-graham-5fNmWej4tAA-unsplash.jpg" alt="Plan d’action">
-                    <img src="images/jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg" alt="Fond digital">
-                </div>
-            </div>
-        </section>
+    <section class="card">
+        <div class="section-title">Univers d’intervention</div>
+        <img src="markus-winkler-IrRbSND5EUc-unsplash.jpg" class="banner" alt="Analytics">
+        <img src="scott-graham-5fNmWej4tAA-unsplash.jpg" class="banner" alt="Planning">
+        <img src="jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg" class="banner" alt="Digital">
+    </section>
 
-        <!-- Colonne droite : contact, appel & formulaire -->
-        <section class="card">
-            <div class="section-title">Prendre contact</div>
-            <p style="font-size:14px;">
-                Pour un projet, un besoin d’organisation commerciale ou une réflexion autour d’Odoo,
-                tu peux soit réserver un appel direct, soit m’envoyer un message avec ton contexte.
-            </p>
+    <section class="card">
+        <div class="section-title">Prendre contact</div>
+        <div class="btn-group">
+            <a class="button primary" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20souhaite%20r%C3%A9server%20un%20appel%20avec%20vous.">Réserver un appel</a>
+            <a class="button" href="mailto:contact@661686562.xyz">Email direct</a>
+            <a class="button" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20visite%20votre%20site%20et%20j%E2%80%99aimerais%20%C3%A9changer%20avec%20vous.">WhatsApp</a>
+            <a class="button" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5">LinkedIn</a>
+        </div>
 
-            <div class="cta-buttons">
-                <a class="btn primary" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20souhaite%20r%C3%A9server%20un%20appel%20avec%20vous.">
-                    Réserver un appel (WhatsApp)
-                </a>
-                <a class="btn" href="mailto:contact@661686562.xyz">
-                    Écrire un email
-                </a>
-                <a class="btn" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20visite%20votre%20site%20et%20j%27aimerais%20%C3%A9changer%20avec%20vous.">
-                    Discuter sur WhatsApp
-                </a>
-                <a class="btn" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5" target="_blank">
-                    Me suivre sur LinkedIn
-                </a>
-            </div>
+        <form action="mailto:contact@661686562.xyz" method="post" enctype="text/plain">
+            <input type="text" name="Nom" placeholder="Nom complet" required>
+            <input type="email" name="Email" placeholder="Email" required>
+            <input type="tel" name="Téléphone" placeholder="Téléphone">
+            <input type="text" name="Sujet" placeholder="Sujet">
+            <textarea name="Message" placeholder="Message" required></textarea>
+            <button type="submit" class="submit-btn">Envoyer</button>
+        </form>
+    </section>
 
-            <div style="margin-top:18px;">
-                <div class="section-title">Formulaire de contact</div>
-                <!-- Formulaire simple via mailto (site statique) -->
-                <form action="mailto:contact@661686562.xyz" method="post" enctype="text/plain">
-                    <div>
-                        <label for="nom">Nom / Prénom</label>
-                        <input type="text" id="nom" name="Nom" required>
-                    </div>
-                    <div>
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="Email" required>
-                    </div>
-                    <div>
-                        <label for="tel">Téléphone</label>
-                        <input type="tel" id="tel" name="Téléphone">
-                    </div>
-                    <div>
-                        <label for="sujet">Sujet</label>
-                        <input type="text" id="sujet" name="Sujet">
-                    </div>
-                    <div>
-                        <label for="message">Message</label>
-                        <textarea id="message" name="Message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Envoyer ma demande</button>
-                </form>
-                <p style="font-size:11px;color:var(--muted);margin-top:6px;">
-                    Sur certains navigateurs, l’envoi ouvre directement ton logiciel de messagerie (Outlook, Gmail…).
-                </p>
-            </div>
-        </section>
-    </div>
 </div>
 
 <footer>
