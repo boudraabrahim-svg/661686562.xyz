@@ -2,141 +2,79 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Brahim Boudra - Consultant structuration commerciale & Odoo</title>
+    <title>Brahim Boudra | Consultant commercial & intégration Odoo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        :root {
-            --bg: #0d1b2a;
-            --card: rgba(15, 23, 42, 0.9);
-            --accent: #22c55e;
-            --text: #e5e7eb;
-            --muted: #9ca3af;
-        }
-
-        * {
+        body {
+            background-color: #0d1b2a;
+            color: #e5e7eb;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
         }
-
-        body {
-            background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
         header {
             text-align: center;
-            padding: 40px 16px;
+            padding: 40px 20px;
         }
-
         header h1 {
             font-size: 28px;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
         }
-
-        header h2 {
+        header p {
+            color: #9ca3af;
             font-size: 14px;
-            color: var(--muted);
-            margin-top: 6px;
         }
-
         .container {
             max-width: 900px;
             margin: auto;
-            padding: 16px;
+            padding: 20px;
         }
-
         .card {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 16px;
-            border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-            margin-bottom: 18px;
+            background-color: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
         }
-
-        .section-title {
-            font-size: 13px;
-            color: var(--muted);
-            text-transform: uppercase;
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+        ul li {
             margin-bottom: 6px;
         }
-
-        .banner {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 10px;
-        }
-
-        ul {
-            margin-top: 6px;
-        }
-
-        ul li {
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        a.button {
-            flex: 1 1 auto;
-            padding: 10px 12px;
-            border-radius: 999px;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(148,163,184,0.6);
-            text-decoration: none;
-            color: var(--text);
-            font-size: 13px;
-            text-align: center;
-        }
-
-        a.button.primary {
-            border-color: var(--accent);
-            background: rgba(34,197,94,0.2);
-        }
-
-        form {
-            margin-top: 10px;
-            display: grid;
-            gap: 8px;
-        }
-
-        input, textarea {
-            background: rgba(15,23,42,0.85);
-            border: 1px solid rgba(148,163,184,0.4);
-            color: var(--text);
-            padding: 7px;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-
-        textarea {
-            min-height: 90px;
-        }
-
-        button.submit-btn {
+        .buttons a {
+            display: inline-block;
+            padding: 10px 14px;
             background: #1f6feb;
             color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 5px 5px 0 0;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #e5e7eb;
+        }
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1f6feb;
+            color: white;
             border: none;
-            padding: 9px;
-            border-radius: 999px;
+            border-radius: 8px;
             cursor: pointer;
         }
-
         footer {
             text-align: center;
-            padding: 20px;
-            font-size: 11px;
-            color: var(--muted);
+            padding: 15px;
+            color: #9ca3af;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -144,65 +82,58 @@
 
 <header>
     <h1>Brahim Boudra</h1>
-    <h2>Consultant en structuration commerciale & intégration Odoo</h2>
+    <p>Consultant structuration commerciale & intégration Odoo</p>
 </header>
 
 <div class="container">
 
     <section class="card">
-        <div class="section-title">À propos</div>
-        <!-- Photo réunion / laptop -->
-        <img src="photo1.jpg" class="banner" alt="Réunion de travail">
+        <h3>À propos</h3>
+        <img src="photo1.jpg" alt="Travail en équipe">
         <p>
-            Je crois que le succès commercial ne vient pas du discours, mais de l’exécution.
-            J’aide les entreprises à structurer leur prospection, renforcer leurs routines,
-            accompagner les équipes et digitaliser leurs processus — notamment via Odoo.
+            J’aide les entreprises à structurer leur prospection, renforcer les routines commerciales,
+            accompagner les équipes sur le terrain et digitaliser leurs processus — notamment via Odoo.
         </p>
     </section>
 
     <section class="card">
-        <div class="section-title">Domaines d’expertise</div>
+        <h3>Domaines d’expertise</h3>
         <ul>
-            <li>Structuration commerciale et routines de prospection</li>
+            <li>Structuration commerciale & routines de prospection</li>
             <li>Accompagnement terrain & discipline d’exécution</li>
-            <li>Création d’outils pratiques : scripts, playbooks, tableaux</li>
+            <li>Création d'outils pratiques : scripts, tableaux, playbooks</li>
             <li>Intégration et optimisation Odoo</li>
         </ul>
     </section>
 
     <section class="card">
-        <div class="section-title">Univers d’intervention</div>
-        <!-- Graphique -->
-        <img src="photo2.jpg" class="banner" alt="Graphique de performance">
-        <!-- Travail sur plans / stratégie -->
-        <img src="photo3.jpg" class="banner" alt="Travail de planification">
-        <!-- Fond abstrait blanc -->
-        <img src="photo4.jpg" class="banner" alt="Fond digital">
+        <h3>Univers d’intervention</h3>
+        <img src="photo2.jpg" alt="Graphique de croissance">
+        <img src="photo3.jpg" alt="Planification stratégique">
+        <img src="photo4.jpg" alt="Abstraction technologique">
     </section>
 
     <section class="card">
-        <div class="section-title">Prendre contact</div>
-        <div class="btn-group">
-            <a class="button primary" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20souhaite%20r%C3%A9server%20un%20appel%20avec%20vous.">Réserver un appel</a>
-            <a class="button" href="mailto:contact@661686562.xyz">Email direct</a>
-            <a class="button" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20visite%20votre%20site%20et%20j%E2%80%99aimerais%20%C3%A9changer%20avec%20vous.">WhatsApp</a>
-            <a class="button" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5">LinkedIn</a>
+        <h3>Prendre contact</h3>
+        <div class="buttons">
+            <a href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20souhaite%20r%C3%A9server%20un%20appel%20avec%20vous.">Réserver un appel</a>
+            <a href="mailto:contact@661686562.xyz">Email</a>
+            <a href="https://wa.me/213661686562">WhatsApp</a>
+            <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5" target="_blank">LinkedIn</a>
         </div>
 
         <form action="mailto:contact@661686562.xyz" method="post" enctype="text/plain">
-            <input type="text" name="Nom" placeholder="Nom complet" required>
-            <input type="email" name="Email" placeholder="Email" required>
-            <input type="tel" name="Téléphone" placeholder="Téléphone">
-            <input type="text" name="Sujet" placeholder="Sujet">
-            <textarea name="Message" placeholder="Message" required></textarea>
-            <button type="submit" class="submit-btn">Envoyer</button>
+            <input type="text" name="Nom" placeholder="Votre nom" required>
+            <input type="email" name="Email" placeholder="Votre email" required>
+            <textarea name="Message" placeholder="Votre message" required></textarea>
+            <button type="submit">Envoyer</button>
         </form>
     </section>
 
 </div>
 
 <footer>
-    © 2025 Brahim Boudra — contact@661686562.xyz — 661686562.xyz
+    © 2025 Brahim Boudra — contact@661686562.xyz
 </footer>
 
 </body>
