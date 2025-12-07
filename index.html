@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Brahim Boudra - Consultant structuration commerciale & Odoo</title>
+    <title>Brahim Boudra - Page personnelle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Consultant en structuration commerciale et intégration Odoo. J’aide les entreprises à structurer la prospection, renforcer la discipline commerciale et digitaliser les processus.">
+    <meta name="description" content="Page personnelle de Brahim Boudra - Manager B2B, Structuration commerciale, Formation et accompagnement terrain.">
     <style>
         :root {
             --bg: #0f172a;
             --card-bg: rgba(2, 6, 23, 0.9);
             --accent: #22c55e;
-            --accent-soft: rgba(34, 197, 94, 0.18);
+            --accent-soft: rgba(34, 197, 94, 0.15);
             --text: #e5e7eb;
             --muted: #9ca3af;
         }
@@ -35,102 +35,105 @@
         .card {
             width: 100%;
             max-width: 900px;
-            background: linear-gradient(135deg, rgba(148, 163, 184, 0.10), var(--card-bg));
+            background: linear-gradient(135deg, rgba(148, 163, 184, 0.12), var(--card-bg));
             border-radius: 24px;
-            padding: 24px;
+            padding: 28px;
             border: 1px solid rgba(148, 163, 184, 0.4);
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(18px);
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
             display: flex;
             gap: 20px;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             flex-wrap: wrap;
         }
 
         .avatar {
-            width: 80px;
-            height: 80px;
+            width: 88px;
+            height: 88px;
             border-radius: 999px;
             border: 2px solid var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
             background: radial-gradient(circle at 30% 0, #22c55e33, #020617);
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 700;
             color: var(--accent);
         }
 
         .title-block h1 {
-            font-size: 24px;
-            letter-spacing: 0.08em;
+            font-size: 28px;
+            letter-spacing: 0.04em;
             text-transform: uppercase;
         }
 
         .title-block h1 span {
             font-weight: 300;
             color: var(--muted);
-            font-size: 15px;
+            font-size: 18px;
             display: block;
             margin-top: 4px;
-            text-transform: none;
         }
 
         .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .tag {
-            padding: 3px 9px;
+            padding: 4px 10px;
             border-radius: 999px;
-            font-size: 11px;
+            font-size: 12px;
             border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.8);
-            color: var(--muted);
+            background: rgba(15, 23, 42, 0.6);
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 9px;
+            height: 9px;
             border-radius: 999px;
             background: #22c55e;
-            box-shadow: 0 0 10px #22c55e;
+            box-shadow: 0 0 12px #22c55e;
             margin-right: 6px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
-            gap: 18px;
+            grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+            gap: 20px;
         }
 
-        @media (max-width: 780px) {
+        @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 18px;
             }
         }
 
         .section {
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.85);
             border-radius: 18px;
-            padding: 14px;
+            padding: 16px;
             border: 1px solid rgba(31, 41, 55, 0.9);
-            margin-bottom: 10px;
+        }
+
+        .section + .section {
+            margin-top: 14px;
         }
 
         .section-title {
-            font-size: 12px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.18em;
             color: var(--muted);
@@ -145,7 +148,7 @@
         .highlight {
             background: var(--accent-soft);
             border-radius: 999px;
-            padding: 3px 10px;
+            padding: 2px 8px;
             font-size: 12px;
             display: inline-block;
             margin-top: 6px;
@@ -160,35 +163,36 @@
             font-size: 14px;
             margin-bottom: 4px;
             display: flex;
+            align-items: flex-start;
             gap: 6px;
         }
 
         .list li::before {
             content: "▹";
             font-size: 12px;
-            margin-top: 3px;
+            margin-top: 2px;
             color: var(--accent);
         }
 
         .contact-card {
             background: linear-gradient(145deg, rgba(34, 197, 94, 0.18), rgba(15, 23, 42, 0.95));
             border-radius: 18px;
-            padding: 14px;
-            border: 1px solid rgba(34, 197, 94, 0.6);
+            padding: 16px;
+            border: 1px solid rgba(34, 197, 94, 0.65);
         }
 
         .contact-title {
-            font-size: 13px;
+            font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
-            margin-bottom: 8px;
+            letter-spacing: 0.15em;
+            margin-bottom: 10px;
             color: #bbf7d0;
         }
 
         .contact-text {
             font-size: 13px;
             color: #e5fbe8;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
 
         .buttons {
@@ -198,20 +202,20 @@
         }
 
         .btn {
-            flex: 1 1 130px;
+            flex: 1 1 120px;
             text-align: center;
             font-size: 13px;
-            padding: 7px 10px;
+            padding: 8px 10px;
             border-radius: 999px;
             text-decoration: none;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.9);
             color: var(--text);
-            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
         }
 
         .btn.primary {
-            border-color: var(--accent);
+            border-color: #22c55e;
             background: radial-gradient(circle at 0 0, #22c55e33, #052e16);
         }
 
@@ -221,100 +225,76 @@
         }
 
         .footer {
-            margin-top: 14px;
+            margin-top: 18px;
             font-size: 11px;
             color: var(--muted);
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-<main class="card">
-    <header class="header">
-        <div class="avatar">B</div>
-        <div class="title-block">
-            <h1>
-                Brahim Boudra
-                <span>Consultant en structuration commerciale & intégration Odoo</span>
-            </h1>
-            <div class="tags">
-                <div class="tag"><span class="status-dot"></span>Disponible pour échanges pro</div>
-                <div class="tag">Structuration commerciale</div>
-                <div class="tag">ERP Odoo</div>
-                <div class="tag">Algérie</div>
+    <main class="card">
+        <header class="header">
+            <div class="avatar">B</div>
+            <div class="title-block">
+                <h1>Brahim Boudra <span>Manager B2B & Structuration commerciale</span></h1>
+                <div class="tags">
+                    <div class="tag"><span class="status-dot"></span>Disponible pour échanges pro</div>
+                    <div class="tag">Téléphonie & Solutions entreprises</div>
+                    <div class="tag">Algérie</div>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <section class="grid">
-        <!-- Colonne gauche : contenu -->
-        <div>
-            <div class="section">
-                <div class="section-title">À propos</div>
-                <p>
-                    Je crois que le succès commercial ne vient pas du discours, mais de l’exécution.
-                    J’aide les entreprises à structurer leur prospection, clarifier les priorités,
-                    renforcer les routines commerciales et digitaliser leurs processus — notamment
-                    via l’intégration pragmatique d’Odoo.
-                </p>
-                <span class="highlight">
-                    Transformer le terrain en méthode, les intentions en processus, les résultats en habitudes.
-                </span>
-            </div>
+        <section class="grid">
+            <div>
+                <div class="section">
+                    <div class="section-title">À propos</div>
+                    <p>Je crois qu’un bon commercial n’est pas celui qui parle le plus, mais celui qui crée le plus de clarté.
+                        Ma mission est d’aider les entreprises et les équipes à gagner en structure, en discipline commerciale
+                        et en lucidité stratégique.
+                        J’aime enseigner, bâtir, analyser et corriger — pour que chacun progresse réellement.
+                    </p>
+                    <span class="highlight">Objectif : clarté, structure, résultat — répété.</span>
+                </div>
 
-            <div class="section">
-                <div class="section-title">Ce que je fais</div>
-                <ul class="list">
-                    <li>Structuration de la prospection et des routines commerciales.</li>
-                    <li>Accompagnement terrain des équipes vente (coaching, suivi, correction).</li>
-                    <li>Création d’outils simples : scripts, playbooks, tableaux de suivi.</li>
-                    <li>Intégration et optimisation d’Odoo pour soutenir l’exécution.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Colonne droite : contact -->
-        <div>
-            <div class="contact-card">
-                <div class="contact-title">Prendre contact</div>
-                <p class="contact-text">
-                    Pour un projet, un besoin d’organisation commerciale ou une réflexion autour d’Odoo,
-                    tu peux réserver un appel ou m’écrire directement.
-                </p>
-                <div class="buttons">
-                    <a class="btn primary" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20souhaite%20r%C3%A9server%20un%20appel%20avec%20vous.">
-                        Réserver un appel (WhatsApp)
-                    </a>
-                    <a class="btn" href="mailto:contact@661686562.xyz">
-                        Écrire un email
-                    </a>
-                    <a class="btn" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20visite%20votre%20site%20et%20j%27aimerais%20%C3%A9changer%20avec%20vous.">
-                        Discuter sur WhatsApp
-                    </a>
-                    <a class="btn" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5" target="_blank">
-                        Me suivre sur LinkedIn
-                    </a>
+                <div class="section">
+                    <div class="section-title">Ce que je fais</div>
+                    <ul class="list">
+                        <li>Structurer la prospection B2B et les routines de suivi.</li>
+                        <li>Former / accompagner les équipes sur le terrain.</li>
+                        <li>Créer des outils simples qui génèrent des résultats.</li>
+                        <li>Transformer des idées en méthodes applicables.</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="section" style="margin-top:10px;">
-                <div class="section-title">Coordonnées</div>
-                <p style="font-size:13px;">
-                    Email : <strong>contact@661686562.xyz</strong><br>
-                    WhatsApp : <strong>+213 661 68 65 62</strong><br>
-                    Site : <strong>https://www.661686562.xyz</strong>
-                </p>
+            <div>
+                <div class="contact-card">
+                    <div class="contact-title">Me contacter</div>
+                    <p class="contact-text">Projet, collaboration ou échange sur la structuration commerciale ?
+                        Contacte-moi par le canal qui te convient.</p>
+                    <div class="buttons">
+                        <a class="btn primary" href="mailto:contact@661686562.xyz">
+                            ✉️ Email
+                        </a>
+                        <a class="btn" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20visite%20votre%20site%20et%20j%E2%80%99aimerais%20%C3%A9changer%20avec%20vous." target="_blank">
+                            💬 WhatsApp
+                        </a>
+                        <a class="btn" href="tel:+213661686562">
+                            📞 Appel
+                        </a>
+                        <a class="btn" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5" target="_blank">
+                            🔗 LinkedIn
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="footer">
-        <span>© 2025 Brahim Boudra – Tous droits réservés.</span>
-        <span>Domaine : 661686562.xyz</span>
-    </footer>
-</main>
+        <footer class="footer">
+            © 2025 Brahim Boudra — Tous droits réservés.
+        </footer>
+    </main>
 </body>
 </html>
