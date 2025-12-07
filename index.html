@@ -2,131 +2,319 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Brahim Boudra - Consultant Structure & Odoo</title>
+    <title>Brahim Boudra - Consultant structuration commerciale & Odoo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Consultant en structuration commerciale et intégration Odoo en Algérie. J'aide les entreprises à structurer la prospection, digitaliser les processus et développer la discipline commerciale.">
+    <meta name="description" content="Consultant en structuration commerciale et intégration Odoo. J’aide les entreprises à structurer la prospection, renforcer la discipline commerciale et digitaliser les processus.">
     <style>
-        body {
+        :root {
+            --bg: #0f172a;
+            --card-bg: rgba(2, 6, 23, 0.9);
+            --accent: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.18);
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #ffffff;
-            color: #1f2937;
-            line-height: 1.6;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
-        header {
-            text-align: center;
-            padding: 50px 20px;
-            background: #f5f5f5;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        h1 {
-            font-size: 30px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            color: #111827;
-        }
-        h2 {
-            font-size: 16px;
-            font-weight: 300;
-            color: #6b7280;
-        }
-        h3 {
-            margin-bottom: 12px;
-            color: #111827;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-        .section {
-            margin-bottom: 40px;
-            background: #f9fafb;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
-        }
-        img.banner {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-        .cta {
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+            color: var(--text);
             display: flex;
-            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 900px;
+            background: linear-gradient(135deg, rgba(148, 163, 184, 0.10), var(--card-bg));
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(18px);
+        }
+
+        .header {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
-        a.button {
-            padding: 10px 15px;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 999px;
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 30% 0, #22c55e33, #020617);
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--accent);
         }
-        a.button:hover {
-            background: #1e40af;
+
+        .title-block h1 {
+            font-size: 24px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
-        footer {
-            text-align: center;
-            padding: 20px;
+
+        .title-block h1 span {
+            font-weight: 300;
+            color: var(--muted);
+            font-size: 15px;
+            display: block;
+            margin-top: 4px;
+            text-transform: none;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-size: 11px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--muted);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
+            margin-right: 6px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 780px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+
+        .section {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 18px;
+            padding: 14px;
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
             font-size: 12px;
-            color: #6b7280;
-            border-top: 1px solid #e5e7eb;
-            background: #f5f5f5;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .section p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: var(--accent-soft);
+            border-radius: 999px;
+            padding: 3px 10px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        .list {
+            list-style: none;
+            margin-top: 6px;
+        }
+
+        .list li {
+            font-size: 14px;
+            margin-bottom: 4px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .list li::before {
+            content: "▹";
+            font-size: 12px;
+            margin-top: 3px;
+            color: var(--accent);
+        }
+
+        .contact-card {
+            background: linear-gradient(145deg, rgba(34, 197, 94, 0.18), rgba(15, 23, 42, 0.95));
+            border-radius: 18px;
+            padding: 14px;
+            border: 1px solid rgba(34, 197, 94, 0.6);
+        }
+
+        .contact-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 8px;
+            color: #bbf7d0;
+        }
+
+        .contact-text {
+            font-size: 13px;
+            color: #e5fbe8;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn {
+            flex: 1 1 130px;
+            text-align: center;
+            font-size: 13px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            text-decoration: none;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.96);
+            color: var(--text);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .btn.primary {
+            border-color: var(--accent);
+            background: radial-gradient(circle at 0 0, #22c55e33, #052e16);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .footer {
+            margin-top: 14px;
+            font-size: 11px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
         }
     </style>
 </head>
 <body>
+<main class="card">
+    <header class="header">
+        <div class="avatar">B</div>
+        <div class="title-block">
+            <h1>
+                Brahim Boudra
+                <span>Consultant en structuration commerciale & intégration Odoo</span>
+            </h1>
+            <div class="tags">
+                <div class="tag"><span class="status-dot"></span>Disponible pour échanges pro</div>
+                <div class="tag">Structuration commerciale</div>
+                <div class="tag">ERP Odoo</div>
+                <div class="tag">Algérie</div>
+            </div>
+        </div>
+    </header>
 
-<header>
-    <h1>Brahim Boudra</h1>
-    <h2>Consultant en structuration commerciale & intégration Odoo</h2>
-</header>
+    <section class="grid">
+        <!-- Colonne gauche : contenu -->
+        <div>
+            <div class="section">
+                <div class="section-title">À propos</div>
+                <p>
+                    Je crois que le succès commercial ne vient pas du discours, mais de l’exécution.
+                    J’aide les entreprises à structurer leur prospection, clarifier les priorités,
+                    renforcer les routines commerciales et digitaliser leurs processus — notamment
+                    via l’intégration pragmatique d’Odoo.
+                </p>
+                <span class="highlight">
+                    Transformer le terrain en méthode, les intentions en processus, les résultats en habitudes.
+                </span>
+            </div>
 
-<div class="container">
+            <div class="section">
+                <div class="section-title">Ce que je fais</div>
+                <ul class="list">
+                    <li>Structuration de la prospection et des routines commerciales.</li>
+                    <li>Accompagnement terrain des équipes vente (coaching, suivi, correction).</li>
+                    <li>Création d’outils simples : scripts, playbooks, tableaux de suivi.</li>
+                    <li>Intégration et optimisation d’Odoo pour soutenir l’exécution.</li>
+                </ul>
+            </div>
+        </div>
 
-    <section class="section">
-        <img src="https://boudraabrahim-svg.github.io/661686562.xyz/photo1.jpg" class="banner" alt="Consulting meeting">
-        <p>
-            Je crois que le succès commercial ne vient pas du discours, mais de l’exécution.
-            J’aide les entreprises à structurer leur prospection, renforcer leurs routines commerciales,
-            former leurs équipes et digitaliser leurs processus — notamment via l’intégration pragmatique d’Odoo.
-        </p>
-    </section>
+        <!-- Colonne droite : contact -->
+        <div>
+            <div class="contact-card">
+                <div class="contact-title">Prendre contact</div>
+                <p class="contact-text">
+                    Pour un projet, un besoin d’organisation commerciale ou une réflexion autour d’Odoo,
+                    tu peux réserver un appel ou m’écrire directement.
+                </p>
+                <div class="buttons">
+                    <a class="btn primary" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20souhaite%20r%C3%A9server%20un%20appel%20avec%20vous.">
+                        Réserver un appel (WhatsApp)
+                    </a>
+                    <a class="btn" href="mailto:contact@661686562.xyz">
+                        Écrire un email
+                    </a>
+                    <a class="btn" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20visite%20votre%20site%20et%20j%27aimerais%20%C3%A9changer%20avec%20vous.">
+                        Discuter sur WhatsApp
+                    </a>
+                    <a class="btn" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5" target="_blank">
+                        Me suivre sur LinkedIn
+                    </a>
+                </div>
+            </div>
 
-    <section class="section">
-        <h3>Domaines d’expertise</h3>
-        <ul>
-            <li>Structuration commerciale et routines de prospection</li>
-            <li>Accompagnement terrain & montée en compétence</li>
-            <li>Création d’outils pratiques (scripts, playbooks, tableaux)</li>
-            <li>Intégration, optimisation et accompagnement Odoo</li>
-        </ul>
-    </section>
-
-    <section class="section">
-        <h3>Quelques univers d’intervention</h3>
-
-        <img src="https://boudraabrahim-svg.github.io/661686562.xyz/photo2.jpg" class="banner" alt="Growth chart">
-        <img src="https://boudraabrahim-svg.github.io/661686562.xyz/photo3.jpg" class="banner" alt="Strategy design">
-        <img src="https://boudraabrahim-svg.github.io/661686562.xyz/photo4.jpg" class="banner" alt="Digital abstraction">
-    </section>
-
-    <section class="section">
-        <h3>Me contacter</h3>
-        <div class="cta">
-            <a class="button" href="mailto:contact@661686562.xyz">Email</a>
-            <a class="button" href="https://wa.me/213661686562?text=Bonjour%20Brahim%2C%20je%20visite%20votre%20site%20et%20j'aimerais%20echanger%20avec%20vous.">WhatsApp</a>
-            <a class="button" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=brahim-boudra-%D8%A8%D9%88%D8%B0%D8%B1%D8%A7%D8%B9-963250b5" target="_blank">LinkedIn</a>
+            <div class="section" style="margin-top:10px;">
+                <div class="section-title">Coordonnées</div>
+                <p style="font-size:13px;">
+                    Email : <strong>contact@661686562.xyz</strong><br>
+                    WhatsApp : <strong>+213 661 68 65 62</strong><br>
+                    Site : <strong>https://www.661686562.xyz</strong>
+                </p>
+            </div>
         </div>
     </section>
 
-</div>
-
-<footer>
-    © 2025 Brahim Boudra — contact@661686562.xyz
-</footer>
-
+    <footer class="footer">
+        <span>© 2025 Brahim Boudra – Tous droits réservés.</span>
+        <span>Domaine : 661686562.xyz</span>
+    </footer>
+</main>
 </body>
 </html>
