@@ -1,209 +1,651 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brahim Boudra - Consultant en Management & Marketing, Formateur Techniques de Vente B2B, Expert Odoo ERP basé à Oran, Algérie">
-    <meta name="keywords" content="consultant management, marketing, formation vente B2B, Odoo ERP, Oran, Algérie">
-    <title>Brahim Boudra - Consultant Management & Marketing | Expert Odoo</title>
+import React, { useState } from 'react';
+import { Menu, X, ChevronRight, Mail, Phone, MapPin, Award, Users, TrendingUp, Settings, MessageSquare, Target, Briefcase, BarChart3, Lightbulb, Rocket, CheckCircle, Building2, DollarSign, Calendar, ArrowRight } from 'lucide-react';
 
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800">
-    <!-- NAVBAR -->
-    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center mr-2 font-bold">
-                        B
-                    </div>
-                    <span class="text-xl font-bold text-gray-800">Brahim Boudra</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#accueil" class="text-gray-700 hover:text-blue-600 transition">Accueil</a>
-                    <a href="#services" class="text-gray-700 hover:text-blue-600 transition">Services</a>
-                    <a href="#apropos" class="text-gray-700 hover:text-blue-600 transition">À propos</a>
-                    <a href="#contact" class="text-gray-700 hover:text-blue-600 transition">Contact</a>
-                </div>
+export default function BrahimBoudraWebsite() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [activeSection, setActiveSection] = useState('accueil');
+  const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+  const [questionnaireData, setQuestionnaireData] = useState({
+    companyName: '',
+    industry: '',
+    employees: '',
+    challenge: '',
+    budget: '',
+    timeline: '',
+    contactName: '',
+    contactEmail: '',
+    contactPhone: ''
+  });
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const services = [
+    {
+      icon: <TrendingUp className="w-12 h-12 text-blue-600" />,
+      title: "Consulting Management & Marketing",
+      description: "Accompagnement stratégique pour développer votre entreprise et optimiser vos performances commerciales.",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop"
+    },
+    {
+      icon: <Users className="w-12 h-12 text-blue-600" />,
+      title: "Formation Techniques de Vente B2B",
+      description: "Formations personnalisées pour améliorer vos compétences commerciales et maîtriser la vente en B2B.",
+      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop"
+    },
+    {
+      icon: <Settings className="w-12 h-12 text-blue-600" />,
+      title: "Consulting & Intégration ERP Odoo",
+      description: "Expert en implémentation et optimisation d'Odoo pour digitaliser vos processus métier.",
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop"
+    }
+  ];
+
+  const scrollToSection = (section) => {
+    setActiveSection(section);
+    setIsMenuOpen(false);
+    document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Merci ${formData.name} ! Votre message a été envoyé. Je vous répondrai rapidement.`);
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const handleQuestionnaireSubmit = (e) => {
+    e.preventDefault();
+    const summary = `
+NOUVEAU PROSPECT - Questionnaire complété
+
+📋 INFORMATIONS ENTREPRISE:
+- Entreprise: ${questionnaireData.companyName}
+- Secteur: ${questionnaireData.industry}
+- Nombre d'employés: ${questionnaireData.employees}
+
+🎯 BESOIN:
+${questionnaireData.challenge}
+
+💰 BUDGET: ${questionnaireData.budget}
+📅 DÉLAI: ${questionnaireData.timeline}
+
+👤 CONTACT:
+- Nom: ${questionnaireData.contactName}
+- Email: ${questionnaireData.contactEmail}
+- Téléphone: ${questionnaireData.contactPhone}
+    `;
+    
+    alert('Merci ! Votre demande a été envoyée. Je vous contacterai dans les 24h.');
+    console.log(summary);
+    
+    // Rediriger vers WhatsApp avec les infos
+    const whatsappMessage = encodeURIComponent(`Bonjour Brahim, je viens de remplir le questionnaire sur votre site.\n\nEntreprise: ${questionnaireData.companyName}\nSecteur: ${questionnaireData.industry}\nContact: ${questionnaireData.contactName}`);
+    window.open(`https://wa.me/213661686562?text=${whatsappMessage}`, '_blank');
+    
+    setShowQuestionnaire(false);
+    setCurrentStep(1);
+    setQuestionnaireData({
+      companyName: '', industry: '', employees: '', challenge: '',
+      budget: '', timeline: '', contactName: '', contactEmail: '', contactPhone: ''
+    });
+  };
+
+  const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 3));
+  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <nav className="bg-white shadow-md fixed w-full top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <Award className="w-8 h-8 text-blue-600 mr-2" />
+              <span className="text-xl font-bold text-gray-800">Brahim Boudra</span>
             </div>
-        </div>
-    </nav>
+            
+            <div className="hidden md:flex space-x-8">
+              {['accueil', 'services', 'apropos', 'contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className={`text-gray-700 hover:text-blue-600 transition capitalize ${
+                    activeSection === item ? 'text-blue-600 font-semibold' : ''
+                  }`}
+                >
+                  {item === 'apropos' ? 'À Propos' : item}
+                </button>
+              ))}
+            </div>
 
-    <!-- HERO -->
-    <section id="accueil" class="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {['accueil', 'services', 'apropos', 'contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded capitalize"
+                >
+                  {item === 'apropos' ? 'À Propos' : item}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section avec Photo */}
+      <section id="accueil" className="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <img 
+            src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop" 
+            alt="Business background"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
+                Brahim Boudra
+              </h1>
+              <p className="text-xl md:text-2xl mb-4 text-blue-100">
+                Consultant en Management & Marketing
+              </p>
+              <p className="text-lg md:text-xl mb-8 text-blue-100">
+                Formateur Techniques de Vente B2B | Expert Odoo ERP
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={() => setShowQuestionnaire(true)}
+                  className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition inline-flex items-center justify-center"
+                >
+                  <Target className="mr-2 w-5 h-5" />
+                  Évaluer mon besoin
+                </button>
+                <a
+                  href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-600 transition inline-flex items-center justify-center"
+                >
+                  <MessageSquare className="mr-2 w-5 h-5" />
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+            <div className="hidden md:block">
+              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center p-4">
+                    <Target className="w-12 h-12 mx-auto mb-3 text-blue-200" />
+                    <p className="text-sm font-semibold">Stratégie</p>
+                  </div>
+                  <div className="text-center p-4">
+                    <Briefcase className="w-12 h-12 mx-auto mb-3 text-blue-200" />
+                    <p className="text-sm font-semibold">Consulting</p>
+                  </div>
+                  <div className="text-center p-4">
+                    <BarChart3 className="w-12 h-12 mx-auto mb-3 text-blue-200" />
+                    <p className="text-sm font-semibold">Croissance</p>
+                  </div>
+                  <div className="text-center p-4">
+                    <Rocket className="w-12 h-12 mx-auto mb-3 text-blue-200" />
+                    <p className="text-sm font-semibold">Innovation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section avec Images */}
+      <section id="services" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
+            Mes Services
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 overflow-hidden"
+              >
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover hover:scale-110 transition duration-300"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="mb-4">{service.icon}</div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-4">{service.title}</h3>
+                  <p className="text-gray-600">{service.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="apropos" className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
+            À Propos
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-12 text-white">
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-white bg-opacity-20 p-3 rounded-lg">
+                    <Lightbulb className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg">Innovation</p>
+                    <p className="text-blue-100 text-sm">Solutions créatives</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className="bg-white bg-opacity-20 p-3 rounded-lg">
+                    <CheckCircle className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg">Excellence</p>
+                    <p className="text-blue-100 text-sm">Résultats mesurables</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className="bg-white bg-opacity-20 p-3 rounded-lg">
+                    <Users className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg">Accompagnement</p>
+                    <p className="text-blue-100 text-sm">Suivi personnalisé</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white p-8 rounded-lg shadow-md">
+              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                Auto-entrepreneur passionné par le développement des entreprises, je mets mon expertise au service de votre réussite. Avec une approche personnalisée et des méthodes éprouvées, j'accompagne les entreprises dans leur transformation digitale et leur croissance commerciale.
+              </p>
+              <p className="text-gray-700 text-lg leading-relaxed">
+                Mon expérience couvre le conseil en management stratégique, la formation des équipes commerciales aux techniques de vente B2B, ainsi que l'implémentation et l'optimisation d'ERP Odoo pour digitaliser et améliorer les processus métier.
+              </p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition">
+              <TrendingUp className="w-12 h-12 text-blue-600 mx-auto mb-3" />
+              <p className="font-bold text-gray-800 text-lg mb-2">Consulting</p>
+              <p className="text-gray-600 text-sm">Stratégie & Management</p>
+            </div>
+            <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition">
+              <Users className="w-12 h-12 text-blue-600 mx-auto mb-3" />
+              <p className="font-bold text-gray-800 text-lg mb-2">Formation</p>
+              <p className="text-gray-600 text-sm">Vente B2B & Commercial</p>
+            </div>
+            <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition">
+              <Settings className="w-12 h-12 text-blue-600 mx-auto mb-3" />
+              <p className="font-bold text-gray-800 text-lg mb-2">Intégration ERP</p>
+              <p className="text-gray-600 text-sm">Expert Odoo</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-16 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
+            Me Contacter
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Informations</h3>
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <Mail className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="font-semibold text-gray-800">Email</p>
+                    <a href="mailto:contact@661686562.xyz" className="text-blue-600 hover:underline break-all">contact@661686562.xyz</a>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <Phone className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="font-semibold text-gray-800">Téléphone</p>
+                    <a href="tel:+213661686562" className="text-blue-600 hover:underline">+213 661 68 65 62</a>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <MapPin className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="font-semibold text-gray-800">Localisation</p>
+                    <p className="text-gray-600">Oran, Algérie</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <MessageSquare className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="font-semibold text-gray-800">WhatsApp</p>
+                    <a 
+                      href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-600 hover:underline inline-flex items-center"
+                    >
+                      Réserver un appel
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center">
+              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl shadow-lg">
+                <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">
+                  Scannez pour WhatsApp
+                </h3>
+                <div className="bg-white p-4 rounded-xl shadow-md">
+                  <img 
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
+                    alt="QR Code WhatsApp"
+                    className="w-48 h-48"
+                  />
+                </div>
+                <p className="text-sm text-gray-600 text-center mt-4">
+                  Contactez-moi instantanément
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Envoyez un message</h3>
+              <div className="space-y-4">
                 <div>
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                        Brahim Boudra
-                    </h1>
-                    <p class="text-xl mb-2">
-                        Consultant en Management & Marketing
-                    </p>
-                    <p class="text-lg mb-6">
-                        Formateur Techniques de Vente B2B · Expert Odoo ERP
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#contact"
-                           class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition text-center">
-                            Me contacter
-                        </a>
-                        <a href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="bg-green-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-600 transition text-center">
-                            WhatsApp
-                        </a>
-                    </div>
+                  <input
+                    type="text"
+                    placeholder="Nom complet"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
                 </div>
-                <div class="hidden md:block">
-                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
-                        <p class="text-sm text-blue-100 mb-2 font-semibold uppercase tracking-wide">Positionnement</p>
-                        <ul class="space-y-2 text-blue-100 text-sm">
-                            <li>• Structuration commerciale & management</li>
-                            <li>• Formation Vente & Négociation B2B</li>
-                            <li>• Intégration & optimisation ERP Odoo</li>
-                            <li>• Accompagnement sur le terrain & suivi</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-                Mes services
-            </h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-lg shadow hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Consulting Management & Marketing</h3>
-                    <p class="text-gray-600 text-sm">
-                        Accompagnement stratégique pour développer votre entreprise, structurer votre organisation
-                        commerciale et piloter vos actions marketing avec clarté.
-                    </p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-lg shadow hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Formation Techniques de Vente B2B</h3>
-                    <p class="text-gray-600 text-sm">
-                        Programmes de formation orientés terrain : prospection, qualification, conduite d’entretien,
-                        traitement des objections, négociation et closing en environnement B2B.
-                    </p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-lg shadow hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Consulting & Intégration ERP Odoo</h3>
-                    <p class="text-gray-600 text-sm">
-                        Mise en place et optimisation d’Odoo pour structurer vos processus commerciaux et de gestion :
-                        opportunités, clients, offres, suivi et reporting.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- A PROPOS -->
-    <section id="apropos" class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-                À propos
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-lg shadow">
-                    <p class="text-gray-700 text-lg leading-relaxed mb-4">
-                        Auto-entrepreneur basé à Oran, je mets mon expérience de terrain au service des entreprises
-                        qui veulent structurer leur force de vente, professionnaliser la relation client et accélérer
-                        leur croissance.
-                    </p>
-                    <p class="text-gray-700 text-lg leading-relaxed">
-                        J’interviens à la fois sur la <strong>stratégie</strong>, la
-                        <strong>formation des équipes</strong> (techniques de vente B2B) et la
-                        <strong>digitalisation</strong> des process via l’ERP Odoo, avec une approche pragmatique :
-                        ce qui compte, c’est l’exécution.
-                    </p>
-                </div>
-                <div class="bg-white p-8 rounded-lg shadow">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">En résumé</h3>
-                    <ul class="list-disc pl-5 text-gray-700 space-y-2 text-sm">
-                        <li>Structuration commerciale et routines de prospection.</li>
-                        <li>Formation pratique aux techniques de vente B2B.</li>
-                        <li>Accompagnement managérial et coaching terrain.</li>
-                        <li>Intégration et optimisation Odoo côté ventes.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="py-16 bg-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-                Me contacter
-            </h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Infos -->
                 <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Informations</h3>
-                    <p class="text-sm text-gray-700 mb-3">
-                        Email : <a href="mailto:contact@661686562.xyz" class="text-blue-600 hover:underline">contact@661686562.xyz</a>
-                    </p>
-                    <p class="text-sm text-gray-700 mb-3">
-                        Téléphone : <a href="tel:+213661686562" class="text-blue-600 hover:underline">+213 661 68 65 62</a>
-                    </p>
-                    <p class="text-sm text-gray-700 mb-3">
-                        WhatsApp : <a href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
-                                       class="text-green-600 hover:underline" target="_blank" rel="noopener noreferrer">cliquer ici</a>
-                    </p>
-                    <p class="text-sm text-gray-700">
-                        Localisation : Oran, Algérie
-                    </p>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
                 </div>
-
-                <!-- QR Code -->
-                <div class="flex flex-col items-center justify-center">
-                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-2xl shadow">
-                        <p class="text-sm font-semibold text-gray-800 mb-3 text-center">Scannez pour WhatsApp</p>
-                        <div class="bg-white p-3 rounded-xl shadow">
-                            <img
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
-                                alt="QR Code WhatsApp"
-                                class="w-40 h-40"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Formulaire (visuel) -->
                 <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Envoyer un message</h3>
-                    <form action="mailto:contact@661686562.xyz" method="post" enctype="text/plain" class="space-y-3">
-                        <input type="text" name="Nom" placeholder="Nom complet"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                        <input type="email" name="Email" placeholder="Email"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                        <textarea name="Message" placeholder="Votre message"
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" rows="4"></textarea>
-                        <button type="submit"
-                                class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
-                            Envoyer
-                        </button>
-                    </form>
+                  <textarea
+                    placeholder="Votre message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    rows="4"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  ></textarea>
                 </div>
+                <button
+                  onClick={handleSubmit}
+                  className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition inline-flex items-center justify-center"
+                >
+                  <MessageSquare className="mr-2 w-5 h-5" />
+                  Envoyer le message
+                </button>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-gray-800 text-white py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400 text-sm">
-                © 2024–2025 Brahim Boudra — Consultant en Management & Marketing | Expert Odoo — 661686562.xyz
-            </p>
+      {/* Modal Questionnaire */}
+      {showQuestionnaire && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b flex justify-between items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+              <h3 className="text-2xl font-bold">Évaluation de votre besoin</h3>
+              <button onClick={() => setShowQuestionnaire(false)} className="hover:bg-white hover:bg-opacity-20 p-2 rounded-full">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="p-6">
+              {/* Progress Bar */}
+              <div className="mb-8">
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-semibold text-gray-600">Étape {currentStep} sur 3</span>
+                  <span className="text-sm font-semibold text-blue-600">{Math.round((currentStep/3)*100)}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${(currentStep/3)*100}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                {/* Étape 1: Informations Entreprise */}
+                {currentStep === 1 && (
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2 mb-4">
+                      <Building2 className="w-6 h-6 text-blue-600" />
+                      <h4 className="text-xl font-bold text-gray-800">Informations sur votre entreprise</h4>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Nom de l'entreprise *</label>
+                      <input
+                        type="text"
+                        value={questionnaireData.companyName}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, companyName: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Ex: ABC Solutions"
+                        required
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Secteur d'activité *</label>
+                      <select
+                        value={questionnaireData.industry}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, industry: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        required
+                      >
+                        <option value="">Sélectionnez...</option>
+                        <option value="Commerce">Commerce & Distribution</option>
+                        <option value="Services">Services</option>
+                        <option value="Industrie">Industrie & Manufacturing</option>
+                        <option value="Tech">Technologies & IT</option>
+                        <option value="Construction">Construction & BTP</option>
+                        <option value="Santé">Santé</option>
+                        <option value="Autre">Autre</option>
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Nombre d'employés *</label>
+                      <select
+                        value={questionnaireData.employees}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, employees: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        required
+                      >
+                        <option value="">Sélectionnez...</option>
+                        <option value="1-10">1-10 employés</option>
+                        <option value="11-50">11-50 employés</option>
+                        <option value="51-200">51-200 employés</option>
+                        <option value="200+">200+ employés</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+
+                {/* Étape 2: Besoins et Budget */}
+                {currentStep === 2 && (
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2 mb-4">
+                      <Target className="w-6 h-6 text-blue-600" />
+                      <h4 className="text-xl font-bold text-gray-800">Votre besoin</h4>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Quel est votre principal défi ? *</label>
+                      <textarea
+                        value={questionnaireData.challenge}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, challenge: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        rows="4"
+                        placeholder="Décrivez votre besoin en consulting, formation ou intégration ERP..."
+                        required
+                      ></textarea>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Budget estimé *</label>
+                      <select
+                        value={questionnaireData.budget}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, budget: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        required
+                      >
+                        <option value="">Sélectionnez...</option>
+                        <option value="<50K">Moins de 50 000 DA</option>
+                        <option value="50K-200K">50 000 - 200 000 DA</option>
+                        <option value="200K-500K">200 000 - 500 000 DA</option>
+                        <option value="500K+">Plus de 500 000 DA</option>
+                        <option value="À définir">À définir ensemble</option>
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Délai souhaité *</label>
+                      <select
+                        value={questionnaireData.timeline}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, timeline: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        required
+                      >
+                        <option value="">Sélectionnez...</option>
+                        <option value="Urgent">Urgent (moins d'1 mois)</option>
+                        <option value="1-3 mois">1-3 mois</option>
+                        <option value="3-6 mois">3-6 mois</option>
+                        <option value="Flexible">Flexible</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+
+                {/* Étape 3: Coordonnées */}
+                {currentStep === 3 && (
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2 mb-4">
+                      <Users className="w-6 h-6 text-blue-600" />
+                      <h4 className="text-xl font-bold text-gray-800">Vos coordonnées</h4>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Nom complet *</label>
+                      <input
+                        type="text"
+                        value={questionnaireData.contactName}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, contactName: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Ex: Ahmed Benali"
+                        required
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Email professionnel *</label>
+                      <input
+                        type="email"
+                        value={questionnaireData.contactEmail}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, contactEmail: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="email@entreprise.com"
+                        required
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Téléphone *</label>
+                      <input
+                        type="tel"
+                        value={questionnaireData.contactPhone}
+                        onChange={(e) => setQuestionnaireData({...questionnaireData, contactPhone: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="+213 XXX XXX XXX"
+                        required
+                      />
+                    </div>
+
+                    <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 mt-6">
+                      <p className="text-sm text-gray-700">
+                        📌 Une fois soumis, vous serez redirigé vers WhatsApp pour finaliser votre demande avec moi directement.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Boutons Navigation */}
+                <div className="flex justify-between mt-8 pt-6 border-t">
+                  {currentStep > 1 && (
+                    <button
+                      onClick={prevStep}
+                      className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-semibold"
+                    >
+                      Précédent
+                    </button>
+                  )}
+                  
+                  {currentStep < 3 ? (
+                    <button
+                      onClick={nextStep}
+                      className="ml-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold inline-flex items-center"
+                    >
+                      Suivant
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleQuestionnaireSubmit}
+                      className="ml-auto px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold inline-flex items-center"
+                    >
+                      <MessageSquare className="mr-2 w-5 h-5" />
+                      Envoyer via WhatsApp
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
-</body>
-</html>
+      )}
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-400">
+            © 2024 Brahim Boudra - Consultant en Management & Marketing | Tous droits réservés
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
