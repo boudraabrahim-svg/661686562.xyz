@@ -15,6 +15,7 @@
             color: #1f2937;
         }
 
+        /* Navigation */
         nav {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -51,6 +52,7 @@
             font-weight: 500;
         }
 
+        /* Hero */
         .hero {
             background: linear-gradient(135deg, rgba(37,99,235,0.9), rgba(30,64,175,0.95)),
             url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop') center/cover;
@@ -114,6 +116,7 @@
             color: #1f2937;
         }
 
+        /* Services */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -139,27 +142,36 @@
 
         .service-content h3 {
             margin-bottom: 1rem;
-            color: #1f2937;
         }
 
         .service-content p {
             color: #4b5563;
         }
 
-        .references {
-            background: #ffffff;
-        }
-
-        .reference-list {
+        /* References */
+        .reference-logos {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 3rem;
             flex-wrap: wrap;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #1f2937;
         }
 
+        .reference-logos img {
+            max-height: 70px;
+            max-width: 180px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.85;
+            transition: all 0.3s ease;
+        }
+
+        .reference-logos img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* About */
         .about {
             background: #f9fafb;
         }
@@ -176,13 +188,9 @@
         .about-content p {
             margin-bottom: 1.3rem;
             font-size: 1.05rem;
-            color: #374151;
         }
 
-        .contact {
-            background: white;
-        }
-
+        /* Contact */
         .contact-info {
             max-width: 600px;
             margin: auto;
@@ -238,21 +246,15 @@
                 <img class="service-image" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop">
                 <div class="service-content">
                     <h3>Organisation commerciale B2B</h3>
-                    <p>
-                        Structuration des processus commerciaux, clarification des priorités,
-                        mise en place d’indicateurs simples et exploitables.
-                    </p>
+                    <p>Structuration des processus commerciaux, priorisation et pilotage.</p>
                 </div>
             </div>
 
             <div class="service-card">
                 <img class="service-image" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop">
                 <div class="service-content">
-                    <h3>Formation opérationnelle des équipes</h3>
-                    <p>
-                        Formation orientée terrain : prospection B2B, discours commercial,
-                        négociation et gestion des objections.
-                    </p>
+                    <h3>Formation opérationnelle</h3>
+                    <p>Prospection B2B, discours commercial, négociation terrain.</p>
                 </div>
             </div>
 
@@ -260,22 +262,20 @@
                 <img class="service-image" src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop">
                 <div class="service-content">
                     <h3>Intégration ERP Odoo</h3>
-                    <p>
-                        Mise en place d’Odoo comme outil de travail quotidien :
-                        CRM, suivi commercial, facturation et pilotage.
-                    </p>
+                    <p>CRM, suivi commercial, facturation et pilotage opérationnel.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="references" class="references">
+<section id="references">
     <div class="container">
         <h2 class="section-title">Entreprises accompagnées</h2>
-        <div class="reference-list">
-            <div>Tawsil Pro</div>
-            <div>Banitalha Land</div>
+
+        <div class="reference-logos">
+            <img src="tawsilpr.png" alt="Tawsil Pro">
+            <img src="banitalhaland.png" alt="Banitalha Land">
         </div>
     </div>
 </section>
@@ -284,36 +284,26 @@
     <div class="container">
         <div class="about-content">
             <p>
-                Basé à <strong>Oran (Algérie)</strong>, j’accompagne principalement des PME
-                et des structures en phase de structuration ou de croissance.
+                Basé à <strong>Oran (Algérie)</strong>, j’accompagne des PME et structures
+                en phase de structuration ou de croissance.
             </p>
             <p>
-                Je privilégie les missions où il existe un besoin réel,
-                une volonté d’amélioration et une implication des décideurs.
+                J’interviens uniquement lorsqu’il existe un besoin réel
+                et une implication des décideurs.
             </p>
             <p>
-                Mon rôle n’est pas de vendre du discours,
-                mais de mettre en place des méthodes et des outils réellement utilisés.
+                Mon rôle est opérationnel : méthodes, outils et adoption terrain.
             </p>
         </div>
     </div>
 </section>
 
-<section id="contact" class="contact">
+<section id="contact">
     <div class="container contact-info">
         <h2 class="section-title">Contact</h2>
 
-        <p style="font-size:1.1rem; margin-bottom:1.2rem;">
-            Pour toute demande professionnelle, le premier contact se fait par email.
-        </p>
-
-        <p style="font-size:1.15rem; font-weight:600;">
-            📧 <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a>
-        </p>
-
-        <p style="margin-top:1rem;">
-            📱 WhatsApp : <a href="https://wa.me/213661686562" target="_blank">+213 661 68 65 62</a>
-        </p>
+        <p>📧 <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a></p>
+        <p style="margin-top:1rem;">📱 <a href="https://wa.me/213661686562">+213 661 68 65 62</a></p>
 
         <p style="margin-top:1.5rem; color:#4b5563;">
             Premier échange de cadrage, sans engagement.
