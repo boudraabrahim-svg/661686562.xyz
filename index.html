@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brahim Boudra – Consultant en organisation commerciale B2B et intégration ERP Odoo, basé à Oran, Algérie">
+    <meta name="description" content="Brahim Boudra – Consultant en organisation commerciale B2B et intégration ERP Odoo, Oran">
     <title>Brahim Boudra – Consultant B2B & ERP Odoo</title>
 
     <style>
@@ -148,12 +148,18 @@
         .reference-logos {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 3rem;
+            gap: 4rem;
             flex-wrap: wrap;
         }
 
-        .reference-logos img {
+        .reference-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .reference-item img {
             max-height: 70px;
             max-width: 180px;
             object-fit: contain;
@@ -162,9 +168,15 @@
             transition: 0.3s;
         }
 
-        .reference-logos img:hover {
+        .reference-item img:hover {
             filter: grayscale(0%);
             opacity: 1;
+        }
+
+        .reference-item span {
+            font-size: 0.95rem;
+            color: #374151;
+            font-weight: 500;
         }
 
         /* About */
@@ -267,8 +279,15 @@
         <h2 class="section-title">Entreprises accompagnées</h2>
 
         <div class="reference-logos">
-            <img src="TAWSILPR.jpg" alt="Tawsil Pro">
-            <img src="banitalhaland.jpg" alt="Banitalha Land">
+            <div class="reference-item">
+                <img src="TAWSILPR.jpg" alt="Tawsil Pro">
+                <span>Tawsil Pro</span>
+            </div>
+
+            <div class="reference-item">
+                <img src="banitalhaland.jpg" alt="Banitalha Land">
+                <span>Banitalha Land</span>
+            </div>
         </div>
     </div>
 </section>
