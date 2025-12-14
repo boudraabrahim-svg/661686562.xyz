@@ -3,426 +3,840 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brahim Boudra - Consultant en Management & Marketing, Formateur Techniques de Vente B2B, Expert Odoo ERP basé à Oran, Algérie.">
-    <meta name="keywords" content="consultant management, marketing, formation vente B2B, Odoo ERP, Oran, Algérie">
-    <title>Brahim Boudra - Consultant Management & Marketing | Expert Odoo</title>
+    <meta name="description" content="Brahim Boudra - Consultant en Management & Marketing, Formateur Techniques de Vente B2B, Expert Odoo ERP basé à Oran, Algérie">
+    <title>Brahim Boudra - Consultant Management & Marketing</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 120px 2rem 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #2563eb;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1f2937;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .service-card p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 2rem;
+            background: #f9fafb;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+            font-size: 1.1rem;
+        }
+
+        .about-features {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            padding: 3rem;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: #e5e7eb;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #2563eb;
+        }
+
+        .contact-item strong {
+            display: block;
+            color: #1f2937;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .qr-code {
+            text-align: center;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .qr-code h3 {
+            margin-bottom: 1rem;
+            color: #047857;
+        }
+
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .btn-submit {
+            background: #2563eb;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Modal Questionnaire */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.3s;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-<!-- NAVBAR -->
-<nav class="bg-white/90 backdrop-blur shadow-md fixed w-full top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-            <div class="flex items-center">
-                <div class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center mr-2 font-bold">
-                    B
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-sm font-semibold text-gray-900 tracking-wide uppercase">Brahim Boudra</span>
-                    <span class="text-xs text-gray-500">Consultant Management & Marketing • Expert Odoo</span>
-                </div>
-            </div>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#accueil" class="text-gray-700 hover:text-blue-600 transition">Accueil</a>
-                <a href="#services" class="text-gray-700 hover:text-blue-600 transition">Services</a>
-                <a href="#apropos" class="text-gray-700 hover:text-blue-600 transition">À propos</a>
-                <a href="#questionnaire" class="text-gray-700 hover:text-blue-600 transition">Questionnaire</a>
-                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition">Contact</a>
-            </div>
-            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
-                ☰
-            </button>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🏆 Brahim Boudra</div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#apropos">À Propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-    </div>
-    <!-- Menu mobile -->
-    <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 bg-white">
-        <div class="px-4 py-2 space-y-1 text-sm">
-            <a href="#accueil" class="block py-1 text-gray-700 hover:text-blue-600">Accueil</a>
-            <a href="#services" class="block py-1 text-gray-700 hover:text-blue-600">Services</a>
-            <a href="#apropos" class="block py-1 text-gray-700 hover:text-blue-600">À propos</a>
-            <a href="#questionnaire" class="block py-1 text-gray-700 hover:text-blue-600">Questionnaire</a>
-            <a href="#contact" class="block py-1 text-gray-700 hover:text-blue-600">Contact</a>
-        </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- HERO -->
-<section id="accueil" class="pt-24 pb-16 bg-gradient-to-br from-blue-700 to-blue-900 text-white relative overflow-hidden">
-    <!-- background image léger -->
-    <div class="absolute inset-0 opacity-20">
-        <img
-            src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&auto=format&fit=crop&q=80"
-            alt="Fond business"
-            class="w-full h-full object-cover">
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-blue-200 mb-3">Conseil • Vente B2B • ERP Odoo</p>
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                    Structurer, former et outiller<br class="hidden md:block">
-                    votre force de vente B2B
-                </h1>
-                <p class="text-blue-100 text-sm md:text-base mb-2">
-                    Management & Marketing · Techniques de vente B2B · Intégration Odoo ERP
-                </p>
-                <p class="text-blue-100 text-sm md:text-base mb-6">
-                    Je vous aide à transformer une force de vente “au feeling” en un système structuré, piloté et connecté à vos outils.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <a href="#questionnaire"
-                       class="bg-white text-blue-700 px-6 py-3 rounded-full text-sm font-semibold hover:bg-blue-50 transition text-center">
-                        Évaluer mon besoin
-                    </a>
-                    <a href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
-                       target="_blank" rel="noopener noreferrer"
-                       class="bg-green-500 text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-green-600 transition text-center">
-                        Parler sur WhatsApp
-                    </a>
-                </div>
-            </div>
-
-            <!-- Colonne droite : image locale + points -->
-            <div class="hidden md:block space-y-4">
-                <div class="rounded-2xl overflow-hidden shadow-lg border border-blue-200/60 bg-white/10 backdrop-blur">
-                    <img
-                        src="https://boudraabrahim-svg.github.io/661686562.xyz/images/photo1.jpg"
-                        alt="Atelier de travail commercial"
-                        class="w-full h-52 object-cover">
-                </div>
-                <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/20">
-                    <p class="text-xs uppercase tracking-[0.25em] text-blue-100 mb-2">Positionnement</p>
-                    <ul class="space-y-1 text-blue-100 text-xs">
-                        <li>• Structuration commerciale & routines de prospection</li>
-                        <li>• Formation Vente & Négociation B2B orientée terrain</li>
-                        <li>• Intégration & optimisation Odoo côté vente</li>
-                        <li>• Accompagnement managérial & coaching d’équipes</li>
-                    </ul>
-                </div>
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="container">
+            <h1>Brahim Boudra</h1>
+            <p>Consultant en Management & Marketing</p>
+            <p>Formateur Techniques de Vente B2B | Expert Odoo ERP</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary" onclick="openModal(); return false;">🎯 Évaluer mon besoin</a>
+                <a href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous" class="btn btn-whatsapp" target="_blank">💬 WhatsApp</a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- SERVICES -->
-<section id="services" class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-3">
-            Mes principaux axes d’intervention
-        </h2>
-        <p class="text-center text-sm text-gray-500 mb-10">
-            Conseil, formation et intégration pour aligner stratégie, équipe commerciale et outils.
-        </p>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Mes Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="Consulting Management" class="service-image">
+                    <div class="service-content">
+                        <div class="service-icon">📈</div>
+                        <h3>Consulting Management & Marketing</h3>
+                        <p>Accompagnement stratégique pour développer votre entreprise et optimiser vos performances commerciales.</p>
+                    </div>
+                </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Service 1 -->
-            <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
-                <div class="h-40 overflow-hidden">
-                    <img
-                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80"
-                        alt="Consulting Management"
-                        class="w-full h-full object-cover">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop" alt="Formation B2B" class="service-image">
+                    <div class="service-content">
+                        <div class="service-icon">👥</div>
+                        <h3>Formation Techniques de Vente B2B</h3>
+                        <p>Formations personnalisées pour améliorer vos compétences commerciales et maîtriser la vente en B2B.</p>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Consulting Management & Marketing</h3>
-                    <p class="text-sm text-gray-600 mb-3">
-                        Clarifier votre positionnement, structurer votre organisation commerciale,
-                        définir vos priorités et construire un plan d’actions réaliste.
-                    </p>
-                    <ul class="text-xs text-gray-500 space-y-1">
-                        <li>• Diagnostic commercial & management</li>
-                        <li>• Structuration de la prospection & du suivi</li>
-                        <li>• Alignement stratégie / terrain / outils</li>
-                    </ul>
-                </div>
-            </div>
 
-            <!-- Service 2 -->
-            <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
-                <div class="h-40 overflow-hidden">
-                    <img
-                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&auto=format&fit=crop&q=80"
-                        alt="Formation Vente B2B"
-                        class="w-full h-full object-cover">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Formation Techniques de Vente B2B</h3>
-                    <p class="text-sm text-gray-600 mb-3">
-                        Programmes orientés terrain : prospection, prise de rendez-vous, conduite d’entretien,
-                        argumentation, gestion des objections et closing.
-                    </p>
-                    <ul class="text-xs text-gray-500 space-y-1">
-                        <li>• Approche structurée de l’entretien B2B</li>
-                        <li>• Mises en situation & coaching</li>
-                        <li>• Scripts, supports & routines concrètes</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Service 3 -->
-            <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
-                <div class="h-40 overflow-hidden">
-                    <img
-                        src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&auto=format&fit=crop&q=80"
-                        alt="Intégration Odoo"
-                        class="w-full h-full object-cover">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Consulting & Intégration ERP Odoo</h3>
-                    <p class="text-sm text-gray-600 mb-3">
-                        Mettre Odoo au service du commercial : opportunités, pipeline, suivi des clients, reporting et pilotage.
-                    </p>
-                    <ul class="text-xs text-gray-500 space-y-1">
-                        <li>• Cadrage du besoin vente / CRM</li>
-                        <li>• Paramétrage orienté utilisation terrain</li>
-                        <li>• Accompagnement au déploiement</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- UNIVERS / IMAGES LOCALES -->
-<section class="py-10 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-3">
-            Contextes & univers d’intervention
-        </h2>
-        <p class="text-center text-xs text-gray-500 mb-6">
-            PME, ETI, services B2B, télécom, IT, projets de structuration ou de professionnalisation de la force de vente.
-        </p>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-                <img
-                    src="https://boudraabrahim-svg.github.io/661686562.xyz/images/photo2.jpg"
-                    alt="Croissance & pilotage"
-                    class="w-full h-44 object-cover">
-            </div>
-            <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-                <img
-                    src="https://boudraabrahim-svg.github.io/661686562.xyz/images/photo3.jpg"
-                    alt="Atelier stratégie"
-                    class="w-full h-44 object-cover">
-            </div>
-            <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-                <img
-                    src="https://boudraabrahim-svg.github.io/661686562.xyz/images/photo4.jpg"
-                    alt="Systèmes & digitalisation"
-                    class="w-full h-44 object-cover">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- A PROPOS -->
-<section id="apropos" class="py-16 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-10">
-            À propos
-        </h2>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-white p-8 rounded-xl shadow">
-                <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    Auto-entrepreneur basé à Oran, je mets mon expérience de terrain au service des entreprises
-                    qui veulent structurer leur force de vente, professionnaliser la relation client
-                    et accélérer leur croissance.
-                </p>
-                <p class="text-gray-700 text-base leading-relaxed">
-                    J’interviens à la fois sur la <strong>stratégie</strong>, la
-                    <strong>formation des équipes</strong> (techniques de vente B2B) et la
-                    <strong>digitalisation</strong> via l’ERP Odoo, avec une approche pragmatique :
-                    ce qui compte, ce sont les comportements sur le terrain, pas les slides.
-                </p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow">
-                <h3 class="text-lg font-bold text-gray-900 mb-3">En résumé</h3>
-                <ul class="list-disc pl-5 text-gray-700 space-y-2 text-sm">
-                    <li>Structuration commerciale et routines de prospection.</li>
-                    <li>Formation pratique à la vente & négociation B2B.</li>
-                    <li>Accompagnement managérial et coaching terrain.</li>
-                    <li>Intégration et optimisation Odoo pour la vente.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- QUESTIONNAIRE PROSPECT -->
-<section id="questionnaire" class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-3">
-            Questionnaire rapide prospect
-        </h2>
-        <p class="text-center text-xs text-gray-500 mb-8">
-            Facultatif, mais il me permet d’avoir un premier aperçu de votre contexte avant notre appel.
-        </p>
-
-        <form action="mailto:contact@661686562.xyz" method="post" enctype="text/plain"
-              class="bg-gray-50 p-6 md:p-8 rounded-xl shadow space-y-4 text-sm">
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Nom de l’entreprise *</label>
-                    <input type="text" name="Entreprise"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                           required>
-                </div>
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Secteur d’activité *</label>
-                    <input type="text" name="Secteur"
-                           placeholder="Ex : télécom, IT, services B2B…"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                           required>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Taille de l’équipe commerciale</label>
-                    <input type="text" name="Equipe commerciale"
-                           placeholder="Ex : 3 commerciaux terrain, 1 inside"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Zone géographique</label>
-                    <input type="text" name="Zone"
-                           placeholder="Ex : Oran, Ouest Algérien…"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-gray-700 mb-1 font-semibold">Outils actuels</label>
-                <textarea name="Outils actuels" rows="2"
-                          placeholder="Ex : Excel, CRM interne, Odoo, autre…"
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg"></textarea>
-            </div>
-
-            <div>
-                <label class="block text-gray-700 mb-1 font-semibold">Défi principal aujourd’hui *</label>
-                <textarea name="Défi principal" rows="3"
-                          placeholder="Ex : manque de prospection, pas de suivi, équipe non structurée, Odoo mal utilisé…"
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                          required></textarea>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Objectif prioritaire</label>
-                    <input type="text" name="Objectif prioritaire"
-                           placeholder="Ex : structurer la prospection, lancer une formation, optimiser Odoo…"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Délai souhaité</label>
-                    <input type="text" name="Délai"
-                           placeholder="Ex : urgent / 1-3 mois / à discuter"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-4 pt-2 border-t border-gray-200">
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Nom & prénom *</label>
-                    <input type="text" name="Nom contact"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                           required>
-                </div>
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Rôle / fonction</label>
-                    <input type="text" name="Fonction"
-                           placeholder="Ex : Dirigeant, Responsable commercial…"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Email *</label>
-                    <input type="email" name="Email"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                           required>
-                </div>
-                <div>
-                    <label class="block text-gray-700 mb-1 font-semibold">Téléphone / WhatsApp *</label>
-                    <input type="text" name="Téléphone"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                           required>
-                </div>
-            </div>
-
-            <button type="submit"
-                    class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
-                Envoyer le questionnaire par email
-            </button>
-            <p class="text-[11px] text-gray-500 text-center">
-                Après envoi, ton application email s’ouvrira avec les réponses pré-remplies. Il te suffira de valider l’envoi.
-            </p>
-        </form>
-    </div>
-</section>
-
-<!-- CONTACT SIMPLE -->
-<section id="contact" class="py-16 bg-gray-50">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8">
-            Me contacter directement
-        </h2>
-        <div class="grid md:grid-cols-3 gap-8 text-sm">
-            <div>
-                <h3 class="text-lg font-bold text-gray-900 mb-3">Coordonnées</h3>
-                <p class="mb-2">Email : <a href="mailto:contact@661686562.xyz" class="text-blue-600 hover:underline">contact@661686562.xyz</a></p>
-                <p class="mb-2">Téléphone : <a href="tel:+213661686562" class="text-blue-600 hover:underline">+213 661 68 65 62</a></p>
-                <p class="mb-2">WhatsApp : <a href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
-                                               class="text-green-600 hover:underline" target="_blank" rel="noopener noreferrer">cliquer ici</a></p>
-                <p>Localisation : Oran, Algérie</p>
-            </div>
-            <div class="flex justify-center">
-                <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-2xl shadow">
-                    <p class="text-xs font-semibold text-gray-800 mb-3 text-center">Scannez pour WhatsApp</p>
-                    <div class="bg-white p-3 rounded-xl shadow">
-                        <img
-                            src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous"
-                            alt="QR Code WhatsApp"
-                            class="w-36 h-36">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop" alt="ERP Odoo" class="service-image">
+                    <div class="service-content">
+                        <div class="service-icon">⚙️</div>
+                        <h3>Consulting & Intégration ERP Odoo</h3>
+                        <p>Expert en implémentation et optimisation d'Odoo pour digitaliser vos processus métier.</p>
                     </div>
                 </div>
             </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-900 mb-3">Un simple message</h3>
-                <p class="text-gray-700 text-xs mb-3">
-                    Tu peux aussi m’écrire quelques lignes libres par email ou WhatsApp, même sans remplir le questionnaire.
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="apropos" class="about">
+        <div class="container">
+            <h2 class="section-title">À Propos</h2>
+            <div class="about-content">
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">💡</div>
+                        <div>
+                            <strong>Innovation</strong>
+                            <p>Solutions créatives</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✅</div>
+                        <div>
+                            <strong>Excellence</strong>
+                            <p>Résultats mesurables</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👥</div>
+                        <div>
+                            <strong>Accompagnement</strong>
+                            <p>Suivi personnalisé</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-text">
+                    <p>Auto-entrepreneur passionné par le développement des entreprises, je mets mon expertise au service de votre réussite. Avec une approche personnalisée et des méthodes éprouvées, j'accompagne les entreprises dans leur transformation digitale et leur croissance commerciale.</p>
+                    <p>Mon expérience couvre le conseil en management stratégique, la formation des équipes commerciales aux techniques de vente B2B, ainsi que l'implémentation et l'optimisation d'ERP Odoo pour digitaliser et améliorer les processus métier.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Me Contacter</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Informations</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong>Email</strong>
+                            <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong>Téléphone</strong>
+                            <a href="tel:+213661686562">+213 661 68 65 62</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Localisation</strong>
+                            <span>Oran, Algérie</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <strong>WhatsApp</strong>
+                            <a href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous" target="_blank">Réserver un appel</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qr-code">
+                    <h3>Scannez pour WhatsApp</h3>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous" alt="QR Code WhatsApp">
+                    <p style="margin-top: 1rem; color: #047857;">Contactez-moi instantanément</p>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Envoyez un message</h3>
+                    <div class="form-group">
+                        <input type="text" placeholder="Nom complet" id="contactName">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" id="contactEmail">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="Votre message" id="contactMessage"></textarea>
+                    </div>
+                    <button class="btn-submit" onclick="sendMessage()">📨 Envoyer le message</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Brahim Boudra - Consultant en Management & Marketing | Tous droits réservés</p>
+    </footer>
+
+    <!-- Modal Questionnaire -->
+    <div id="questionnaireModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Évaluation de votre besoin</h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                <p style="text-align: center; margin-bottom: 2rem; color: #6b7280;">
+                    Étape <span id="currentStep">1</span> sur 3 - <span id="progressPercent">33</span>%
                 </p>
-                <p class="text-gray-700 text-xs">
-                    L’objectif : comprendre rapidement ta situation, ton enjeu principal et voir si je suis la bonne personne
-                    pour t’accompagner — ou te rediriger si besoin.
-                </p>
+
+                <!-- Étape 1 -->
+                <div class="step active" id="step1">
+                    <h3 style="margin-bottom: 1.5rem;">🏢 Informations sur votre entreprise</h3>
+                    <div class="form-group">
+                        <label>Nom de l'entreprise *</label>
+                        <input type="text" id="companyName" placeholder="Ex: ABC Solutions">
+                    </div>
+                    <div class="form-group">
+                        <label>Secteur d'activité *</label>
+                        <select id="industry">
+                            <option value="">Sélectionnez...</option>
+                            <option value="Commerce">Commerce & Distribution</option>
+                            <option value="Services">Services</option>
+                            <option value="Industrie">Industrie & Manufacturing</option>
+                            <option value="Tech">Technologies & IT</option>
+                            <option value="Construction">Construction & BTP</option>
+                            <option value="Santé">Santé</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre d'employés *</label>
+                        <select id="employees">
+                            <option value="">Sélectionnez...</option>
+                            <option value="1-10">1-10 employés</option>
+                            <option value="11-50">11-50 employés</option>
+                            <option value="51-200">51-200 employés</option>
+                            <option value="200+">200+ employés</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Étape 2 -->
+                <div class="step" id="step2">
+                    <h3 style="margin-bottom: 1.5rem;">🎯 Votre besoin</h3>
+                    <div class="form-group">
+                        <label>Quel est votre principal défi ? *</label>
+                        <textarea id="challenge" rows="4" placeholder="Décrivez votre besoin en consulting, formation ou intégration ERP..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Budget estimé *</label>
+                        <select id="budget">
+                            <option value="">Sélectionnez...</option>
+                            <option value="<50K">Moins de 50 000 DA</option>
+                            <option value="50K-200K">50 000 - 200 000 DA</option>
+                            <option value="200K-500K">200 000 - 500 000 DA</option>
+                            <option value="500K+">Plus de 500 000 DA</option>
+                            <option value="À définir">À définir ensemble</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Délai souhaité *</label>
+                        <select id="timeline">
+                            <option value="">Sélectionnez...</option>
+                            <option value="Urgent">Urgent (moins d'1 mois)</option>
+                            <option value="1-3 mois">1-3 mois</option>
+                            <option value="3-6 mois">3-6 mois</option>
+                            <option value="Flexible">Flexible</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Étape 3 -->
+                <div class="step" id="step3">
+                    <h3 style="margin-bottom: 1.5rem;">👤 Vos coordonnées</h3>
+                    <div class="form-group">
+                        <label>Nom complet *</label>
+                        <input type="text" id="contactNameQ" placeholder="Ex: Ahmed Benali">
+                    </div>
+                    <div class="form-group">
+                        <label>Email professionnel *</label>
+                        <input type="email" id="contactEmailQ" placeholder="email@entreprise.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone *</label>
+                        <input type="tel" id="contactPhoneQ" placeholder="+213 XXX XXX XXX">
+                    </div>
+                    <div style="background: #eff6ff; padding: 1rem; border-radius: 10px; margin-top: 1.5rem;">
+                        <p style="font-size: 0.9rem; color: #1e40af;">
+                            📌 Une fois soumis, vous serez redirigé vers WhatsApp pour finaliser votre demande avec moi directement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" style="background: #e5e7eb; color: #1f2937;" id="prevBtn" onclick="previousStep()" style="display: none;">← Précédent</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">Suivant →</button>
+                <button class="btn btn-whatsapp" id="submitBtn" onclick="submitQuestionnaire()" style="display: none;">💬 Envoyer via WhatsApp</button>
             </div>
         </div>
     </div>
-</section>
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-white py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-gray-400 text-xs">
-            © 2024–2025 Brahim Boudra — Consultant en Management & Marketing | Formateur Vente B2B | Expert Odoo — 661686562.xyz
-        </p>
-    </div>
-</footer>
+    <script>
+        let currentStep = 1;
 
-<!-- Script très simple pour menu mobile -->
-<script>
-    const toggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (toggle && mobileMenu) {
-        toggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-</script>
-</body>
-</html>
+        function openModal() {
+            document.getElementById('questionnaireModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('questionnaireModal').classList.remove('active');
+            currentStep = 1;
+            updateStep();
+        }
+
+        function updateStep() {
+            // Cacher toutes les étapes
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            
+            // Afficher l'étape actuelle
+            document.getElementById('step' + currentStep).classList.add('active');
+            
+            // Mettre à jour la barre de progression
+            const progress = (currentStep / 3) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('currentStep').textContent = currentStep;
+            document.getElementById('progressPercent').textContent = Math.round(progress);
+            
+            // Gérer les boutons
+            document.getElementById('prevBtn').style.display = currentStep > 1 ? 'block' : 'none';
+            document.getElementById('nextBtn').style.display = currentStep < 3 ? 'block' : 'none';
+            document.getElementById('submitBtn').style.display = currentStep === 3 ? 'block' : 'none';
+        }
+
+        function nextStep() {
+            if (currentStep < 3) {
+                currentStep++;
+                updateStep();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStep();
+            }
+        }
+
+        function submitQuestionnaire() {
+            const data = {
+                companyName: document.getElementById('companyName').value,
+                industry: document.getElementById('industry').value,
+                employees: document.getElementById('employees').value,
+                challenge: document.getElementById('challenge').value,
+                budget: document.getElementById('budget').value,
+                timeline: document.getElementById('timeline').value,
+                contactName: document.getElementById('contactNameQ').value,
+                contactEmail: document.getElementById('contactEmailQ').value,
+                contactPhone: document.getElementById('contactPhoneQ').value
+            };
+
+            // Message WhatsApp
+            const message = `Bonjour Brahim, je viens de remplir le questionnaire sur votre site.
+
+📋 ENTREPRISE:
+- Nom: ${data.companyName}
+- Secteur: ${data.industry}
+- Employés: ${data.employees}
+
+🎯 BESOIN:
+${data.challenge}
+
+💰 Budget: ${data.budget}
+📅 Délai: ${data.timeline}
+
+👤 CONTACT:
+- Nom: ${data.contactName}
+- Email: ${data.contactEmail}
+- Tél: ${data.contactPhone}`;
+
+            const whatsappUrl = 'https://wa.me/213661686562?text=' + encodeURIComponent(message);
+            
+            alert('✅ Merci ! Vos informations ont été enregistrées. Vous allez être redirigé vers WhatsApp.');
+            
+            window.open(whatsappUrl, '_blank');
+            closeModal();
+        }
+
+        function sendMessage() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contact
