@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brahim BOUDRA - Consultant en Management & Marketing, Formateur Techniques de Vente B2B, Expert Odoo ERP basé à Oran, Algérie">
+    <meta name="description" content="Brahim Boudra - Consultant en Management & Marketing, Formateur Techniques de Vente B2B, Expert Odoo ERP basé à Oran, Algérie">
     <title>BRAHIM BOUDRA - Consultant Management & Marketing</title>
     
     <style>
@@ -63,10 +63,28 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(30, 64, 175, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop') center/cover;
             color: white;
             padding: 120px 2rem 80px;
             text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 0;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
@@ -576,8 +594,17 @@
                 </div>
 
                 <div class="about-text">
-                    <p>Auto-entrepreneur passionné par le développement des entreprises, je mets mon expertise au service de votre réussite. Avec une approche personnalisée et des méthodes éprouvées, j'accompagne les entreprises dans leur transformation digitale et leur croissance commerciale.</p>
-                    <p>Mon expérience couvre le conseil en management stratégique, la formation des équipes commerciales aux techniques de vente B2B, ainsi que l'implémentation et l'optimisation d'ERP Odoo pour digitaliser et améliorer les processus métier.</p>
+                    <p><strong>Basé à Oran, Algérie</strong>, je suis consultant indépendant spécialisé dans l'accompagnement des entreprises vers l'excellence opérationnelle et la croissance durable.</p>
+                    
+                    <p>Fort d'une expertise terrain acquise auprès de PME et grandes entreprises algériennes, j'interviens à trois niveaux stratégiques :</p>
+                    
+                    <p><strong>🎯 En Management & Marketing :</strong> J'aide les dirigeants à définir une stratégie claire, à optimiser leurs processus commerciaux et à développer leur présence sur le marché algérien et international.</p>
+                    
+                    <p><strong>👥 En Formation B2B :</strong> Je forme vos équipes commerciales aux techniques de vente modernes, à la négociation complexe et à la gestion de la relation client en environnement B2B.</p>
+                    
+                    <p><strong>⚙️ En Digitalisation :</strong> Expert certifié Odoo, j'accompagne votre transformation digitale de bout en bout : analyse des besoins, implémentation, formation des utilisateurs et support continu.</p>
+                    
+                    <p style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid #e5e7eb;"><em>Ma mission : transformer vos défis en opportunités de croissance avec des solutions concrètes et mesurables.</em></p>
                 </div>
             </div>
         </div>
