@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Brahim Boudra - Consultant en Management & Marketing, Formateur Techniques de Vente B2B, Expert Odoo ERP basé à Oran, Algérie">
-    <title>Brahim Boudra - Consultant Management & Marketing</title>
+    <title>BRAHIM BOUDRA - Consultant Management & Marketing</title>
     
     <style>
         * {
@@ -72,6 +72,8 @@
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .hero p {
@@ -95,6 +97,9 @@
             font-weight: 600;
             transition: all 0.3s;
             display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         .btn-primary {
@@ -483,7 +488,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">🏆 Brahim Boudra</div>
+            <div class="logo">BRAHIM BOUDRA</div>
             <ul class="nav-links">
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#services">Services</a></li>
@@ -496,11 +501,11 @@
     <!-- Hero Section -->
     <section id="accueil" class="hero">
         <div class="container">
-            <h1>Brahim Boudra</h1>
+            <h1>BRAHIM BOUDRA</h1>
             <p>Consultant en Management & Marketing</p>
             <p>Formateur Techniques de Vente B2B | Expert Odoo ERP</p>
             <div class="hero-buttons">
-                <a href="#" class="btn btn-primary" onclick="openModal(); return false;">🎯 Évaluer mon besoin</a>
+                <button class="btn btn-primary" onclick="openModal()">🎯 Évaluer mon besoin</button>
                 <a href="https://wa.me/213661686562?text=Bonjour%20Brahim,%20je%20souhaite%20prendre%20rendez-vous" class="btn btn-whatsapp" target="_blank">💬 WhatsApp</a>
             </div>
         </div>
@@ -640,7 +645,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 Brahim Boudra - Consultant en Management & Marketing | Tous droits réservés</p>
+        <p>© 2024 BRAHIM BOUDRA - Consultant en Management & Marketing | Tous droits réservés</p>
     </footer>
 
     <!-- Modal Questionnaire -->
@@ -743,7 +748,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn" style="background: #e5e7eb; color: #1f2937;" id="prevBtn" onclick="previousStep()" style="display: none;">← Précédent</button>
+                <button class="btn" style="background: #e5e7eb; color: #1f2937; display: none;" id="prevBtn" onclick="previousStep()">← Précédent</button>
                 <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">Suivant →</button>
                 <button class="btn btn-whatsapp" id="submitBtn" onclick="submitQuestionnaire()" style="display: none;">💬 Envoyer via WhatsApp</button>
             </div>
@@ -751,15 +756,16 @@
     </div>
 
     <script>
-        let currentStep = 1;
+        let currentStepNum = 1;
 
         function openModal() {
             document.getElementById('questionnaireModal').classList.add('active');
+            updateStep();
         }
 
         function closeModal() {
             document.getElementById('questionnaireModal').classList.remove('active');
-            currentStep = 1;
+            currentStepNum = 1;
             updateStep();
         }
 
@@ -768,30 +774,44 @@
             document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
             
             // Afficher l'étape actuelle
-            document.getElementById('step' + currentStep).classList.add('active');
+            document.getElementById('step' + currentStepNum).classList.add('active');
             
             // Mettre à jour la barre de progression
-            const progress = (currentStep / 3) * 100;
+            const progress = (currentStepNum / 3) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
-            document.getElementById('currentStep').textContent = currentStep;
+            document.getElementById('currentStep').textContent = currentStepNum;
             document.getElementById('progressPercent').textContent = Math.round(progress);
             
             // Gérer les boutons
-            document.getElementById('prevBtn').style.display = currentStep > 1 ? 'block' : 'none';
-            document.getElementById('nextBtn').style.display = currentStep < 3 ? 'block' : 'none';
-            document.getElementById('submitBtn').style.display = currentStep === 3 ? 'block' : 'none';
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (currentStepNum > 1) {
+                prevBtn.style.display = 'block';
+            } else {
+                prevBtn.style.display = 'none';
+            }
+            
+            if (currentStepNum < 3) {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            } else {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            }
         }
 
         function nextStep() {
-            if (currentStep < 3) {
-                currentStep++;
+            if (currentStepNum < 3) {
+                currentStepNum++;
                 updateStep();
             }
         }
 
         function previousStep() {
-            if (currentStep > 1) {
-                currentStep--;
+            if (currentStepNum > 1) {
+                currentStepNum--;
                 updateStep();
             }
         }
@@ -808,6 +828,13 @@
                 contactEmail: document.getElementById('contactEmailQ').value,
                 contactPhone: document.getElementById('contactPhoneQ').value
             };
+
+            // Vérifier que tous les champs sont remplis
+            if (!data.companyName || !data.industry || !data.employees || !data.challenge || 
+                !data.budget || !data.timeline || !data.contactName || !data.contactEmail || !data.contactPhone) {
+                alert('⚠️ Veuillez remplir tous les champs obligatoires.');
+                return;
+            }
 
             // Message WhatsApp
             const message = `Bonjour Brahim, je viens de remplir le questionnaire sur votre site.
@@ -839,4 +866,31 @@ ${data.challenge}
         function sendMessage() {
             const name = document.getElementById('contactName').value;
             const email = document.getElementById('contactEmail').value;
-            const message = document.getElementById('contact
+            const message = document.getElementById('contactMessage').value;
+            
+            if (!name || !email || !message) {
+                alert('⚠️ Veuillez remplir tous les champs.');
+                return;
+            }
+            
+            alert(`✅ Merci ${name} ! Votre message a été envoyé. Je vous répondrai rapidement.`);
+            
+            // Réinitialiser le formulaire
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
+        }
+
+        // Smooth scroll pour la navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
