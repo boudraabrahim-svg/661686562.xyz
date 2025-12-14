@@ -146,25 +146,34 @@
             color: #4b5563;
         }
 
+        .references {
+            background: #ffffff;
+        }
+
+        .reference-list {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1f2937;
+        }
+
         .about {
             background: #f9fafb;
         }
 
         .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text {
+            max-width: 800px;
+            margin: auto;
             background: white;
             padding: 2.5rem;
             border-radius: 15px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
 
-        .about-text p {
+        .about-content p {
             margin-bottom: 1.3rem;
             font-size: 1.05rem;
             color: #374151;
@@ -188,9 +197,6 @@
         }
 
         @media (max-width: 768px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
             .nav-links {
                 display: none;
             }
@@ -205,6 +211,7 @@
         <ul class="nav-links">
             <li><a href="#accueil">Accueil</a></li>
             <li><a href="#services">Services</a></li>
+            <li><a href="#references">Références</a></li>
             <li><a href="#apropos">À propos</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -214,10 +221,10 @@
 <section id="accueil" class="hero">
     <h1>Brahim Boudra</h1>
     <p>Consultant en organisation commerciale B2B & intégration ERP Odoo</p>
-    <p>Approche terrain, structuration, outils réellement utilisés</p>
+    <p>Structuration, méthodes terrain et outils réellement utilisés</p>
 
     <div class="hero-buttons">
-        <a href="#contact" class="btn btn-primary">Prendre contact</a>
+        <a href="mailto:contact@661686562.xyz" class="btn btn-primary">Envoyer un email</a>
         <a href="https://wa.me/213661686562" class="btn btn-whatsapp">WhatsApp</a>
     </div>
 </section>
@@ -233,7 +240,7 @@
                     <h3>Organisation commerciale B2B</h3>
                     <p>
                         Structuration des processus commerciaux, clarification des priorités,
-                        mise en place d’indicateurs simples et exploitables par le management.
+                        mise en place d’indicateurs simples et exploitables.
                     </p>
                 </div>
             </div>
@@ -244,7 +251,7 @@
                     <h3>Formation opérationnelle des équipes</h3>
                     <p>
                         Formation orientée terrain : prospection B2B, discours commercial,
-                        gestion des objections et négociation en situation réelle.
+                        négociation et gestion des objections.
                     </p>
                 </div>
             </div>
@@ -263,20 +270,30 @@
     </div>
 </section>
 
+<section id="references" class="references">
+    <div class="container">
+        <h2 class="section-title">Entreprises accompagnées</h2>
+        <div class="reference-list">
+            <div>Tawsil Pro</div>
+            <div>Banitalha Land</div>
+        </div>
+    </div>
+</section>
+
 <section id="apropos" class="about">
-    <div class="container about-content">
-        <div class="about-text">
+    <div class="container">
+        <div class="about-content">
             <p>
                 Basé à <strong>Oran (Algérie)</strong>, j’accompagne principalement des PME
                 et des structures en phase de structuration ou de croissance.
             </p>
             <p>
-                Je privilégie les missions où il existe un besoin réel, une volonté
-                d’amélioration et une implication des décideurs.
+                Je privilégie les missions où il existe un besoin réel,
+                une volonté d’amélioration et une implication des décideurs.
             </p>
             <p>
-                Mon travail ne consiste pas à vendre du discours,
-                mais à mettre en place des méthodes et des outils réellement utilisés.
+                Mon rôle n’est pas de vendre du discours,
+                mais de mettre en place des méthodes et des outils réellement utilisés.
             </p>
         </div>
     </div>
@@ -285,17 +302,27 @@
 <section id="contact" class="contact">
     <div class="container contact-info">
         <h2 class="section-title">Contact</h2>
-        <p>Email : contact@661686562.xyz</p>
-        <p>Téléphone / WhatsApp : +213 661 68 65 62</p>
-        <p>Oran, Algérie</p>
+
+        <p style="font-size:1.1rem; margin-bottom:1.2rem;">
+            Pour toute demande professionnelle, le premier contact se fait par email.
+        </p>
+
+        <p style="font-size:1.15rem; font-weight:600;">
+            📧 <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a>
+        </p>
+
         <p style="margin-top:1rem;">
+            📱 WhatsApp : <a href="https://wa.me/213661686562" target="_blank">+213 661 68 65 62</a>
+        </p>
+
+        <p style="margin-top:1.5rem; color:#4b5563;">
             Premier échange de cadrage, sans engagement.
         </p>
     </div>
 </section>
 
 <footer>
-    © 2025 – Brahim Boudra
+    © 2025 — Brahim Boudra
 </footer>
 
 </body>
