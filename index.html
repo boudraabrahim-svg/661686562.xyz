@@ -6,6 +6,9 @@
     <meta name="description" content="Brahim Boudra – Consultant en organisation commerciale B2B et intégration ERP Odoo, Oran">
     <title>Brahim Boudra – Consultant B2B & ERP Odoo</title>
 
+    <!-- HubSpot Tracking Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/147473666.js"></script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -15,7 +18,6 @@
             color: #1f2937;
         }
 
-        /* Navigation */
         nav {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -52,17 +54,32 @@
             font-weight: 500;
         }
 
-        /* Hero */
+        section {
+            padding: 90px 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* HERO */
         .hero {
-            background: linear-gradient(135deg, rgba(37,99,235,0.9), rgba(30,64,175,0.95)),
+            background: linear-gradient(135deg, rgba(37,99,235,0.95), rgba(30,64,175,0.95)),
             url('photo1.jpg') center/cover;
             color: white;
-            padding: 140px 2rem 90px;
+            padding: 150px 2rem 110px;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
         }
 
@@ -80,11 +97,10 @@
         }
 
         .btn {
-            padding: 0.9rem 2rem;
+            padding: 0.9rem 2.2rem;
             border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
-            transition: 0.3s;
         }
 
         .btn-primary {
@@ -97,22 +113,7 @@
             color: white;
         }
 
-        section {
-            padding: 80px 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 3rem;
-        }
-
-        /* Services */
+        /* SERVICES */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -137,49 +138,14 @@
         }
 
         .service-content h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .service-content p {
             color: #4b5563;
         }
 
-        /* References */
-        .reference-logos {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-        }
-
-        .reference-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .reference-item img {
-            max-height: 70px;
-            max-width: 180px;
-            object-fit: contain;
-            filter: grayscale(100%);
-            opacity: 0.85;
-            transition: 0.3s;
-        }
-
-        .reference-item img:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        .reference-item span {
-            font-size: 0.95rem;
-            color: #374151;
-            font-weight: 500;
-        }
-
-        /* About */
+        /* ABOUT */
         .about {
             background: #f9fafb;
         }
@@ -188,18 +154,14 @@
             max-width: 800px;
             margin: auto;
             background: white;
-            padding: 2.5rem;
+            padding: 2.8rem;
             border-radius: 15px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
 
-        .about-content p {
-            margin-bottom: 1.3rem;
-        }
-
-        /* Contact */
+        /* CONTACT */
         .contact-info {
-            max-width: 600px;
+            max-width: 650px;
             margin: auto;
             text-align: center;
         }
@@ -216,6 +178,7 @@
         }
     </style>
 </head>
+
 <body>
 
 <nav>
@@ -224,9 +187,8 @@
         <ul class="nav-links">
             <li><a href="#accueil">Accueil</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#references">Références</a></li>
             <li><a href="#apropos">À propos</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Diagnostic</a></li>
         </ul>
     </div>
 </nav>
@@ -234,10 +196,10 @@
 <section id="accueil" class="hero">
     <h1>Brahim Boudra</h1>
     <p>Consultant en organisation commerciale B2B & intégration ERP Odoo</p>
-    <p>Approche terrain, structuration et outils réellement utilisés</p>
+    <p>Structuration, méthode et performance terrain</p>
 
     <div class="hero-buttons">
-        <a href="mailto:contact@661686562.xyz" class="btn btn-primary">Envoyer un email</a>
+        <a href="#contact" class="btn btn-primary">Demander un diagnostic gratuit</a>
         <a href="https://wa.me/213661686562" class="btn btn-whatsapp">WhatsApp</a>
     </div>
 </section>
@@ -251,15 +213,15 @@
                 <img class="service-image" src="photo2.jpg">
                 <div class="service-content">
                     <h3>Organisation commerciale B2B</h3>
-                    <p>Structuration des processus, priorisation et pilotage commercial.</p>
+                    <p>Structuration des processus, priorisation, pilotage de la performance.</p>
                 </div>
             </div>
 
             <div class="service-card">
                 <img class="service-image" src="photo3.jpg">
                 <div class="service-content">
-                    <h3>Formation opérationnelle</h3>
-                    <p>Prospection B2B, discours commercial et négociation terrain.</p>
+                    <h3>Formation commerciale terrain</h3>
+                    <p>Prospection B2B, discours commercial et négociation.</p>
                 </div>
             </div>
 
@@ -274,50 +236,28 @@
     </div>
 </section>
 
-<section id="references">
-    <div class="container">
-        <h2 class="section-title">Entreprises accompagnées</h2>
-
-        <div class="reference-logos">
-            <div class="reference-item">
-                <img src="TAWSILPR.jpg" alt="Tawsil Pro">
-                <span>Tawsil Pro</span>
-            </div>
-
-            <div class="reference-item">
-                <img src="banitalhaland.jpg" alt="Banitalha Land">
-                <span>Banitalha Land</span>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section id="apropos" class="about">
     <div class="container">
         <div class="about-content">
-            <p>
-                Basé à <strong>Oran (Algérie)</strong>, j’accompagne des PME et structures
-                en phase de structuration ou de croissance.
-            </p>
-            <p>
-                J’interviens sur des missions concrètes, avec implication des décideurs
-                et objectifs opérationnels clairs.
-            </p>
-            <p>
-                Mon rôle est d’apporter des méthodes et des outils réellement utilisés sur le terrain.
-            </p>
+            <p><strong>Basé à Oran (Algérie)</strong>, j’accompagne les PME en structuration ou en croissance.</p>
+            <p>Approche pragmatique, implication des décideurs, résultats mesurables.</p>
+            <p>Pas de théorie inutile : des méthodes réellement appliquées sur le terrain.</p>
         </div>
     </div>
 </section>
 
 <section id="contact">
     <div class="container contact-info">
-        <h2 class="section-title">Contact</h2>
-        <p>📧 <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a></p>
-        <p style="margin-top:1rem;">📱 <a href="https://wa.me/213661686562">+213 661 68 65 62</a></p>
-        <p style="margin-top:1.5rem; color:#4b5563;">
-            Premier échange de cadrage, sans engagement.
-        </p>
+        <h2 class="section-title">Diagnostic managérial gratuit</h2>
+        <p>Échange de 20 minutes pour identifier vos points de blocage et leviers d’amélioration.</p>
+
+        <!-- HubSpot Form -->
+        <script src="https://js-eu1.hsforms.net/forms/embed/147473666.js" defer></script>
+        <div class="hs-form-frame"
+             data-region="eu1"
+             data-form-id="63f96728-9640-4056-b299-3c90f89d10bc"
+             data-portal-id="147473666">
+        </div>
     </div>
 </section>
 
