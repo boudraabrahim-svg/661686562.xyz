@@ -1,315 +1,248 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brahim Boudra – Consultant en organisation commerciale B2B et intégration ERP Odoo, Oran">
-    <title>Brahim Boudra – Consultant B2B & ERP Odoo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="B&B Consulting – Cabinet de conseil en organisation commerciale B2B et intégration ERP Odoo.">
+  <title>B&B Consulting – Conseil B2B & ERP Odoo</title>
+  <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/147473666.js"></script>
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      line-height:1.6;
+      color:#1f2937;
+      background:#f9fafb;
+    }
+    nav {
+      background:#0f172a;
+      color:white;
+      position:fixed;
+      width:100%;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    }
+    .nav-container {
+      max-width:1200px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 2rem;
+    }
+    .logo {
+      font-size:1.5rem;
+      font-weight:700;
+      color:#facc15;
+    }
+    .nav-links {
+      list-style:none;
+      display:flex;
+      gap:2rem;
+    }
+    .nav-links a {
+      color:white;
+      text-decoration:none;
+      font-weight:500;
+      transition:0.3s;
+    }
+    .nav-links a:hover {color:#facc15;}
+    section {padding:80px 2rem;}
+    .container {max-width:1200px;margin:auto;}
+    .section-title {
+      text-align:center;
+      font-size:2.2rem;
+      color:#0f172a;
+      margin-bottom:1.5rem;
+    }
 
-    <!-- HubSpot Tracking -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/147473666.js"></script>
+    /* HERO */
+    .hero {
+      background:linear-gradient(135deg, rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
+        url('https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=80') center/cover;
+      color:white;
+      text-align:center;
+      padding:140px 2rem 100px;
+    }
+    .hero h1 {font-size:2.8rem;margin-bottom:1rem;}
+    .hero p {font-size:1.2rem;opacity:0.95;}
+    .hero-buttons {
+      margin-top:2rem;
+      display:flex;
+      justify-content:center;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+    .btn {
+      padding:0.8rem 2rem;
+      border-radius:40px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.3s;
+    }
+    .btn-primary {background:#facc15;color:#0f172a;}
+    .btn-primary:hover {background:#fde047;}
+    .btn-whatsapp {background:#25d366;color:white;}
+    .btn-whatsapp:hover {opacity:0.9;}
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* SERVICES */
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:2rem;
+    }
+    .service-card {
+      background:white;
+      border-radius:15px;
+      overflow:hidden;
+      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+      transition:transform 0.3s;
+    }
+    .service-card:hover {transform:translateY(-5px);}
+    .service-image {width:100%;height:200px;object-fit:cover;}
+    .service-content {padding:1.5rem;}
+    .service-content h3 {color:#0f172a;margin-bottom:0.5rem;}
+    .service-content p {color:#4b5563;}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
-        }
+    /* TEAM */
+    .team-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:2rem;
+      margin-top:2rem;
+    }
+    .team-member {
+      background:white;
+      border-radius:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+      text-align:center;
+      padding:2rem 1rem;
+    }
+    .team-member img {
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      object-fit:cover;
+      margin-bottom:1rem;
+    }
+    .team-member h4 {color:#0f172a;margin-bottom:0.3rem;}
+    .team-member span {color:#facc15;font-weight:500;}
 
-        /* NAV */
-        nav {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+    /* CONTACT */
+    .contact-info {
+      max-width:600px;
+      margin:auto;
+      text-align:center;
+    }
+    .contact-info p {color:#4b5563;margin-top:0.5rem;}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #2563eb;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #374151;
-            font-weight: 500;
-        }
-
-        section {
-            padding: 40px 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.1rem;
-            margin-bottom: 1.2rem;
-        }
-
-        /* HERO */
-        .hero {
-            background: linear-gradient(135deg, rgba(37,99,235,0.95), rgba(30,64,175,0.95)),
-                        url('photo1.jpg') center/cover;
-            color: white;
-            padding: 110px 2rem 70px;
-            text-align: center;
-        }
-
-        .hero h1 { font-size: 2.5rem; margin-bottom: 0.8rem; }
-        .hero p { font-size: 1.1rem; opacity: 0.95; }
-
-        .hero-buttons {
-            margin-top: 1.8rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .btn-primary { background: white; color: #2563eb; }
-        .btn-whatsapp { background: #25d366; color: white; }
-
-        /* SERVICES */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .service-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .service-content {
-            padding: 1.4rem;
-        }
-
-        /* REFERENCES */
-        .reference-logos {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .reference-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .reference-item img {
-            max-height: 65px;
-            max-width: 160px;
-            object-fit: contain;
-            filter: grayscale(100%);
-            opacity: 0.85;
-            transition: 0.3s;
-        }
-
-        .reference-item img:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        .reference-item span {
-            font-size: 0.9rem;
-            color: #374151;
-            font-weight: 500;
-        }
-
-        /* ABOUT */
-        .about {
-            background: #f9fafb;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        /* CONTACT */
-        .contact-info {
-            max-width: 600px;
-            margin: auto;
-            text-align: center;
-        }
-
-        footer {
-            background: #1f2937;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            section { padding: 30px 1.5rem; }
-            .hero { padding: 90px 1.5rem 60px; }
-            .hero h1 { font-size: 2.2rem; }
-            .nav-links { display: none; }
-        }
-    </style>
+    footer {
+      background:#0f172a;
+      color:white;
+      text-align:center;
+      padding:2rem 1rem;
+      margin-top:3rem;
+    }
+    footer a {color:#facc15;text-decoration:none;}
+    @media(max-width:768px){
+      .nav-links{display:none;}
+      section{padding:60px 1.5rem;}
+    }
+  </style>
 </head>
-
 <body>
 
-<nav>
+  <nav>
     <div class="nav-container">
-        <div class="logo">B&B Consulting</div>
-        <ul class="nav-links">
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#references">Références</a></li>
-            <li><a href="#apropos">À propos</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+      <div class="logo">B&B Consulting</div>
+      <ul class="nav-links">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
-</nav>
+  </nav>
 
-<section id="accueil" class="hero">
-    <h1>Brahim Boudra</h1>
-    <p>Consultant en organisation commerciale B2B & intégration ERP Odoo</p>
-    <p>Structuration, méthode et performance terrain</p>
-
+  <section id="accueil" class="hero">
+    <h1>Cabinet de conseil B2B & ERP Odoo</h1>
+    <p>Structuration, méthode et performance commerciale</p>
     <div class="hero-buttons">
-        <a href="#contact" class="btn btn-primary">Demander un échange de cadrage</a>
-        <a href="https://wa.me/213661686562" class="btn btn-whatsapp">WhatsApp</a>
+      <a href="#contact" class="btn btn-primary">Demander un échange de cadrage</a>
+      <a href="https://wa.me/213661686562" class="btn btn-whatsapp">WhatsApp</a>
     </div>
-</section>
+  </section>
 
-<section id="services">
+  <section id="services">
     <div class="container">
-        <h2 class="section-title">Domaines d’intervention</h2>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <img class="service-image" src="photo2.jpg">
-                <div class="service-content">
-                    <h3>Organisation commerciale B2B</h3>
-                    <p>Structuration des processus et pilotage de la performance.</p>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <img class="service-image" src="photo3.jpg">
-                <div class="service-content">
-                    <h3>Formation commerciale terrain</h3>
-                    <p>Prospection B2B, discours commercial et négociation.</p>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <img class="service-image" src="photo5.jpg">
-                <div class="service-content">
-                    <h3>Intégration ERP Odoo</h3>
-                    <p>CRM, suivi commercial, facturation et pilotage opérationnel.</p>
-                </div>
-            </div>
+      <h2 class="section-title">Domaines d’intervention</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <img class="service-image" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" alt="">
+          <div class="service-content">
+            <h3>Organisation commerciale B2B</h3>
+            <p>Structuration des processus et pilotage de la performance.</p>
+          </div>
         </div>
+        <div class="service-card">
+          <img class="service-image" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" alt="">
+          <div class="service-content">
+            <h3>Formation commerciale terrain</h3>
+            <p>Prospection B2B, discours commercial et négociation.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <img class="service-image" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" alt="">
+          <div class="service-content">
+            <h3>Intégration ERP Odoo</h3>
+            <p>CRM, suivi commercial, facturation et pilotage opérationnel.</p>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="references">
+  <section id="equipe">
     <div class="container">
-        <h2 class="section-title">Entreprises accompagnées</h2>
-
-        <div class="reference-logos">
-            <div class="reference-item">
-                <img src="TAWSILPR.jpg" alt="Tawsil Pro">
-                <span>Tawsil Pro</span>
-            </div>
-
-            <div class="reference-item">
-                <img src="banitalhaland.jpg" alt="Banitalha Land">
-                <span>Banitalha Land</span>
-            </div>
+      <h2 class="section-title">Notre Équipe</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Membre équipe">
+          <h4>Brahim Boudra</h4>
+          <span>Consultant principal – ERP Odoo</span>
         </div>
-    </div>
-</section>
-
-<section id="apropos" class="about">
-    <div class="container">
-        <div class="about-content">
-            <p><strong>Basé à Oran (Algérie)</strong>, j’accompagne les PME en structuration ou croissance.</p>
-            <p>Approche pragmatique, implication des décideurs, résultats mesurables.</p>
+        <div class="team-member">
+          <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Membre équipe">
+          <h4>Leïla Djamal</h4>
+          <span>Spécialiste formation commerciale</span>
         </div>
+        <div class="team-member">
+          <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="Membre équipe">
+          <h4>Karim Amrane</h4>
+          <span>Consultant en stratégie B2B</span>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="contact">
+  <section id="contact">
     <div class="container contact-info">
-        <h2 class="section-title">Échange de cadrage stratégique – 20 minutes</h2>
-        <p>
-            Un premier échange structuré pour clarifier votre organisation,
-            vos priorités managériales et évaluer la pertinence d’un accompagnement.
-        </p>
-
-        <!-- HubSpot Form -->
-        <script src="https://js-eu1.hsforms.net/forms/embed/147473666.js" defer></script>
-        <div class="hs-form-frame"
-             data-region="eu1"
-             data-form-id="63f96728-9640-4056-b299-3c90f89d10bc"
-             data-portal-id="147473666">
-        </div>
-
-        <!-- Coordonnées directes -->
-        <div style="margin-top: 1.8rem; color: #4b5563; font-size: 0.95rem;">
-            <p>📧 <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a></p>
-            <p style="margin-top: 0.5rem;">📱 <a href="https://wa.me/213661686562">+213 661 68 65 62</a></p>
-        </div>
+      <h2 class="section-title">Échange de cadrage stratégique – 20 minutes</h2>
+      <p>Un premier échange structuré pour clarifier votre organisation, vos priorités managériales et évaluer la pertinence d’un accompagnement.</p>
+      <script src="https://js-eu1.hsforms.net/forms/embed/147473666.js" defer></script>
+      <div class="hs-form-frame"
+        data-region="eu1"
+        data-form-id="63f96728-9640-4056-b299-3c90f89d10bc"
+        data-portal-id="147473666"></div>
+      <p>📧 <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a></p>
+      <p>📱 <a href="https://wa.me/213661686562">+213 661 68 65 62</a></p>
     </div>
-</section>
+  </section>
 
-<footer>
-    © 2025 — Brahim Boudra
-</footer>
+  <footer>
+    © 2026 — B&B Consulting — <a href="https://661686562.xyz">661686562.xyz</a>
+  </footer>
 
 </body>
 </html>
-
