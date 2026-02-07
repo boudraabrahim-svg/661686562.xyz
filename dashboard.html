@@ -4,669 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard B2B Mobilis - Pilotage Commercial</title>
-    <script>
-        if (sessionStorage.getItem('dashboard_auth') !== 'true') {
-            window.location.href = 'index.html';
-        }
-    </script>
+    <title>Dashboard B2B Mobilis</title>
+    <script>if (sessionStorage.getItem('dashboard_auth') !== 'true') window.location.href = 'index.html';</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-card: #1c2128;
-            --accent: #58a6ff;
-            --accent-light: #79c0ff;
-            --success: #3fb950;
-            --warning: #d29922;
-            --danger: #f85149;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --border: #30363d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-        }
-
-        .header {
-            background: var(--bg-secondary);
-            padding: 0.75rem 2rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--accent) 0%, #238636 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .logo-text h1 {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .logo-text span {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-        }
-
-        .controls {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .filter-select {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 0.4rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .date-display {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-        }
-
-        .btn-logout {
-            padding: 0.4rem 0.75rem;
-            background: rgba(248, 81, 73, 0.15);
-            border: 1px solid rgba(248, 81, 73, 0.4);
-            color: var(--danger);
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
-
-        .dashboard {
-            padding: 1.5rem;
-            max-width: 1800px;
-            margin: 0 auto;
-        }
-
-        /* Section titles */
-        .section-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            padding-left: 0.5rem;
-            border-left: 3px solid var(--accent);
-        }
-
-        /* KPI Grid */
-        .kpi-row {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 1400px) {
-            .kpi-row {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .kpi-row {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .kpi-card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            padding: 1rem;
-            border: 1px solid var(--border);
-        }
-
-        .kpi-label {
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .kpi-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .kpi-sub {
-            font-size: 0.7rem;
-            margin-top: 0.25rem;
-        }
-
-        .kpi-sub.positive {
-            color: var(--success);
-        }
-
-        .kpi-sub.warning {
-            color: var(--warning);
-        }
-
-        .kpi-sub.danger {
-            color: var(--danger);
-        }
-
-        /* Grid layouts */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 1200px) {
-
-            .grid-2,
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            padding: 1rem;
-            border: 1px solid var(--border);
-        }
-
-        .card-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-
-        .chart-container {
-            height: 280px;
-            position: relative;
-        }
-
-        /* Map */
-        #mapContainer {
-            height: 350px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .map-legend {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.75rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        /* Gauge */
-        .gauge-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 200px;
-        }
-
-        .gauge-svg {
-            width: 180px;
-            height: 100px;
-        }
-
-        .gauge-value {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-top: -20px;
-        }
-
-        .gauge-label {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-        }
-
-        /* Matrice Performance */
-        .matrice-container {
-            height: 320px;
-            position: relative;
-        }
-
-        .zone-label {
-            position: absolute;
-            font-size: 0.6rem;
-            color: var(--text-secondary);
-            opacity: 0.7;
-        }
-
-        /* Top lists */
-        .top-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .top-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.6rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 6px;
-        }
-
-        .top-rank {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-
-        .top-rank.gold {
-            background: linear-gradient(135deg, #ffd700, #ffb300);
-            color: #000;
-        }
-
-        .top-rank.silver {
-            background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
-            color: #000;
-        }
-
-        .top-rank.bronze {
-            background: linear-gradient(135deg, #cd7f32, #a0522d);
-            color: #fff;
-        }
-
-        .top-rank.other {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-        }
-
-        .top-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .top-name {
-            font-size: 0.8rem;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .top-detail {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-        }
-
-        .top-value {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-align: right;
-        }
-
-        .top-bar {
-            height: 4px;
-            background: var(--bg-secondary);
-            border-radius: 2px;
-            margin-top: 0.25rem;
-        }
-
-        .top-bar-fill {
-            height: 100%;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        /* Table */
-        .table-container {
-            overflow-x: auto;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8rem;
-        }
-
-        .data-table th {
-            text-align: left;
-            padding: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-        }
-
-        .data-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .data-table tr:hover {
-            background: rgba(88, 166, 255, 0.05);
-        }
-
-        .avatar-sm {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .badge {
-            padding: 0.2rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: 600;
-        }
-
-        .badge-success {
-            background: rgba(63, 185, 80, 0.15);
-            color: var(--success);
-        }
-
-        .badge-warning {
-            background: rgba(210, 153, 34, 0.15);
-            color: var(--warning);
-        }
-
-        .badge-danger {
-            background: rgba(248, 81, 73, 0.15);
-            color: var(--danger);
-        }
-
-        .progress-mini {
-            width: 60px;
-            height: 6px;
-            background: var(--bg-secondary);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-mini-fill {
-            height: 100%;
-            border-radius: 3px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 1rem;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            border-top: 1px solid var(--border);
-            margin-top: 2rem;
-        }
-
-        /* Leaflet customization */
-        .leaflet-popup-content-wrapper {
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border-radius: 8px;
-        }
-
-        .leaflet-popup-tip {
-            background: var(--bg-card);
-        }
-
-        .popup-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-
-        .popup-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            padding: 0.2rem 0;
-        }
-
-        .popup-row span {
-            color: var(--text-secondary);
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <header class="header">
         <div class="logo">
             <div class="logo-icon">M</div>
-            <div class="logo-text">
-                <h1>PILOTAGE COMMERCIAL B2B</h1>
-                <span>Dashboard Décisionnel - Région Ouest</span>
+            <div>
+                <h1>PILOTAGE B2B</h1><span>Dashboard Décisionnel</span>
             </div>
         </div>
-
-        <div class="controls">
-            <select id="monthSelect" class="filter-select" onchange="updateDashboard()">
-                <option value="all">Toute l'année</option>
-                <option value="01" selected>Janvier 2026</option>
-                <option value="02">Février 2026</option>
-                <option value="03">Mars 2026</option>
-                <option value="04">Avril 2026</option>
-                <option value="05">Mai 2026</option>
-                <option value="06">Juin 2026</option>
-                <option value="07">Juillet 2026</option>
-                <option value="08">Août 2026</option>
-                <option value="09">Septembre 2026</option>
-                <option value="10">Octobre 2026</option>
-                <option value="11">Novembre 2026</option>
-                <option value="12">Décembre 2026</option>
-            </select>
+        <nav class="tabs">
+            <button class="tab active" data-page="cockpit">🎛️ Cockpit</button>
+            <button class="tab" data-page="territoire">🗺️ Territoire</button>
+            <button class="tab" data-page="coaching">📊 Coaching</button>
+        </nav>
+        <div class="filters">
+            <div class="filter-group"><label>Mois</label><select id="monthFilter" multiple>
+                    <option value="01" selected>Janvier</option>
+                    <option value="02">Février</option>
+                </select></div>
+            <div class="filter-group"><label>Commercial</label><select id="commFilter">
+                    <option value="all">Tous</option>
+                </select></div>
         </div>
-
-        <div class="header-right">
-            <span class="date-display" id="currentDate"></span>
-            <span style="color: var(--text-secondary); font-size: 0.75rem;">Manager: <strong
-                    style="color: var(--text-primary);">Brahim BOUDRAA</strong></span>
-            <button class="btn-logout" onclick="logout()">Déconnexion</button>
-        </div>
+        <div class="header-right"><span id="currentDate"></span><button class="btn-logout"
+                onclick="logout()">Déconnexion</button></div>
     </header>
-
-    <div class="dashboard">
-        <!-- KPIs -->
-        <div class="kpi-row">
-            <div class="kpi-card">
-                <div class="kpi-label">💰 Chiffre d'Affaires</div>
-                <div class="kpi-value" id="kpiCA">--</div>
-                <div class="kpi-sub" id="kpiCAProgress">--</div>
+    <main class="dashboard">
+        <!-- PAGE 1: COCKPIT -->
+        <section id="page-cockpit" class="page active">
+            <h2 class="section-title">🎛️ Cockpit Opérationnel</h2>
+            <div class="kpi-grid" id="kpiGrid"></div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>⭐ Commercial Star du Mois</h3>
+                    <div id="starCommercial"></div>
+                </div>
+                <div class="card">
+                    <h3>📊 Répartition CA</h3>
+                    <div class="chart-box"><canvas id="caChart"></canvas></div>
+                </div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-label">🎯 Objectif CA</div>
-                <div class="kpi-value" id="kpiObjCA">880K DA</div>
-                <div class="kpi-sub warning" id="kpiTauxCA">0% atteint</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">📍 Visites Terrain</div>
-                <div class="kpi-value" id="kpiVisites">--</div>
-                <div class="kpi-sub" id="kpiVisitesInfo">--</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">🔍 Prospection</div>
-                <div class="kpi-value" id="kpiProsp">--</div>
-                <div class="kpi-sub" id="kpiProspProgress">Obj: 320</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">🗺️ Wilayas Actives</div>
-                <div class="kpi-value" id="kpiWilayas">--</div>
-                <div class="kpi-sub positive">Région Ouest</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">👥 Top Clients</div>
-                <div class="kpi-value" id="kpiClients">--</div>
-                <div class="kpi-sub" id="kpiClientsInfo">--</div>
-            </div>
-        </div>
-
-        <!-- Row 1: Carte + Top Clients + Top Produits -->
-        <div class="section-title">Stratégie Territoire & Grands Comptes</div>
-        <div class="grid-3">
             <div class="card">
-                <div class="card-title">🗺️ Carte Performance Wilayas</div>
-                <div id="mapContainer"></div>
-                <div class="map-legend">
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #3fb950;"></div> CA > 50K
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #d29922;"></div> CA 10K-50K
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #f85149;"></div> CA < 10K</div>
-                            <div class="legend-item">○ Taille = Visites</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">🏆 Top 5 Clients Stratégiques</div>
-                    <div class="top-list" id="topClients"></div>
-                </div>
-                <div class="card">
-                    <div class="card-title">📦 Top Produits</div>
-                    <div class="top-list" id="topProduits"></div>
-                </div>
-            </div>
-
-            <!-- Row 2: Jauge + Matrice Performance -->
-            <div class="section-title">Pilotage de l'Activité & Coaching</div>
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-title">📊 Matrice de Performance (Effort vs Résultat)</div>
-                    <div class="matrice-container">
-                        <canvas id="matriceChart"></canvas>
-                        <div class="zone-label" style="top: 10px; right: 10px; color: #3fb950;">Zone d'Excellence</div>
-                        <div class="zone-label" style="bottom: 10px; left: 10px; color: #f85149;">Zone de Danger</div>
-                        <div class="zone-label" style="bottom: 10px; right: 10px; color: #d29922;">Zone d'Effort</div>
-                        <div class="zone-label" style="top: 10px; left: 10px; color: #58a6ff;">Zone de Potentiel</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">🎯 Objectif Prospection Équipe</div>
-                    <div class="gauge-container">
-                        <svg class="gauge-svg" viewBox="0 0 200 100">
-                            <defs>
-                                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#f85149;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#d29922;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#3fb950;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M 20 90 A 80 80 0 0 1 180 90" fill="none" stroke="#30363d" stroke-width="12"
-                                stroke-linecap="round" />
-                            <path id="gaugeProgress" d="M 20 90 A 80 80 0 0 1 180 90" fill="none"
-                                stroke="url(#gaugeGradient)" stroke-width="12" stroke-linecap="round"
-                                stroke-dasharray="251.2" stroke-dashoffset="251.2" />
-                            <circle id="gaugeNeedle" cx="100" cy="90" r="6" fill="var(--text-primary)" />
-                        </svg>
-                        <div class="gauge-value" id="gaugeValue">0</div>
-                        <div class="gauge-label">sur <span id="gaugeTotal">320</span> visites objectif</div>
-                    </div>
-                    <div class="chart-container" style="height: 150px;">
-                        <canvas id="prospectionChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Row 3: Performance Charts -->
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-title">📈 CA Réalisé vs Objectif par Commercial</div>
-                    <div class="chart-container"><canvas id="performanceChart"></canvas></div>
-                </div>
-                <div class="card">
-                    <div class="card-title">🥧 Répartition CA par Commercial</div>
-                    <div class="chart-container"><canvas id="caChart"></canvas></div>
-                </div>
-            </div>
-
-            <!-- Tableau équipe -->
-            <div class="card" style="margin-top: 1.5rem;">
-                <div class="card-title">👥 Tableau de Bord Équipe Commerciale</div>
-                <div class="table-container">
+                <h3>👥 Équipe - Feux Tricolores</h3>
+                <div class="table-wrap">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -675,505 +64,73 @@
                                 <th>Visites</th>
                                 <th>Prosp.</th>
                                 <th>CA Réalisé</th>
-                                <th>% Obj CA</th>
-                                <th>% Obj Prosp</th>
+                                <th>% CA</th>
+                                <th>% Prosp</th>
                                 <th>Statut</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="teamTableBody"></tbody>
+                        <tbody id="teamTable"></tbody>
                     </table>
                 </div>
             </div>
-        </div>
-
-        <footer class="footer">
-            Dashboard B2B Mobilis - Outil d'Aide à la Décision | Manager Ouest: Brahim BOUDRAA | © 2026
-        </footer>
-
-        <script>
-            // ============================================
-            // COORDONNÉES WILAYAS
-            // ============================================
-            const WILAYAS_COORDS = {
-                'ORAN': { lat: 35.6969, lng: -0.6331 },
-                'TLEMCEN': { lat: 34.8828, lng: -1.3167 },
-                'AIN TEMOUCHENT': { lat: 35.2974, lng: -1.1400 },
-                'SIDI BEL ABBES': { lat: 35.1904, lng: -0.6306 },
-                'MOSTAGANEM': { lat: 35.9311, lng: 0.0892 },
-                'MASCARA': { lat: 35.4000, lng: 0.1403 },
-                'RELIZANE': { lat: 35.7372, lng: 0.5567 },
-                'TIARET': { lat: 35.3711, lng: 1.3172 },
-                'SAIDA': { lat: 34.8303, lng: 0.1517 },
-                'ADRAR': { lat: 27.8742, lng: -0.2939 },
-                'DJELFA': { lat: 34.6704, lng: 3.2503 },
-                'MEDEA': { lat: 36.2675, lng: 2.7500 },
-                'CHLEF': { lat: 36.1647, lng: 1.3317 },
-                'BLIDA': { lat: 36.4700, lng: 2.8300 }
-            };
-
-            // ============================================
-            // DONNÉES - MISES À JOUR RÉGULIÈRES
-            // ============================================
-            const DATA_PAR_MOIS = {
-                '01': {
-                    summary: { totalCA: 312960, totalVisites: 168, totalProspection: 73, totalWilayas: 12 },
-                    commerciaux: [
-                        { nom: "HICHEM KHOUDRIA", wilaya: "MEDEA", visites: 26, prospection: 20, ca: 95000, objectifCA: 110000, objectifProsp: 40, initiales: "HK" },
-                        { nom: "SABRINA BARKAT", wilaya: "AIN TEMOUCHENT", visites: 39, prospection: 6, ca: 94500, objectifCA: 110000, objectifProsp: 40, initiales: "SB" },
-                        { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 14, prospection: 1, ca: 59460, objectifCA: 110000, objectifProsp: 40, initiales: "HA" },
-                        { nom: "NADJAT AISSOU", wilaya: "MOSTAGANEM", visites: 16, prospection: 5, ca: 37000, objectifCA: 110000, objectifProsp: 40, initiales: "NA" },
-                        { nom: "BELBALI SLYMAN", wilaya: "ADRAR", visites: 3, prospection: 1, ca: 11500, objectifCA: 110000, objectifProsp: 40, initiales: "BS" },
-                        { nom: "YASMINA TAIBI", wilaya: "SIDI BEL ABBES", visites: 23, prospection: 15, ca: 9000, objectifCA: 110000, objectifProsp: 40, initiales: "YT" },
-                        { nom: "BEKKAL-BRIKCI", wilaya: "TLEMCEN", visites: 29, prospection: 24, ca: 6500, objectifCA: 110000, objectifProsp: 40, initiales: "BB" },
-                        { nom: "AISSA DAHMOUNE", wilaya: "DJELFA", visites: 17, prospection: 1, ca: 0, objectifCA: 110000, objectifProsp: 40, initiales: "AD" }
-                    ],
-                    // Wilayas avec CA réel (pas seulement assignées)
-                    wilayas: [
-                        { nom: "AIN TEMOUCHENT", visites: 39, ca: 94500 },
-                        { nom: "TIARET", visites: 4, ca: 80000 },
-                        { nom: "ORAN", visites: 15, ca: 59460 },
-                        { nom: "MOSTAGANEM", visites: 16, ca: 37000 },
-                        { nom: "ADRAR", visites: 3, ca: 11500 },
-                        { nom: "SIDI BEL ABBES", visites: 21, ca: 9000 },
-                        { nom: "DJELFA", visites: 19, ca: 8000 },
-                        { nom: "MEDEA", visites: 20, ca: 7000 },
-                        { nom: "TLEMCEN", visites: 28, ca: 6500 },
-                        { nom: "BLIDA", visites: 1, ca: 0 },
-                        { nom: "MASCARA", visites: 1, ca: 0 },
-                        { nom: "SAIDA", visites: 1, ca: 0 }
-                    ],
-                    // Top Clients
-                    topClients: [
-                        { nom: "EPIC TIARET NADHAFA", ca: 80000, wilaya: "TIARET" },
-                        { nom: "EURL CODIPROV ORAN", ca: 42000, wilaya: "AIN TEMOUCHENT" },
-                        { nom: "SARL LILAUZ", ca: 28000, wilaya: "AIN TEMOUCHENT" },
-                        { nom: "SPA SONATRACH LQS", ca: 15000, wilaya: "ORAN" },
-                        { nom: "EURL MIMOZA LUMIERE", ca: 15000, wilaya: "MOSTAGANEM" }
-                    ],
-                    // Top Produits
-                    topProduits: [
-                        { nom: "SIM VOIX MVPN", quantite: 45, ca: 150000 },
-                        { nom: "Pack Be Pro", quantite: 32, ca: 85000 },
-                        { nom: "MoobiCorp", quantite: 18, ca: 45000 },
-                        { nom: "Data Pro SIM", quantite: 12, ca: 25000 },
-                        { nom: "Terminal Corporate", quantite: 5, ca: 7960 }
-                    ]
-                },
-                '02': {
-                    summary: { totalCA: 5480, totalVisites: 1, totalProspection: 0, totalWilayas: 1 },
-                    commerciaux: [
-                        { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 1, prospection: 0, ca: 5480, objectifCA: 110000, objectifProsp: 40, initiales: "HA" }
-                    ],
-                    wilayas: [
-                        { nom: "ORAN", visites: 1, ca: 5480 }
-                    ],
-                    topClients: [
-                        { nom: "SPA SNTF", ca: 5480, wilaya: "ORAN" }
-                    ],
-                    topProduits: [
-                        { nom: "SIM VOIX MVPN", quantite: 10, ca: 5480 }
-                    ]
-                },
-                '03': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '04': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '05': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '06': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '07': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '08': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '09': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '10': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '11': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] },
-                '12': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [], topClients: [], topProduits: [] }
-            };
-
-            let map, markersLayer, matriceChart, prospChart, perfChart, caChart;
-
-            function formatDA(num) { return new Intl.NumberFormat('fr-DZ').format(num) + ' DA'; }
-            function formatK(num) { return num >= 1000 ? (num / 1000).toFixed(0) + 'K' : num; }
-
-            function getCurrentData() {
-                const mois = document.getElementById('monthSelect').value;
-                if (mois === 'all') {
-                    let totalCA = 0, totalVisites = 0, totalProspection = 0;
-                    const commerciauxMap = {}, wilayasMap = {}, clientsMap = {}, produitsMap = {};
-                    Object.values(DATA_PAR_MOIS).forEach(d => {
-                        totalCA += d.summary.totalCA;
-                        totalVisites += d.summary.totalVisites;
-                        totalProspection += d.summary.totalProspection || 0;
-                        d.commerciaux?.forEach(c => {
-                            if (!commerciauxMap[c.nom]) commerciauxMap[c.nom] = { ...c, visites: 0, prospection: 0, ca: 0 };
-                            commerciauxMap[c.nom].visites += c.visites;
-                            commerciauxMap[c.nom].prospection += c.prospection || 0;
-                            commerciauxMap[c.nom].ca += c.ca;
-                        });
-                        d.wilayas?.forEach(w => {
-                            if (!wilayasMap[w.nom]) wilayasMap[w.nom] = { ...w, visites: 0, ca: 0 };
-                            wilayasMap[w.nom].visites += w.visites;
-                            wilayasMap[w.nom].ca += w.ca;
-                        });
-                        d.topClients?.forEach(c => {
-                            if (!clientsMap[c.nom]) clientsMap[c.nom] = { ...c, ca: 0 };
-                            clientsMap[c.nom].ca += c.ca;
-                        });
-                        d.topProduits?.forEach(p => {
-                            if (!produitsMap[p.nom]) produitsMap[p.nom] = { ...p, quantite: 0, ca: 0 };
-                            produitsMap[p.nom].quantite += p.quantite;
-                            produitsMap[p.nom].ca += p.ca;
-                        });
-                    });
-                    return {
-                        summary: { totalCA, totalVisites, totalProspection, totalWilayas: Object.keys(wilayasMap).length },
-                        commerciaux: Object.values(commerciauxMap).sort((a, b) => b.ca - a.ca),
-                        wilayas: Object.values(wilayasMap).sort((a, b) => b.ca - a.ca),
-                        topClients: Object.values(clientsMap).sort((a, b) => b.ca - a.ca).slice(0, 5),
-                        topProduits: Object.values(produitsMap).sort((a, b) => b.ca - a.ca).slice(0, 5)
-                    };
-                }
-                return DATA_PAR_MOIS[mois] || DATA_PAR_MOIS['01'];
-            }
-
-            // ============================================
-            // CARTE
-            // ============================================
-            function initMap() {
-                map = L.map('mapContainer', { center: [34.5, 0], zoom: 5.5, scrollWheelZoom: false });
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                    attribution: '© OpenStreetMap © CARTO', maxZoom: 18
-                }).addTo(map);
-                markersLayer = L.layerGroup().addTo(map);
-            }
-
-            function updateMap(data) {
-                if (!map) return;
-                markersLayer.clearLayers();
-                if (!data.wilayas || data.wilayas.length === 0) return;
-
-                const maxVisites = Math.max(...data.wilayas.map(w => w.visites), 1);
-
-                data.wilayas.forEach(w => {
-                    const coords = WILAYAS_COORDS[w.nom];
-                    if (!coords) return;
-
-                    // Taille: 6 à 18 pixels
-                    const radius = 6 + (w.visites / maxVisites) * 12;
-                    // Couleur par CA
-                    const color = w.ca >= 50000 ? '#3fb950' : w.ca >= 10000 ? '#d29922' : '#f85149';
-
-                    const circle = L.circleMarker([coords.lat, coords.lng], {
-                        radius: radius, fillColor: color, color: '#fff',
-                        weight: 1.5, opacity: 0.9, fillOpacity: 0.7
-                    });
-
-                    circle.bindPopup(`
-                    <div style="min-width: 150px;">
-                        <div class="popup-title">${w.nom}</div>
-                        <div class="popup-row"><span>CA:</span> <strong>${formatDA(w.ca)}</strong></div>
-                        <div class="popup-row"><span>Visites:</span> <strong>${w.visites}</strong></div>
-                    </div>
-                `);
-                    circle.bindTooltip(w.nom, { permanent: false, direction: 'top' });
-                    markersLayer.addLayer(circle);
-                });
-            }
-
-            // ============================================
-            // JAUGE
-            // ============================================
-            function updateGauge(data) {
-                const nbComm = data.commerciaux.length || 8;
-                const objectif = nbComm * 40;
-                const realise = data.summary.totalProspection || 0;
-                const pct = Math.min(100, (realise / objectif) * 100);
-
-                document.getElementById('gaugeValue').textContent = realise;
-                document.getElementById('gaugeTotal').textContent = objectif;
-
-                const arc = document.getElementById('gaugeProgress');
-                const totalLength = 251.2;
-                arc.style.strokeDashoffset = totalLength - (pct / 100) * totalLength;
-            }
-
-            // ============================================
-            // MATRICE PERFORMANCE
-            // ============================================
-            function createMatriceChart(data) {
-                const ctx = document.getElementById('matriceChart');
-                if (matriceChart) matriceChart.destroy();
-
-                if (!data.commerciaux || data.commerciaux.length === 0) return;
-
-                const points = data.commerciaux.map(c => ({
-                    x: c.visites,
-                    y: c.ca / 1000,
-                    label: c.nom.split(' ').pop()
-                }));
-
-                const colors = points.map(p => {
-                    if (p.y >= 50 && p.x >= 20) return '#3fb950';  // Excellence
-                    if (p.y >= 50 && p.x < 20) return '#58a6ff';   // Potentiel
-                    if (p.y < 50 && p.x >= 20) return '#d29922';   // Effort
-                    return '#f85149';  // Danger
-                });
-
-                matriceChart = new Chart(ctx, {
-                    type: 'bubble',
-                    data: {
-                        datasets: [{
-                            data: points.map((p, i) => ({ x: p.x, y: p.y, r: 12 })),
-                            backgroundColor: colors.map(c => c + 'cc'),
-                            borderColor: colors,
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `${points[ctx.dataIndex].label}: ${points[ctx.dataIndex].y.toFixed(0)}K DA, ${points[ctx.dataIndex].x} visites`
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                title: { display: true, text: 'Nombre de Visites', color: '#8b949e' },
-                                grid: { color: '#30363d' }, ticks: { color: '#8b949e' },
-                                min: 0, max: Math.max(50, ...points.map(p => p.x)) + 10
-                            },
-                            y: {
-                                title: { display: true, text: 'CA (K DA)', color: '#8b949e' },
-                                grid: { color: '#30363d' }, ticks: { color: '#8b949e' },
-                                min: 0, max: Math.max(120, ...points.map(p => p.y)) + 20
-                            }
-                        }
-                    },
-                    plugins: [{
-                        afterDraw: (chart) => {
-                            const ctx = chart.ctx;
-                            chart.data.datasets[0].data.forEach((point, i) => {
-                                const meta = chart.getDatasetMeta(0);
-                                const x = meta.data[i].x;
-                                const y = meta.data[i].y;
-                                ctx.fillStyle = '#f0f6fc';
-                                ctx.font = '10px Inter';
-                                ctx.textAlign = 'center';
-                                ctx.fillText(points[i].label, x, y + 4);
-                            });
-                        }
-                    }]
-                });
-            }
-
-            // ============================================
-            // TOP CLIENTS & PRODUITS
-            // ============================================
-            function updateTopClients(data) {
-                const container = document.getElementById('topClients');
-                if (!data.topClients || data.topClients.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">Pas de données</div>';
-                    return;
-                }
-                const maxCA = data.topClients[0]?.ca || 1;
-                container.innerHTML = data.topClients.map((c, i) => `
-                <div class="top-item">
-                    <div class="top-rank ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'other'}">${i + 1}</div>
-                    <div class="top-info">
-                        <div class="top-name">${c.nom}</div>
-                        <div class="top-detail">📍 ${c.wilaya}</div>
-                        <div class="top-bar"><div class="top-bar-fill" style="width: ${(c.ca / maxCA) * 100}%;"></div></div>
-                    </div>
-                    <div class="top-value">${formatDA(c.ca)}</div>
+        </section>
+        <!-- PAGE 2: TERRITOIRE -->
+        <section id="page-territoire" class="page">
+            <h2 class="section-title">🗺️ Stratégie Territoire & Grands Comptes</h2>
+            <div class="grid-3">
+                <div class="card card-2">
+                    <h3>Carte Performance</h3>
+                    <div id="mapBox"></div>
                 </div>
-            `).join('');
-            }
-
-            function updateTopProduits(data) {
-                const container = document.getElementById('topProduits');
-                if (!data.topProduits || data.topProduits.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">Pas de données</div>';
-                    return;
-                }
-                const maxCA = data.topProduits[0]?.ca || 1;
-                container.innerHTML = data.topProduits.map((p, i) => `
-                <div class="top-item">
-                    <div class="top-rank ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'other'}">${i + 1}</div>
-                    <div class="top-info">
-                        <div class="top-name">${p.nom}</div>
-                        <div class="top-detail">📦 ${p.quantite} unités</div>
-                        <div class="top-bar"><div class="top-bar-fill" style="width: ${(p.ca / maxCA) * 100}%; background: #3fb950;"></div></div>
-                    </div>
-                    <div class="top-value">${formatDA(p.ca)}</div>
+                <div class="card">
+                    <h3>🏆 Top 5 Clients</h3>
+                    <div id="topClients"></div>
                 </div>
-            `).join('');
-            }
-
-            // ============================================
-            // AUTRES GRAPHIQUES
-            // ============================================
-            function createProspectionChart(data) {
-                const ctx = document.getElementById('prospectionChart');
-                if (prospChart) prospChart.destroy();
-                if (!data.commerciaux || data.commerciaux.length === 0) return;
-
-                prospChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: data.commerciaux.map(c => c.nom.split(' ').pop()),
-                        datasets: [
-                            { label: 'Visites', data: data.commerciaux.map(c => c.visites), backgroundColor: '#58a6ff' },
-                            { label: 'Prospection', data: data.commerciaux.map(c => c.prospection), backgroundColor: '#3fb950' }
-                        ]
-                    },
-                    options: {
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { labels: { color: '#8b949e', boxWidth: 12 } } },
-                        scales: {
-                            x: { grid: { display: false }, ticks: { color: '#8b949e', font: { size: 9 } } },
-                            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
-                        }
-                    }
-                });
-            }
-
-            function createPerformanceChart(data) {
-                const ctx = document.getElementById('performanceChart');
-                if (perfChart) perfChart.destroy();
-                if (!data.commerciaux || data.commerciaux.length === 0) return;
-
-                perfChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: data.commerciaux.map(c => c.nom.split(' ').pop()),
-                        datasets: [
-                            { label: 'CA Réalisé', data: data.commerciaux.map(c => c.ca), backgroundColor: '#58a6ff', borderRadius: 4 },
-                            { label: 'Objectif', data: data.commerciaux.map(c => c.objectifCA), backgroundColor: '#30363d', borderRadius: 4 }
-                        ]
-                    },
-                    options: {
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { labels: { color: '#8b949e' } } },
-                        scales: {
-                            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
-                            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e', callback: v => formatK(v) } }
-                        }
-                    }
-                });
-            }
-
-            function createCAChart(data) {
-                const ctx = document.getElementById('caChart');
-                if (caChart) caChart.destroy();
-                const filtered = data.commerciaux?.filter(c => c.ca > 0) || [];
-                if (filtered.length === 0) return;
-
-                caChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: filtered.map(c => c.nom.split(' ').pop()),
-                        datasets: [{
-                            data: filtered.map(c => c.ca),
-                            backgroundColor: ['#58a6ff', '#3fb950', '#d29922', '#f85149', '#a371f7', '#79c0ff', '#ff7b72'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { position: 'right', labels: { color: '#8b949e', padding: 10, usePointStyle: true } } },
-                        cutout: '60%'
-                    }
-                });
-            }
-
-            // ============================================
-            // KPIs & TABLE
-            // ============================================
-            function updateKPIs(data) {
-                const nbComm = data.commerciaux?.length || 8;
-                const objCA = nbComm * 110000;
-                const objProsp = nbComm * 40;
-                const tauxCA = objCA > 0 ? Math.round((data.summary.totalCA / objCA) * 100) : 0;
-                const tauxProsp = objProsp > 0 ? Math.round((data.summary.totalProspection / objProsp) * 100) : 0;
-
-                document.getElementById('kpiCA').textContent = formatK(data.summary.totalCA) + ' DA';
-                document.getElementById('kpiObjCA').textContent = formatK(objCA) + ' DA';
-                document.getElementById('kpiTauxCA').textContent = tauxCA + '% atteint';
-                document.getElementById('kpiTauxCA').className = 'kpi-sub ' + (tauxCA >= 80 ? 'positive' : tauxCA >= 50 ? 'warning' : 'danger');
-
-                document.getElementById('kpiVisites').textContent = data.summary.totalVisites;
-                document.getElementById('kpiVisitesInfo').textContent = nbComm + ' commerciaux';
-
-                document.getElementById('kpiProsp').textContent = data.summary.totalProspection || 0;
-                document.getElementById('kpiProspProgress').textContent = tauxProsp + '% de ' + objProsp;
-                document.getElementById('kpiProspProgress').className = 'kpi-sub ' + (tauxProsp >= 80 ? 'positive' : tauxProsp >= 50 ? 'warning' : 'danger');
-
-                document.getElementById('kpiWilayas').textContent = data.summary.totalWilayas;
-                document.getElementById('kpiClients').textContent = data.topClients?.length || 0;
-                document.getElementById('kpiClientsInfo').textContent = 'Clients actifs';
-            }
-
-            function createTeamTable(data) {
-                const tbody = document.getElementById('teamTableBody');
-                if (!data.commerciaux || data.commerciaux.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 2rem; color: var(--text-secondary);">Pas de données</td></tr>';
-                    return;
-                }
-
-                tbody.innerHTML = data.commerciaux.map(c => {
-                    const pctCA = Math.round((c.ca / c.objectifCA) * 100);
-                    const pctProsp = Math.round((c.prospection / c.objectifProsp) * 100);
-                    const colorCA = pctCA >= 80 ? '#3fb950' : pctCA >= 50 ? '#d29922' : '#f85149';
-                    const colorProsp = pctProsp >= 80 ? '#3fb950' : pctProsp >= 50 ? '#d29922' : '#f85149';
-                    const status = pctCA >= 70 ? 'success' : pctCA >= 40 ? 'warning' : 'danger';
-                    const statusText = pctCA >= 70 ? 'En voie' : pctCA >= 40 ? 'Attention' : 'Critique';
-                    const action = pctCA < 40 ? 'Coaching urgent' : pctCA < 70 ? 'Suivi hebdo' : 'Maintenir';
-
-                    return `
-                    <tr>
-                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><div class="avatar-sm">${c.initiales}</div>${c.nom}</div></td>
-                        <td>${c.wilaya}</td>
-                        <td><strong>${c.visites}</strong></td>
-                        <td>${c.prospection}</td>
-                        <td><strong>${formatDA(c.ca)}</strong></td>
-                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><div class="progress-mini"><div class="progress-mini-fill" style="width: ${Math.min(100, pctCA)}%; background: ${colorCA};"></div></div><span style="font-size: 0.7rem;">${pctCA}%</span></div></td>
-                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><div class="progress-mini"><div class="progress-mini-fill" style="width: ${Math.min(100, pctProsp)}%; background: ${colorProsp};"></div></div><span style="font-size: 0.7rem;">${pctProsp}%</span></div></td>
-                        <td><span class="badge badge-${status}">${statusText}</span></td>
-                        <td style="font-size: 0.7rem; color: var(--text-secondary);">${action}</td>
-                    </tr>
-                `;
-                }).join('');
-            }
-
-            // ============================================
-            // MAIN
-            // ============================================
-            function updateDashboard() {
-                const data = getCurrentData();
-                updateKPIs(data);
-                updateMap(data);
-                updateGauge(data);
-                createMatriceChart(data);
-                createProspectionChart(data);
-                createPerformanceChart(data);
-                createCAChart(data);
-                updateTopClients(data);
-                updateTopProduits(data);
-                createTeamTable(data);
-            }
-
-            function logout() {
-                sessionStorage.removeItem('dashboard_auth');
-                sessionStorage.removeItem('dashboard_user');
-                window.location.href = 'index.html';
-            }
-
-            document.addEventListener('DOMContentLoaded', () => {
-                document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-                initMap();
-                updateDashboard();
-            });
-        </script>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>📦 Top Produits</h3>
+                    <div id="topProduits"></div>
+                </div>
+                <div class="card">
+                    <h3>CA par Wilaya</h3>
+                    <div class="chart-box"><canvas id="wilayaChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+        <!-- PAGE 3: COACHING -->
+        <section id="page-coaching" class="page">
+            <h2 class="section-title">📊 Matrice de Coaching</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Matrice Effort vs Résultat</h3>
+                    <div class="chart-box"><canvas id="matriceChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>🎯 Jauge Prospection</h3>
+                    <div id="gaugeBox"></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>📋 Actions Coaching</h3>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Commercial</th>
+                                <th>Zone</th>
+                                <th>CA</th>
+                                <th>Visites</th>
+                                <th>Action Recommandée</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coachingTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="dashboard.js"></script>
 </body>
 
 </html>
