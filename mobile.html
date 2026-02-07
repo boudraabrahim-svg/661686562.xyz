@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard B2B Mobilis - Mobile</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --card: #1c2128;
+            --border: #30363d;
+            --text: #f0f6fc;
+            --text2: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --orange: #d29922;
+            --red: #f85149
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 1rem
+        }
+
+        .header {
+            background: var(--bg2);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            text-align: center
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            margin-bottom: .5rem
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--green));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700
+        }
+
+        .logo h1 {
+            font-size: 1.1rem
+        }
+
+        .period {
+            font-size: .8rem;
+            color: var(--text2)
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1rem
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr 1fr
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid var(--border)
+        }
+
+        .card h3 {
+            font-size: .75rem;
+            color: var(--text2);
+            margin-bottom: .5rem;
+            text-transform: uppercase
+        }
+
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: 700
+        }
+
+        .kpi-sub {
+            font-size: .7rem;
+            margin-top: .25rem
+        }
+
+        .green {
+            color: var(--green)
+        }
+
+        .orange {
+            color: var(--orange)
+        }
+
+        .red {
+            color: var(--red)
+        }
+
+        .status {
+            display: inline-block;
+            padding: .15rem .5rem;
+            border-radius: 20px;
+            font-size: .65rem;
+            font-weight: 600
+        }
+
+        .status.green {
+            background: rgba(63, 185, 80, .15)
+        }
+
+        .status.orange {
+            background: rgba(210, 153, 34, .15)
+        }
+
+        .status.red {
+            background: rgba(248, 81, 73, .15)
+        }
+
+        .star-box {
+            display: flex;
+            align-items: center;
+            gap: .75rem
+        }
+
+        .star-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, gold, orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: 2px solid gold
+        }
+
+        .star-name {
+            font-size: .9rem;
+            font-weight: 600
+        }
+
+        .star-stats {
+            font-size: .7rem;
+            color: var(--text2)
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .7rem
+        }
+
+        th {
+            text-align: left;
+            padding: .5rem;
+            color: var(--text2);
+            border-bottom: 1px solid var(--border);
+            font-size: .65rem
+        }
+
+        td {
+            padding: .5rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--bg);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: .25rem
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: .7rem;
+            color: var(--text2)
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        .btn-logout {
+            background: rgba(248, 81, 73, .15);
+            color: var(--red);
+            border: none;
+            padding: .5rem 1rem;
+            border-radius: 6px;
+            font-size: .7rem;
+            cursor: pointer
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            <h1>PILOTAGE B2B</h1>
+        </div>
+        <div class="period">📅 Janvier 2026 - Région Ouest</div>
+        <button class="btn-logout" onclick="sessionStorage.clear();location.href='index.html'">Déconnexion</button>
+    </header>
+
+    <div class="grid grid-2">
+        <div class="card">
+            <h3>💰 CA Total</h3>
+            <div class="kpi-value">312 960 DA</div>
+            <div class="kpi-sub"><span class="status red">35.6% obj</span></div>
+        </div>
+        <div class="card">
+            <h3>🔍 Prospection</h3>
+            <div class="kpi-value">73 / 320</div>
+            <div class="kpi-sub"><span class="status red">22.8% obj</span></div>
+        </div>
+        <div class="card">
+            <h3>📍 Visites</h3>
+            <div class="kpi-value">168</div>
+            <div class="kpi-sub">9 wilayas couvertes</div>
+        </div>
+        <div class="card">
+            <h3>📊 CA/Visite</h3>
+            <div class="kpi-value">1 863 DA</div>
+            <div class="kpi-sub">Productivité</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem">
+        <h3>⭐ Star du Mois</h3>
+        <div class="star-box">
+            <div class="star-avatar">HK</div>
+            <div>
+                <div class="star-name">KHOUDRIA Hichem</div>
+                <div class="star-stats">MEDEA • 26 visites • 20 prospects</div>
+                <div style="margin-top:.25rem">
+                    <span class="status green">CA: 86%</span>
+                    <span class="status green">Prosp: 50%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>👥 Équipe - Système Feux Tricolores</h3>
+        <div style="overflow-x:auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Commercial</th>
+                        <th>Wilaya</th>
+                        <th>CA</th>
+                        <th>%</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>KHOUDRIA H.</strong></td>
+                        <td>MEDEA</td>
+                        <td>95K</td>
+                        <td>86%</td>
+                        <td><span class="status green">🟢</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>BARKAT S.</strong></td>
+                        <td>AIN TEM.</td>
+                        <td>94.5K</td>
+                        <td>86%</td>
+                        <td><span class="status green">🟢</span></td>
+                    </tr>
+                    <tr>
+                        <td>HANKOUR A.</td>
+                        <td>ORAN</td>
+                        <td>59.5K</td>
+                        <td>54%</td>
+                        <td><span class="status orange">🟠</span></td>
+                    </tr>
+                    <tr>
+                        <td>AISSOU N.</td>
+                        <td>MOSTA.</td>
+                        <td>37K</td>
+                        <td>34%</td>
+                        <td><span class="status red">🔴</span></td>
+                    </tr>
+                    <tr>
+                        <td>BELBALI S.</td>
+                        <td>ADRAR</td>
+                        <td>11.5K</td>
+                        <td>10%</td>
+                        <td><span class="status red">🔴</span></td>
+                    </tr>
+                    <tr>
+                        <td>TAIBI Y.</td>
+                        <td>S.B.A.</td>
+                        <td>9K</td>
+                        <td>8%</td>
+                        <td><span class="status red">🔴</span></td>
+                    </tr>
+                    <tr>
+                        <td>BRIKCI</td>
+                        <td>TLEMCEN</td>
+                        <td>6.5K</td>
+                        <td>6%</td>
+                        <td><span class="status red">🔴</span></td>
+                    </tr>
+                    <tr>
+                        <td>DAHMOUNE A.</td>
+                        <td>DJELFA</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td><span class="status red">🔴</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+        <h3>🏆 Top 5 Wilayas</h3>
+        <div style="margin-top:.5rem">
+            <div style="margin-bottom:.5rem"><strong>1. AIN TEMOUCHENT</strong> - 94 500 DA<div class="bar">
+                    <div class="bar-fill" style="width:100%;background:var(--green)"></div>
+                </div>
+            </div>
+            <div style="margin-bottom:.5rem"><strong>2. TIARET</strong> - 80 000 DA<div class="bar">
+                    <div class="bar-fill" style="width:85%;background:var(--green)"></div>
+                </div>
+            </div>
+            <div style="margin-bottom:.5rem"><strong>3. ORAN</strong> - 59 460 DA<div class="bar">
+                    <div class="bar-fill" style="width:63%;background:var(--accent)"></div>
+                </div>
+            </div>
+            <div style="margin-bottom:.5rem"><strong>4. MOSTAGANEM</strong> - 37 000 DA<div class="bar">
+                    <div class="bar-fill" style="width:39%;background:var(--orange)"></div>
+                </div>
+            </div>
+            <div><strong>5. ADRAR</strong> - 11 500 DA<div class="bar">
+                    <div class="bar-fill" style="width:12%;background:var(--red)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>📊 Dashboard B2B Mobilis v2.1 | Février 2026</div>
+        <div>📞 <a href="tel:0661686562">0661686562</a> • 📧 <a
+                href="mailto:Brahim.BOUDRAA@mobilis.dz">Brahim.BOUDRAA@mobilis.dz</a></div>
+        <div>© 2026 Mobilis B2B - Manager Région Ouest</div>
+    </footer>
+
+    <script>
+        // Version mobile légère - pas d'authentification stricte pour éviter les problèmes
+        // Si vous voulez forcer l'auth, décommentez la ligne suivante:
+        // if(sessionStorage.getItem('dashboard_auth')!=='true')location.href='index.html';
+    </script>
+</body>
+
+</html>

@@ -354,7 +354,8 @@
 
         .gauge-label {
             font-size: .65rem;
-            color: var(--text2)
+            color: var(--text2);
+            text-align: center
         }
 
         .star-mini {
@@ -626,7 +627,7 @@
             </div>
             <div class="filter-dropdown">
                 <button class="filter-btn" onclick="toggleFilter('commMenu')">👤 Commerciaux ▼</button>
-                <div id="commMenu" class="filter-menu" id="commMenuList"></div>
+                <div id="commMenu" class="filter-menu"></div>
             </div>
             <div class="filter-dropdown">
                 <button class="filter-btn" onclick="toggleFilter('wilMenu')">🗺️ Wilayas ▼</button>
@@ -643,9 +644,7 @@
         <!-- PAGE 1: COCKPIT -->
         <section id="page-cockpit" class="page active">
             <h2 class="section-title">🎛️ Cockpit Opérationnel - Feux Tricolores</h2>
-            <!-- KPIs -->
             <div class="grid-4" id="kpiGrid"></div>
-            <!-- Jauges + Star -->
             <div class="grid-4">
                 <div class="card">
                     <h3>🎯 Jauge CA</h3>
@@ -664,27 +663,26 @@
                     <div class="chart-box"><canvas id="caChart"></canvas></div>
                 </div>
             </div>
-            <!-- Tableau équipe -->
             <div class="card">
-                <h3>👥 Tableau Équipe - Système Feux Tricolores (🟢≥85% | 🟠70-84% | 🔴<70%)< /h3>
-                        <div class="table-wrap">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Commercial</th>
-                                        <th>Wilaya</th>
-                                        <th>Visites</th>
-                                        <th>Prosp.</th>
-                                        <th>CA</th>
-                                        <th>% CA</th>
-                                        <th>% Prosp</th>
-                                        <th>Statut</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="teamTable"></tbody>
-                            </table>
-                        </div>
+                <h3>👥 Tableau Équipe - Système Feux Tricolores (🟢≥85% | 🟠70-84% | 🔴&lt;70%)</h3>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Commercial</th>
+                                <th>Wilaya</th>
+                                <th>Visites</th>
+                                <th>Prosp.</th>
+                                <th>CA</th>
+                                <th>% CA</th>
+                                <th>% Prosp</th>
+                                <th>Statut</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teamTable"></tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
