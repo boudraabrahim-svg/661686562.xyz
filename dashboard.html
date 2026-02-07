@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard B2B Mobilis - Région Ouest</title>
+    <script>
+        if (sessionStorage.getItem('dashboard_auth') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .logo-text span {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .month-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .month-selector label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .month-selector select {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .month-selector select option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .header-info {
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .header-info .date {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            padding: 0.5rem 1rem;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .kpi-title {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .kpi-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .kpi-change.positive {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+
+        .kpi-change.neutral {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .team-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .team-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .team-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .team-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .team-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .commercial-name {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-ok {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+
+        .status-attention {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .status-critical {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .map-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .map-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .wilaya-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .wilaya-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .wilaya-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .wilaya-name {
+            font-weight: 500;
+        }
+
+        .wilaya-stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .wilaya-stats span {
+            color: var(--text-secondary);
+        }
+
+        .wilaya-stats strong {
+            color: var(--text-primary);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .kpi-value {
+                font-size: 1.75rem;
+            }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .no-data-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            <div class="logo-text">
+                <h1>Mobilis B2B</h1>
+                <span>Dashboard Commercial - Région Ouest</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="month-selector">
+                <label>📅 Période :</label>
+                <select id="monthSelect" onchange="updateDashboard()">
+                    <option value="all">Toute l'année 2026</option>
+                    <option value="01" selected>Janvier 2026</option>
+                    <option value="02">Février 2026</option>
+                    <option value="03">Mars 2026</option>
+                    <option value="04">Avril 2026</option>
+                    <option value="05">Mai 2026</option>
+                    <option value="06">Juin 2026</option>
+                    <option value="07">Juillet 2026</option>
+                    <option value="08">Août 2026</option>
+                    <option value="09">Septembre 2026</option>
+                    <option value="10">Octobre 2026</option>
+                    <option value="11">Novembre 2026</option>
+                    <option value="12">Décembre 2026</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="header-info">
+            <div>Manager: <strong>Brahim BOUDRAA</strong></div>
+            <div class="date" id="currentDate"></div>
+            <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="kpi-grid">
+            <div class="kpi-card animate-in">
+                <div class="kpi-header">
+                    <span class="kpi-title">Chiffre d'Affaires</span>
+                    <div class="kpi-icon" style="background: rgba(34, 197, 94, 0.15);">💰</div>
+                </div>
+                <div class="kpi-value" id="totalCA">--</div>
+                <span class="kpi-change positive" id="caPeriod">Janvier 2026</span>
+            </div>
+            <div class="kpi-card animate-in">
+                <div class="kpi-header">
+                    <span class="kpi-title">Visites Terrain</span>
+                    <div class="kpi-icon" style="background: rgba(99, 102, 241, 0.15);">📍</div>
+                </div>
+                <div class="kpi-value" id="totalVisites">--</div>
+                <span class="kpi-change neutral" id="visitesInfo">8 commerciaux</span>
+            </div>
+            <div class="kpi-card animate-in">
+                <div class="kpi-header">
+                    <span class="kpi-title">Wilayas Couvertes</span>
+                    <div class="kpi-icon" style="background: rgba(245, 158, 11, 0.15);">🗺️</div>
+                </div>
+                <div class="kpi-value" id="totalWilayas">--</div>
+                <span class="kpi-change positive">Région Ouest</span>
+            </div>
+            <div class="kpi-card animate-in">
+                <div class="kpi-header">
+                    <span class="kpi-title">CA / Visite</span>
+                    <div class="kpi-icon" style="background: rgba(139, 92, 246, 0.15);">📊</div>
+                </div>
+                <div class="kpi-value" id="caParVisite">--</div>
+                <span class="kpi-change neutral">Productivité</span>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card animate-in">
+                <h3 class="chart-title">📈 Performance par Commercial</h3>
+                <div class="chart-container"><canvas id="performanceChart"></canvas></div>
+            </div>
+            <div class="chart-card animate-in">
+                <h3 class="chart-title">🥧 Répartition du CA</h3>
+                <div class="chart-container"><canvas id="caChart"></canvas></div>
+            </div>
+        </div>
+
+        <div class="team-section animate-in">
+            <h3 class="chart-title">👥 Performance Équipe</h3>
+            <table class="team-table">
+                <thead>
+                    <tr>
+                        <th>Commercial</th>
+                        <th>Wilaya</th>
+                        <th>Visites</th>
+                        <th>CA</th>
+                        <th>Objectif</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody id="teamTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="map-section">
+            <div class="chart-card animate-in">
+                <h3 class="chart-title">🗺️ Couverture Géographique</h3>
+                <div class="chart-container"><canvas id="geoChart"></canvas></div>
+            </div>
+            <div class="chart-card animate-in">
+                <h3 class="chart-title">📍 Top Wilayas</h3>
+                <div class="wilaya-list" id="wilayaList"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Dashboard B2B Mobilis - Manager Ouest | Brahim BOUDRAA</p>
+        <p>Données mises à jour chaque semaine • © 2026</p>
+    </footer>
+
+    <script>
+        // ============================================
+        // DONNÉES PAR MOIS - À METTRE À JOUR CHAQUE SEMAINE
+        // ============================================
+        const DATA_PAR_MOIS = {
+            '01': { // Janvier 2026
+                summary: { totalCA: 312960, totalVisites: 168, totalWilayas: 10 },
+                commerciaux: [
+                    { nom: "SABRINA BARKAT", wilaya: "AIN TEMOUCHENT", visites: 41, ca: 94500, objectif: 100000, initiales: "SB" },
+                    { nom: "HICHEM KHOUDRIA", wilaya: "MEDEA", visites: 26, ca: 95000, objectif: 100000, initiales: "HK" },
+                    { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 19, ca: 59460, objectif: 100000, initiales: "HA" },
+                    { nom: "NADJAT AISSOU", wilaya: "MOSTAGANEM", visites: 16, ca: 37000, objectif: 80000, initiales: "NA" },
+                    { nom: "YASMINA TAIBI", wilaya: "SIDI BEL ABBES", visites: 23, ca: 9000, objectif: 80000, initiales: "YT" },
+                    { nom: "BEKKAL-BRIKCI", wilaya: "TLEMCEN", visites: 29, ca: 6500, objectif: 80000, initiales: "BB" },
+                    { nom: "AISSA DAHMOUNE", wilaya: "DJELFA", visites: 17, ca: 0, objectif: 60000, initiales: "AD" },
+                    { nom: "BELBALI SLYMAN", wilaya: "ADRAR", visites: 3, ca: 11500, objectif: 40000, initiales: "BS" }
+                ],
+                wilayas: [
+                    { nom: "AIN TEMOUCHENT", visites: 39, ca: 94500 },
+                    { nom: "TLEMCEN", visites: 28, ca: 6500 },
+                    { nom: "SIDI BEL ABBES", visites: 21, ca: 9000 },
+                    { nom: "MEDEA", visites: 20, ca: 7000 },
+                    { nom: "DJELFA", visites: 19, ca: 8000 },
+                    { nom: "MOSTAGANEM", visites: 16, ca: 37000 },
+                    { nom: "ORAN", visites: 15, ca: 59460 },
+                    { nom: "TIARET", visites: 4, ca: 80000 },
+                    { nom: "ADRAR", visites: 3, ca: 11500 },
+                    { nom: "MASCARA", visites: 1, ca: 0 }
+                ]
+            },
+            '02': { // Février 2026 - À COMPLÉTER
+                summary: { totalCA: 0, totalVisites: 0, totalWilayas: 0 },
+                commerciaux: [],
+                wilayas: []
+            }
+        };
+
+        const MOIS_NOMS = {
+            '01': 'Janvier', '02': 'Février', '03': 'Mars', '04': 'Avril',
+            '05': 'Mai', '06': 'Juin', '07': 'Juillet', '08': 'Août',
+            '09': 'Septembre', '10': 'Octobre', '11': 'Novembre', '12': 'Décembre'
+        };
+
+        let performanceChart, caChart, geoChart;
+
+        function formatDA(num) {
+            return new Intl.NumberFormat('fr-DZ').format(num) + ' DA';
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+            return num.toString();
+        }
+
+        function getCurrentData() {
+            const mois = document.getElementById('monthSelect').value;
+            if (mois === 'all') {
+                let totalCA = 0, totalVisites = 0;
+                const commerciauxMap = {}, wilayasMap = {};
+
+                Object.values(DATA_PAR_MOIS).forEach(data => {
+                    totalCA += data.summary.totalCA;
+                    totalVisites += data.summary.totalVisites;
+                    data.commerciaux.forEach(c => {
+                        if (!commerciauxMap[c.nom]) commerciauxMap[c.nom] = { ...c, visites: 0, ca: 0 };
+                        commerciauxMap[c.nom].visites += c.visites;
+                        commerciauxMap[c.nom].ca += c.ca;
+                    });
+                    data.wilayas.forEach(w => {
+                        if (!wilayasMap[w.nom]) wilayasMap[w.nom] = { ...w, visites: 0, ca: 0 };
+                        wilayasMap[w.nom].visites += w.visites;
+                        wilayasMap[w.nom].ca += w.ca;
+                    });
+                });
+
+                return {
+                    summary: { totalCA, totalVisites, totalWilayas: Object.keys(wilayasMap).length },
+                    commerciaux: Object.values(commerciauxMap).sort((a, b) => b.ca - a.ca),
+                    wilayas: Object.values(wilayasMap).sort((a, b) => b.visites - a.visites)
+                };
+            }
+            return DATA_PAR_MOIS[mois] || DATA_PAR_MOIS['01'];
+        }
+
+        function updateKPIs(data) {
+            const mois = document.getElementById('monthSelect').value;
+            const periode = mois === 'all' ? 'Année 2026' : MOIS_NOMS[mois] + ' 2026';
+
+            document.getElementById('totalCA').textContent = formatDA(data.summary.totalCA);
+            document.getElementById('totalVisites').textContent = data.summary.totalVisites;
+            document.getElementById('totalWilayas').textContent = data.summary.totalWilayas;
+            document.getElementById('caPeriod').textContent = periode;
+
+            const caParVisite = data.summary.totalVisites > 0 ? Math.round(data.summary.totalCA / data.summary.totalVisites) : 0;
+            document.getElementById('caParVisite').textContent = formatDA(caParVisite);
+        }
+
+        function createPerformanceChart(data) {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            if (performanceChart) performanceChart.destroy();
+
+            if (data.commerciaux.length === 0) {
+                ctx.canvas.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">📊</div><p>Pas de données</p></div>';
+                return;
+            }
+
+            performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.commerciaux.map(c => c.nom.split(' ').pop()),
+                    datasets: [
+                        { label: 'CA Réalisé', data: data.commerciaux.map(c => c.ca), backgroundColor: 'rgba(99, 102, 241, 0.8)', borderRadius: 8 },
+                        { label: 'Objectif', data: data.commerciaux.map(c => c.objectif), backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: 8 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#a1a1aa' } } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#a1a1aa' } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#a1a1aa', callback: v => formatNumber(v) } }
+                    }
+                }
+            });
+        }
+
+        function createCAChart(data) {
+            const ctx = document.getElementById('caChart').getContext('2d');
+            if (caChart) caChart.destroy();
+
+            const filtered = data.commerciaux.filter(c => c.ca > 0);
+            if (filtered.length === 0) {
+                ctx.canvas.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">🥧</div><p>Pas de CA</p></div>';
+                return;
+            }
+
+            caChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: filtered.map(c => c.nom.split(' ').pop()),
+                    datasets: [{
+                        data: filtered.map(c => c.ca),
+                        backgroundColor: ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#ec4899', '#10b981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right', labels: { color: '#a1a1aa', padding: 15, usePointStyle: true } } },
+                    cutout: '65%'
+                }
+            });
+        }
+
+        function createGeoChart(data) {
+            const ctx = document.getElementById('geoChart').getContext('2d');
+            if (geoChart) geoChart.destroy();
+
+            if (data.wilayas.length === 0) {
+                ctx.canvas.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">🗺️</div><p>Pas de données</p></div>';
+                return;
+            }
+
+            geoChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.wilayas.slice(0, 8).map(w => w.nom),
+                    datasets: [{ label: 'Visites', data: data.wilayas.slice(0, 8).map(w => w.visites), backgroundColor: 'rgba(34, 197, 94, 0.7)', borderRadius: 6 }]
+                },
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#a1a1aa' } },
+                        y: { grid: { display: false }, ticks: { color: '#a1a1aa' } }
+                    }
+                }
+            });
+        }
+
+        function createTeamTable(data) {
+            const tbody = document.getElementById('teamTableBody');
+            tbody.innerHTML = '';
+
+            if (data.commerciaux.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-secondary);">Pas de données</td></tr>';
+                return;
+            }
+
+            data.commerciaux.forEach(c => {
+                const progress = Math.min(100, Math.round((c.ca / c.objectif) * 100));
+                let statusClass = 'status-ok', statusText = 'En bonne voie', progressColor = '#22c55e';
+                if (progress < 30) { statusClass = 'status-critical'; statusText = 'Critique'; progressColor = '#ef4444'; }
+                else if (progress < 70) { statusClass = 'status-attention'; statusText = 'Attention'; progressColor = '#f59e0b'; }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><div class="commercial-name"><div class="avatar">${c.initiales}</div><span>${c.nom}</span></div></td>
+                        <td>${c.wilaya}</td>
+                        <td><strong>${c.visites}</strong></td>
+                        <td><strong>${formatDA(c.ca)}</strong></td>
+                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><div class="progress-bar"><div class="progress-fill" style="width: ${progress}%; background: ${progressColor};"></div></div><span style="font-size: 0.75rem; color: var(--text-secondary);">${progress}%</span></div></td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function createWilayaList(data) {
+            const list = document.getElementById('wilayaList');
+            list.innerHTML = '';
+
+            if (data.wilayas.length === 0) { list.innerHTML = '<div class="no-data">Pas de données</div>'; return; }
+
+            const colors = ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+            data.wilayas.slice(0, 6).forEach((w, i) => {
+                list.innerHTML += `
+                    <div class="wilaya-item">
+                        <div class="wilaya-name"><span style="color: ${colors[i]}">●</span> ${w.nom}</div>
+                        <div class="wilaya-stats">
+                            <span>Visites: <strong>${w.visites}</strong></span>
+                            <span>CA: <strong>${formatDA(w.ca)}</strong></span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateDashboard() {
+            const data = getCurrentData();
+            updateKPIs(data);
+            createPerformanceChart(data);
+            createCAChart(data);
+            createGeoChart(data);
+            createTeamTable(data);
+            createWilayaList(data);
+        }
+
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR', options);
+        }
+
+        function logout() {
+            sessionStorage.removeItem('dashboard_auth');
+            sessionStorage.removeItem('dashboard_user');
+            window.location.href = 'index.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDate();
+            updateDashboard();
+        });
+    </script>
+</body>
+
+</html>

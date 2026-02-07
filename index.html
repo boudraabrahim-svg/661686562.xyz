@@ -1,248 +1,261 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="B&B Consulting – Cabinet de conseil en organisation commerciale B2B et intégration ERP Odoo.">
-  <title>B&B Consulting – Conseil B2B & ERP Odoo</title>
-  <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/147473666.js"></script>
+  <title>Connexion - Dashboard B2B Mobilis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * {margin:0;padding:0;box-sizing:border-box;}
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-card: #1a1a24;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --border: rgba(255, 255, 255, 0.1);
+      --danger: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      line-height:1.6;
-      color:#1f2937;
-      background:#f9fafb;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
     }
-    nav {
-      background:#0f172a;
-      color:white;
-      position:fixed;
-      width:100%;
-      top:0;
-      z-index:1000;
-      box-shadow:0 2px 10px rgba(0,0,0,0.2);
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
     }
-    .nav-container {
-      max-width:1200px;
-      margin:auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:1rem 2rem;
+
+    .login-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
+
     .logo {
-      font-size:1.5rem;
-      font-weight:700;
-      color:#facc15;
-    }
-    .nav-links {
-      list-style:none;
-      display:flex;
-      gap:2rem;
-    }
-    .nav-links a {
-      color:white;
-      text-decoration:none;
-      font-weight:500;
-      transition:0.3s;
-    }
-    .nav-links a:hover {color:#facc15;}
-    section {padding:80px 2rem;}
-    .container {max-width:1200px;margin:auto;}
-    .section-title {
-      text-align:center;
-      font-size:2.2rem;
-      color:#0f172a;
-      margin-bottom:1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
-    /* HERO */
-    .hero {
-      background:linear-gradient(135deg, rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
-        url('https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=80') center/cover;
-      color:white;
-      text-align:center;
-      padding:140px 2rem 100px;
+    .logo-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
     }
-    .hero h1 {font-size:2.8rem;margin-bottom:1rem;}
-    .hero p {font-size:1.2rem;opacity:0.95;}
-    .hero-buttons {
-      margin-top:2rem;
-      display:flex;
-      justify-content:center;
-      gap:1rem;
-      flex-wrap:wrap;
-    }
-    .btn {
-      padding:0.8rem 2rem;
-      border-radius:40px;
-      text-decoration:none;
-      font-weight:600;
-      transition:0.3s;
-    }
-    .btn-primary {background:#facc15;color:#0f172a;}
-    .btn-primary:hover {background:#fde047;}
-    .btn-whatsapp {background:#25d366;color:white;}
-    .btn-whatsapp:hover {opacity:0.9;}
 
-    /* SERVICES */
-    .services-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:2rem;
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
     }
-    .service-card {
-      background:white;
-      border-radius:15px;
-      overflow:hidden;
-      box-shadow:0 5px 15px rgba(0,0,0,0.08);
-      transition:transform 0.3s;
-    }
-    .service-card:hover {transform:translateY(-5px);}
-    .service-image {width:100%;height:200px;object-fit:cover;}
-    .service-content {padding:1.5rem;}
-    .service-content h3 {color:#0f172a;margin-bottom:0.5rem;}
-    .service-content p {color:#4b5563;}
 
-    /* TEAM */
-    .team-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:2rem;
-      margin-top:2rem;
+    .logo p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
     }
-    .team-member {
-      background:white;
-      border-radius:15px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.08);
-      text-align:center;
-      padding:2rem 1rem;
-    }
-    .team-member img {
-      width:120px;
-      height:120px;
-      border-radius:50%;
-      object-fit:cover;
-      margin-bottom:1rem;
-    }
-    .team-member h4 {color:#0f172a;margin-bottom:0.3rem;}
-    .team-member span {color:#facc15;font-weight:500;}
 
-    /* CONTACT */
-    .contact-info {
-      max-width:600px;
-      margin:auto;
-      text-align:center;
+    .form-group {
+      margin-bottom: 1.5rem;
     }
-    .contact-info p {color:#4b5563;margin-top:0.5rem;}
 
-    footer {
-      background:#0f172a;
-      color:white;
-      text-align:center;
-      padding:2rem 1rem;
-      margin-top:3rem;
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
-    footer a {color:#facc15;text-decoration:none;}
-    @media(max-width:768px){
-      .nav-links{display:none;}
-      section{padding:60px 1.5rem;}
+
+    .form-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--danger);
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      display: none;
+      text-align: center;
+    }
+
+    .error-message.show {
+      display: block;
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-5px);
+      }
+
+      75% {
+        transform: translateX(5px);
+      }
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+    }
+
+    .secure-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-top: 1.5rem;
     }
   </style>
 </head>
+
 <body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo">
+        <div class="logo-icon">M</div>
+        <h1>Dashboard B2B</h1>
+        <p>Région Ouest - Accès sécurisé</p>
+      </div>
 
-  <nav>
-    <div class="nav-container">
-      <div class="logo">B&B Consulting</div>
-      <ul class="nav-links">
-        <li><a href="#accueil">Accueil</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#equipe">Équipe</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+      <div class="error-message" id="errorMsg">Identifiants incorrects.</div>
 
-  <section id="accueil" class="hero">
-    <h1>Cabinet de conseil B2B & ERP Odoo</h1>
-    <p>Structuration, méthode et performance commerciale</p>
-    <div class="hero-buttons">
-      <a href="#contact" class="btn btn-primary">Demander un échange de cadrage</a>
-      <a href="https://wa.me/213661686562" class="btn btn-whatsapp">WhatsApp</a>
-    </div>
-  </section>
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="username">Identifiant</label>
+          <input type="text" class="form-input" id="username" placeholder="Votre identifiant" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Mot de passe</label>
+          <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-login">Se connecter</button>
+      </form>
 
-  <section id="services">
-    <div class="container">
-      <h2 class="section-title">Domaines d’intervention</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <img class="service-image" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" alt="">
-          <div class="service-content">
-            <h3>Organisation commerciale B2B</h3>
-            <p>Structuration des processus et pilotage de la performance.</p>
-          </div>
-        </div>
-        <div class="service-card">
-          <img class="service-image" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" alt="">
-          <div class="service-content">
-            <h3>Formation commerciale terrain</h3>
-            <p>Prospection B2B, discours commercial et négociation.</p>
-          </div>
-        </div>
-        <div class="service-card">
-          <img class="service-image" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" alt="">
-          <div class="service-content">
-            <h3>Intégration ERP Odoo</h3>
-            <p>CRM, suivi commercial, facturation et pilotage opérationnel.</p>
-          </div>
-        </div>
+      <div style="text-align: center;">
+        <div class="secure-badge">🔒 Connexion sécurisée</div>
       </div>
     </div>
-  </section>
+    <p class="footer-text">Dashboard B2B Mobilis • Manager Ouest<br>© 2026 - Accès réservé</p>
+  </div>
 
-  <section id="equipe">
-    <div class="container">
-      <h2 class="section-title">Notre Équipe</h2>
-      <div class="team-grid">
-        <div class="team-member">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Membre équipe">
-          <h4>Brahim Boudra</h4>
-          <span>Consultant principal – ERP Odoo</span>
-        </div>
-        <div class="team-member">
-          <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Membre équipe">
-          <h4>Leïla Djamal</h4>
-          <span>Spécialiste formation commerciale</span>
-        </div>
-        <div class="team-member">
-          <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="Membre équipe">
-          <h4>Karim Amrane</h4>
-          <span>Consultant en stratégie B2B</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <script>
+    // Utilisateurs autorisés
+    const USERS = {
+      // Direction
+      'hamza': 'directeur2026',
+      // Manager
+      'brahim': 'manager2026',
+      // Équipe Commerciale
+      'barkat': 'barkat2026',
+      'khoudria': 'khoudria2026',
+      'hankour': 'hankour2026',
+      'aissou': 'aissou2026',
+      'taibi': 'taibi2026',
+      'brikci': 'brikci2026',
+      'dahmoune': 'dahmoune2026',
+      'belbali': 'belbali2026'
+    };
 
-  <section id="contact">
-    <div class="container contact-info">
-      <h2 class="section-title">Échange de cadrage stratégique – 20 minutes</h2>
-      <p>Un premier échange structuré pour clarifier votre organisation, vos priorités managériales et évaluer la pertinence d’un accompagnement.</p>
-      <script src="https://js-eu1.hsforms.net/forms/embed/147473666.js" defer></script>
-      <div class="hs-form-frame"
-        data-region="eu1"
-        data-form-id="63f96728-9640-4056-b299-3c90f89d10bc"
-        data-portal-id="147473666"></div>
-      <p>📧 <a href="mailto:contact@661686562.xyz">contact@661686562.xyz</a></p>
-      <p>📱 <a href="https://wa.me/213661686562">+213 661 68 65 62</a></p>
-    </div>
-  </section>
+    if (sessionStorage.getItem('dashboard_auth') === 'true') {
+      window.location.href = 'dashboard.html';
+    }
 
-  <footer>
-    © 2026 — B&B Consulting — <a href="https://661686562.xyz">661686562.xyz</a>
-  </footer>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.toLowerCase().trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
 
+      if (USERS[username] && USERS[username] === password) {
+        sessionStorage.setItem('dashboard_auth', 'true');
+        sessionStorage.setItem('dashboard_user', username);
+        window.location.href = 'dashboard.html';
+      } else {
+        errorMsg.classList.add('show');
+        document.getElementById('password').value = '';
+        setTimeout(() => errorMsg.classList.remove('show'), 3000);
+      }
+    });
+  </script>
 </body>
+
 </html>
