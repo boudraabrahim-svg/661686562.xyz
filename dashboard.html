@@ -4,13 +4,599 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard B2B Mobilis</title>
+    <title>Dashboard B2B Mobilis - Pilotage Commercial</title>
     <script>if (sessionStorage.getItem('dashboard_auth') !== 'true') window.location.href = 'index.html';</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --card: #1c2128;
+            --border: #30363d;
+            --text: #f0f6fc;
+            --text2: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --orange: #d29922;
+            --red: #f85149
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh
+        }
+
+        .header {
+            background: var(--bg2);
+            padding: .5rem 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--green));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .9rem
+        }
+
+        .logo h1 {
+            font-size: .9rem
+        }
+
+        .logo span {
+            font-size: .65rem;
+            color: var(--text2)
+        }
+
+        .tabs {
+            display: flex;
+            gap: .25rem
+        }
+
+        .tab {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: .4rem .75rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: .7rem
+        }
+
+        .tab:hover,
+        .tab.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent)
+        }
+
+        .filters {
+            display: flex;
+            gap: .75rem;
+            margin-left: auto;
+            flex-wrap: wrap
+        }
+
+        .filter-dropdown {
+            position: relative
+        }
+
+        .filter-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: .35rem .6rem;
+            border-radius: 4px;
+            font-size: .7rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: .3rem
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent)
+        }
+
+        .filter-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: .5rem;
+            min-width: 150px;
+            z-index: 100;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto
+        }
+
+        .filter-menu.open {
+            display: block
+        }
+
+        .filter-menu label {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .3rem;
+            font-size: .7rem;
+            cursor: pointer;
+            border-radius: 3px
+        }
+
+        .filter-menu label:hover {
+            background: rgba(88, 166, 255, .1)
+        }
+
+        .filter-menu input {
+            accent-color: var(--accent)
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            font-size: .7rem;
+            color: var(--text2)
+        }
+
+        .btn-logout {
+            background: rgba(248, 81, 73, .15);
+            border: 1px solid rgba(248, 81, 73, .4);
+            color: var(--red);
+            padding: .3rem .5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: .65rem
+        }
+
+        .dashboard {
+            padding: 1rem;
+            max-width: 1700px;
+            margin: 0 auto
+        }
+
+        .page {
+            display: none
+        }
+
+        .page.active {
+            display: block
+        }
+
+        .section-title {
+            font-size: .75rem;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: .75rem;
+            padding-left: .4rem;
+            border-left: 3px solid var(--accent)
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: .75rem;
+            margin-bottom: 1rem
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: .75rem;
+            margin-bottom: 1rem
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .75rem;
+            margin-bottom: 1rem
+        }
+
+        .grid-2-1 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: .75rem;
+            margin-bottom: 1rem
+        }
+
+        @media(max-width:1200px) {
+
+            .grid-4,
+            .grid-3 {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .grid-2-1 {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .grid-4,
+            .grid-3,
+            .grid-2,
+            .grid-2-1 {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 6px;
+            padding: .75rem;
+            border: 1px solid var(--border)
+        }
+
+        .card h3 {
+            font-size: .7rem;
+            color: var(--text2);
+            margin-bottom: .6rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: .4rem
+        }
+
+        .kpi-card {
+            background: var(--card);
+            border-radius: 6px;
+            padding: .75rem;
+            border: 1px solid var(--border);
+            position: relative
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 6px 6px 0 0
+        }
+
+        .kpi-card.green::before {
+            background: var(--green)
+        }
+
+        .kpi-card.orange::before {
+            background: var(--orange)
+        }
+
+        .kpi-card.red::before {
+            background: var(--red)
+        }
+
+        .kpi-label {
+            font-size: .6rem;
+            color: var(--text2);
+            margin-bottom: .3rem;
+            text-transform: uppercase
+        }
+
+        .kpi-value {
+            font-size: 1.1rem;
+            font-weight: 700
+        }
+
+        .kpi-sub {
+            font-size: .6rem;
+            margin-top: .2rem
+        }
+
+        .kpi-sub.green {
+            color: var(--green)
+        }
+
+        .kpi-sub.orange {
+            color: var(--orange)
+        }
+
+        .kpi-sub.red {
+            color: var(--red)
+        }
+
+        .chart-box {
+            height: 200px;
+            position: relative
+        }
+
+        .gauge-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: .5rem
+        }
+
+        .gauge-svg {
+            width: 140px;
+            height: 80px
+        }
+
+        .gauge-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: -5px
+        }
+
+        .gauge-label {
+            font-size: .65rem;
+            color: var(--text2)
+        }
+
+        .star-mini {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .5rem
+        }
+
+        .star-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, gold, orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 2px solid gold;
+            flex-shrink: 0
+        }
+
+        .star-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .star-name {
+            font-size: .8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .star-stats {
+            font-size: .6rem;
+            color: var(--text2)
+        }
+
+        .star-badges {
+            display: flex;
+            gap: .3rem;
+            margin-top: .3rem;
+            flex-wrap: wrap
+        }
+
+        .badge {
+            padding: .15rem .4rem;
+            border-radius: 10px;
+            font-size: .55rem;
+            font-weight: 600
+        }
+
+        .badge.green {
+            background: rgba(63, 185, 80, .15);
+            color: var(--green)
+        }
+
+        .badge.orange {
+            background: rgba(210, 153, 34, .15);
+            color: var(--orange)
+        }
+
+        .badge.red {
+            background: rgba(248, 81, 73, .15);
+            color: var(--red)
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            max-height: 250px
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .65rem
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: .4rem;
+            color: var(--text2);
+            border-bottom: 1px solid var(--border);
+            font-size: .55rem;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            background: var(--card)
+        }
+
+        .data-table td {
+            padding: .4rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .data-table tr:hover {
+            background: rgba(88, 166, 255, .05)
+        }
+
+        .progress-mini {
+            width: 40px;
+            height: 4px;
+            background: var(--bg);
+            border-radius: 2px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: .2rem
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px
+        }
+
+        #mapBox {
+            height: 250px;
+            border-radius: 5px;
+            overflow: hidden
+        }
+
+        .top-item {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .35rem;
+            background: rgba(255, 255, 255, .02);
+            border-radius: 4px;
+            margin-bottom: .35rem
+        }
+
+        .top-rank {
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .55rem;
+            font-weight: 700
+        }
+
+        .top-rank.gold {
+            background: linear-gradient(135deg, #ffd700, #ffb300);
+            color: #000
+        }
+
+        .top-rank.silver {
+            background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+            color: #000
+        }
+
+        .top-rank.bronze {
+            background: linear-gradient(135deg, #cd7f32, #a0522d);
+            color: #fff
+        }
+
+        .top-rank.other {
+            background: var(--bg2);
+            color: var(--text2)
+        }
+
+        .top-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .top-name {
+            font-size: .65rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .top-detail {
+            font-size: .55rem;
+            color: var(--text2)
+        }
+
+        .top-value {
+            font-size: .7rem;
+            font-weight: 600;
+            color: var(--accent)
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: var(--card);
+            color: var(--text);
+            border-radius: 6px
+        }
+
+        .leaflet-popup-tip {
+            background: var(--card)
+        }
+
+        .footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 1rem;
+            margin-top: 1rem
+        }
+
+        .footer-content {
+            max-width: 1700px;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .footer-version {
+            font-size: .7rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: .4rem
+        }
+
+        .footer-support {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: .4rem
+        }
+
+        .footer-support span {
+            font-size: .65rem;
+            color: var(--text2)
+        }
+
+        .footer-support a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        .footer-copy {
+            font-size: .55rem;
+            color: var(--text2)
+        }
+    </style>
 </head>
 
 <body>
@@ -18,7 +604,7 @@
         <div class="logo">
             <div class="logo-icon">M</div>
             <div>
-                <h1>PILOTAGE B2B</h1><span>Dashboard Décisionnel</span>
+                <h1>PILOTAGE B2B</h1><span>Dashboard v2.1</span>
             </div>
         </div>
         <nav class="tabs">
@@ -27,59 +613,87 @@
             <button class="tab" data-page="coaching">📊 Coaching</button>
         </nav>
         <div class="filters">
-            <div class="filter-group"><label>Mois</label><select id="monthFilter" multiple>
-                    <option value="01" selected>Janvier</option>
-                    <option value="02">Février</option>
-                </select></div>
-            <div class="filter-group"><label>Commercial</label><select id="commFilter">
-                    <option value="all">Tous</option>
-                </select></div>
+            <div class="filter-dropdown">
+                <button class="filter-btn" onclick="toggleFilter('moisMenu')">📅 Mois ▼</button>
+                <div id="moisMenu" class="filter-menu">
+                    <label><input type="checkbox" value="01" checked onchange="updateAll()"> Janvier</label>
+                    <label><input type="checkbox" value="02" onchange="updateAll()"> Février</label>
+                    <label><input type="checkbox" value="03" onchange="updateAll()"> Mars</label>
+                    <label><input type="checkbox" value="04" onchange="updateAll()"> Avril</label>
+                    <label><input type="checkbox" value="05" onchange="updateAll()"> Mai</label>
+                    <label><input type="checkbox" value="06" onchange="updateAll()"> Juin</label>
+                </div>
+            </div>
+            <div class="filter-dropdown">
+                <button class="filter-btn" onclick="toggleFilter('commMenu')">👤 Commerciaux ▼</button>
+                <div id="commMenu" class="filter-menu" id="commMenuList"></div>
+            </div>
+            <div class="filter-dropdown">
+                <button class="filter-btn" onclick="toggleFilter('wilMenu')">🗺️ Wilayas ▼</button>
+                <div id="wilMenu" class="filter-menu"></div>
+            </div>
         </div>
-        <div class="header-right"><span id="currentDate"></span><button class="btn-logout"
-                onclick="logout()">Déconnexion</button></div>
+        <div class="header-right">
+            <span id="currentDate"></span>
+            <button class="btn-logout" onclick="logout()">Déconnexion</button>
+        </div>
     </header>
+
     <main class="dashboard">
         <!-- PAGE 1: COCKPIT -->
         <section id="page-cockpit" class="page active">
-            <h2 class="section-title">🎛️ Cockpit Opérationnel</h2>
-            <div class="kpi-grid" id="kpiGrid"></div>
-            <div class="grid-2">
+            <h2 class="section-title">🎛️ Cockpit Opérationnel - Feux Tricolores</h2>
+            <!-- KPIs -->
+            <div class="grid-4" id="kpiGrid"></div>
+            <!-- Jauges + Star -->
+            <div class="grid-4">
                 <div class="card">
-                    <h3>⭐ Commercial Star du Mois</h3>
-                    <div id="starCommercial"></div>
+                    <h3>🎯 Jauge CA</h3>
+                    <div class="gauge-box" id="gaugeCA"></div>
                 </div>
                 <div class="card">
-                    <h3>📊 Répartition CA</h3>
+                    <h3>🔍 Jauge Prospection</h3>
+                    <div class="gauge-box" id="gaugeProsp"></div>
+                </div>
+                <div class="card">
+                    <h3>⭐ Star du Mois</h3>
+                    <div id="starBox"></div>
+                </div>
+                <div class="card">
+                    <h3>🥧 Répartition CA</h3>
                     <div class="chart-box"><canvas id="caChart"></canvas></div>
                 </div>
             </div>
+            <!-- Tableau équipe -->
             <div class="card">
-                <h3>👥 Équipe - Feux Tricolores</h3>
-                <div class="table-wrap">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Commercial</th>
-                                <th>Wilaya</th>
-                                <th>Visites</th>
-                                <th>Prosp.</th>
-                                <th>CA Réalisé</th>
-                                <th>% CA</th>
-                                <th>% Prosp</th>
-                                <th>Statut</th>
-                            </tr>
-                        </thead>
-                        <tbody id="teamTable"></tbody>
-                    </table>
-                </div>
+                <h3>👥 Tableau Équipe - Système Feux Tricolores (🟢≥85% | 🟠70-84% | 🔴<70%)< /h3>
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Commercial</th>
+                                        <th>Wilaya</th>
+                                        <th>Visites</th>
+                                        <th>Prosp.</th>
+                                        <th>CA</th>
+                                        <th>% CA</th>
+                                        <th>% Prosp</th>
+                                        <th>Statut</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teamTable"></tbody>
+                            </table>
+                        </div>
             </div>
         </section>
+
         <!-- PAGE 2: TERRITOIRE -->
         <section id="page-territoire" class="page">
             <h2 class="section-title">🗺️ Stratégie Territoire & Grands Comptes</h2>
-            <div class="grid-3">
-                <div class="card card-2">
-                    <h3>Carte Performance</h3>
+            <div class="grid-2-1">
+                <div class="card">
+                    <h3>🗺️ Carte Performance Wilayas</h3>
                     <div id="mapBox"></div>
                 </div>
                 <div class="card">
@@ -87,32 +701,37 @@
                     <div id="topClients"></div>
                 </div>
             </div>
-            <div class="grid-2">
+            <div class="grid-3">
                 <div class="card">
                     <h3>📦 Top Produits</h3>
                     <div id="topProduits"></div>
                 </div>
                 <div class="card">
-                    <h3>CA par Wilaya</h3>
+                    <h3>📊 CA par Wilaya</h3>
                     <div class="chart-box"><canvas id="wilayaChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>📈 Visites vs Prospection</h3>
+                    <div class="chart-box"><canvas id="visitesChart"></canvas></div>
                 </div>
             </div>
         </section>
+
         <!-- PAGE 3: COACHING -->
         <section id="page-coaching" class="page">
-            <h2 class="section-title">📊 Matrice de Coaching</h2>
+            <h2 class="section-title">📊 Matrice de Coaching & Performance</h2>
             <div class="grid-2">
                 <div class="card">
-                    <h3>Matrice Effort vs Résultat</h3>
-                    <div class="chart-box"><canvas id="matriceChart"></canvas></div>
+                    <h3>📈 Matrice Effort vs Résultat</h3>
+                    <div class="chart-box" style="height:280px"><canvas id="matriceChart"></canvas></div>
                 </div>
                 <div class="card">
-                    <h3>🎯 Jauge Prospection</h3>
-                    <div id="gaugeBox"></div>
+                    <h3>📊 Performance par Commercial</h3>
+                    <div class="chart-box" style="height:280px"><canvas id="perfChart"></canvas></div>
                 </div>
             </div>
             <div class="card">
-                <h3>📋 Actions Coaching</h3>
+                <h3>📋 Plan d'Actions Coaching</h3>
                 <div class="table-wrap">
                     <table class="data-table">
                         <thead>
@@ -120,7 +739,10 @@
                                 <th>Commercial</th>
                                 <th>Zone</th>
                                 <th>CA</th>
+                                <th>% Obj</th>
                                 <th>Visites</th>
+                                <th>Prosp.</th>
+                                <th>Diagnostic</th>
                                 <th>Action Recommandée</th>
                             </tr>
                         </thead>
@@ -130,16 +752,18 @@
             </div>
         </section>
     </main>
+
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-version">📊 Dashboard B2B Mobilis v2.0.0 | Février 2026</div>
+            <div class="footer-version">📊 Dashboard B2B Mobilis v2.1.0 | Février 2026</div>
             <div class="footer-support">
                 <span>📞 Support: <a href="tel:0661686562">0661686562</a></span>
                 <span>📧 <a href="mailto:Brahim.BOUDRAA@mobilis.dz">Brahim.BOUDRAA@mobilis.dz</a></span>
             </div>
-            <div class="footer-copy">© 2026 Mobilis B2B - Manager Région Ouest</div>
+            <div class="footer-copy">© 2026 Mobilis B2B - Manager Région Ouest: Brahim BOUDRAA</div>
         </div>
     </footer>
+
     <script src="dashboard.js"></script>
 </body>
 
