@@ -11,6 +11,9 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet CSS & JS pour la carte -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -347,22 +350,57 @@
             transition: width 0.5s ease;
         }
 
+        /* Section carte */
         .map-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1200px) {
             .map-section {
                 grid-template-columns: 1fr;
             }
+        }
+
+        #algeriaMap {
+            height: 400px;
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        .map-legend {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
         }
 
         .wilaya-list {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         .wilaya-item {
@@ -385,8 +423,8 @@
 
         .wilaya-stats {
             display: flex;
-            gap: 1.5rem;
-            font-size: 0.875rem;
+            gap: 1rem;
+            font-size: 0.8rem;
         }
 
         .wilaya-stats span {
@@ -434,6 +472,10 @@
             .kpi-value {
                 font-size: 1.5rem;
             }
+
+            #algeriaMap {
+                height: 300px;
+            }
         }
 
         .no-data {
@@ -448,21 +490,38 @@
             opacity: 0.5;
         }
 
-        .objectives-row {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.75rem;
-            margin-top: 0.5rem;
+        /* Leaflet popup custom */
+        .leaflet-popup-content-wrapper {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
 
-        .obj-item {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
+        .leaflet-popup-tip {
+            background: var(--bg-card);
         }
 
-        .obj-item span {
+        .popup-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-light);
+        }
+
+        .popup-stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
+        }
+
+        .popup-stat span {
             color: var(--text-secondary);
+        }
+
+        .popup-stat strong {
+            color: var(--text-primary);
         }
     </style>
 </head>
@@ -506,7 +565,7 @@
     </header>
 
     <div class="container">
-        <!-- KPIs avec objectifs -->
+        <!-- KPIs -->
         <div class="kpi-grid">
             <div class="kpi-card animate-in">
                 <div class="kpi-header">
@@ -558,6 +617,36 @@
             </div>
         </div>
 
+        <!-- Carte Algérie Ouest -->
+        <div class="map-section">
+            <div class="chart-card animate-in">
+                <h3 class="chart-title">🗺️ Carte Interactive - Région Ouest Algérie</h3>
+                <div id="algeriaMap"></div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-circle" style="background: #22c55e;"></div>
+                        <span>CA élevé (>50K DA)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-circle" style="background: #f59e0b;"></div>
+                        <span>CA moyen (10K-50K DA)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-circle" style="background: #ef4444;"></div>
+                        <span>CA faible (<10K DA)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span>💡 Taille = Nombre de visites</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-card animate-in">
+                <h3 class="chart-title">📍 Détail par Wilaya</h3>
+                <div class="wilaya-list" id="wilayaList"></div>
+            </div>
+        </div>
+
+        <!-- Graphiques -->
         <div class="charts-grid">
             <div class="chart-card animate-in">
                 <h3 class="chart-title">📈 Performance CA par Commercial</h3>
@@ -569,6 +658,7 @@
             </div>
         </div>
 
+        <!-- Tableau équipe -->
         <div class="team-section animate-in">
             <h3 class="chart-title">👥 Performance Équipe (Objectifs CA: 110 000 DA | Prospection: 40 visites)</h3>
             <table class="team-table">
@@ -587,17 +677,6 @@
                 <tbody id="teamTableBody"></tbody>
             </table>
         </div>
-
-        <div class="map-section">
-            <div class="chart-card animate-in">
-                <h3 class="chart-title">🗺️ Couverture Géographique</h3>
-                <div class="chart-container"><canvas id="geoChart"></canvas></div>
-            </div>
-            <div class="chart-card animate-in">
-                <h3 class="chart-title">📍 Top Wilayas</h3>
-                <div class="wilaya-list" id="wilayaList"></div>
-            </div>
-        </div>
     </div>
 
     <footer class="footer">
@@ -607,12 +686,34 @@
 
     <script>
         // ============================================
-        // DONNÉES PAR MOIS - MISES À JOUR HEBDOMADAIRES
-        // Objectif CA: 110 000 DA | Objectif Prospection: 40 visites
+        // COORDONNÉES DES WILAYAS - OUEST ALGÉRIEN
+        // ============================================
+        const WILAYAS_COORDS = {
+            'ORAN': { lat: 35.6969, lng: -0.6331, code: 31 },
+            'TLEMCEN': { lat: 34.8828, lng: -1.3167, code: 13 },
+            'AIN TEMOUCHENT': { lat: 35.2974, lng: -1.1400, code: 46 },
+            'SIDI BEL ABBES': { lat: 35.1904, lng: -0.6306, code: 22 },
+            'MOSTAGANEM': { lat: 35.9311, lng: 0.0892, code: 27 },
+            'MASCARA': { lat: 35.4000, lng: 0.1403, code: 29 },
+            'RELIZANE': { lat: 35.7372, lng: 0.5567, code: 48 },
+            'TIARET': { lat: 35.3711, lng: 1.3172, code: 14 },
+            'SAIDA': { lat: 34.8303, lng: 0.1517, code: 20 },
+            'NAAMA': { lat: 33.2667, lng: -0.3117, code: 45 },
+            'EL BAYADH': { lat: 33.6833, lng: 1.0167, code: 32 },
+            'BECHAR': { lat: 31.6167, lng: -2.2167, code: 8 },
+            'ADRAR': { lat: 27.8742, lng: -0.2939, code: 1 },
+            'TINDOUF': { lat: 27.6744, lng: -8.1478, code: 37 },
+            'DJELFA': { lat: 34.6704, lng: 3.2503, code: 17 },
+            'MEDEA': { lat: 36.2675, lng: 2.7500, code: 26 },
+            'CHLEF': { lat: 36.1647, lng: 1.3317, code: 2 }
+        };
+
+        // ============================================
+        // DONNÉES PAR MOIS
         // ============================================
         const DATA_PAR_MOIS = {
-            '01': { // Janvier 2026
-                summary: { totalCA: 307480, totalVisites: 167, totalProspection: 73, totalWilayas: 9 },
+            '01': {
+                summary: { totalCA: 307480, totalVisites: 167, totalProspection: 73, totalWilayas: 8 },
                 commerciaux: [
                     { nom: "HICHEM KHOUDRIA", wilaya: "MEDEA", visites: 26, prospection: 20, ca: 95000, objectifCA: 110000, objectifProsp: 40, initiales: "HK" },
                     { nom: "SABRINA BARKAT", wilaya: "AIN TEMOUCHENT", visites: 39, prospection: 6, ca: 94500, objectifCA: 110000, objectifProsp: 40, initiales: "SB" },
@@ -634,7 +735,7 @@
                     { nom: "ADRAR", visites: 3, ca: 11500 }
                 ]
             },
-            '02': { // Février 2026
+            '02': {
                 summary: { totalCA: 5480, totalVisites: 1, totalProspection: 0, totalWilayas: 1 },
                 commerciaux: [
                     { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 1, prospection: 0, ca: 5480, objectifCA: 110000, objectifProsp: 40, initiales: "HA" }
@@ -661,7 +762,7 @@
             '09': 'Septembre', '10': 'Octobre', '11': 'Novembre', '12': 'Décembre'
         };
 
-        let performanceChart, caChart, geoChart;
+        let performanceChart, caChart, map, markersLayer;
 
         function formatDA(num) {
             return new Intl.NumberFormat('fr-DZ').format(num) + ' DA';
@@ -705,12 +806,98 @@
             return DATA_PAR_MOIS[mois] || DATA_PAR_MOIS['01'];
         }
 
+        // ============================================
+        // CARTE INTERACTIVE
+        // ============================================
+        function initMap() {
+            // Centrer sur l'Ouest algérien
+            map = L.map('algeriaMap', {
+                center: [33.5, -0.5],
+                zoom: 5,
+                zoomControl: true,
+                scrollWheelZoom: true
+            });
+
+            // Tuiles style sombre
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors © CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            markersLayer = L.layerGroup().addTo(map);
+        }
+
+        function updateMap(data) {
+            if (!map || !markersLayer) return;
+
+            markersLayer.clearLayers();
+
+            if (data.wilayas.length === 0) return;
+
+            // Trouver le CA max pour normaliser
+            const maxCA = Math.max(...data.wilayas.map(w => w.ca), 1);
+            const maxVisites = Math.max(...data.wilayas.map(w => w.visites), 1);
+
+            data.wilayas.forEach(wilaya => {
+                const coords = WILAYAS_COORDS[wilaya.nom];
+                if (!coords) return;
+
+                // Taille du cercle basée sur les visites (min 15, max 50)
+                const radius = 15 + (wilaya.visites / maxVisites) * 35;
+
+                // Couleur basée sur le CA
+                let color;
+                if (wilaya.ca >= 50000) {
+                    color = '#22c55e'; // Vert - CA élevé
+                } else if (wilaya.ca >= 10000) {
+                    color = '#f59e0b'; // Orange - CA moyen
+                } else {
+                    color = '#ef4444'; // Rouge - CA faible
+                }
+
+                // Créer le cercle
+                const circle = L.circleMarker([coords.lat, coords.lng], {
+                    radius: radius,
+                    fillColor: color,
+                    color: '#fff',
+                    weight: 2,
+                    opacity: 0.9,
+                    fillOpacity: 0.7
+                });
+
+                // Popup avec infos
+                const popupContent = `
+                    <div style="min-width: 180px;">
+                        <div class="popup-title">${wilaya.nom}</div>
+                        <div class="popup-stat"><span>CA Réalisé:</span> <strong>${formatDA(wilaya.ca)}</strong></div>
+                        <div class="popup-stat"><span>Visites:</span> <strong>${wilaya.visites}</strong></div>
+                    </div>
+                `;
+                circle.bindPopup(popupContent);
+
+                // Tooltip au survol
+                circle.bindTooltip(wilaya.nom, {
+                    permanent: false,
+                    direction: 'top',
+                    className: 'wilaya-tooltip'
+                });
+
+                markersLayer.addLayer(circle);
+            });
+
+            // Ajuster la vue pour englober tous les marqueurs
+            if (markersLayer.getLayers().length > 0) {
+                const group = new L.featureGroup(markersLayer.getLayers());
+                map.fitBounds(group.getBounds().pad(0.2));
+            }
+        }
+
         function updateKPIs(data) {
             const mois = document.getElementById('monthSelect').value;
             const periode = mois === 'all' ? 'Année 2026' : MOIS_NOMS[mois] + ' 2026';
             const nbCommerciaux = data.commerciaux.length || 8;
 
-            // Calcul des objectifs équipe
             const objectifCAEquipe = nbCommerciaux * 110000;
             const objectifProspEquipe = nbCommerciaux * 40;
 
@@ -719,11 +906,9 @@
             document.getElementById('totalWilayas').textContent = data.summary.totalWilayas;
             document.getElementById('caPeriod').textContent = periode;
 
-            // Objectifs
             document.getElementById('objectifCA').textContent = formatDA(objectifCAEquipe);
             document.getElementById('objectifProsp').textContent = objectifProspEquipe;
 
-            // Taux de réalisation
             const tauxCA = objectifCAEquipe > 0 ? Math.round((data.summary.totalCA / objectifCAEquipe) * 100) : 0;
             const tauxProsp = objectifProspEquipe > 0 ? Math.round(((data.summary.totalProspection || 0) / objectifProspEquipe) * 100) : 0;
 
@@ -798,34 +983,6 @@
             });
         }
 
-        function createGeoChart(data) {
-            const ctx = document.getElementById('geoChart');
-            if (!ctx) return;
-
-            if (geoChart) geoChart.destroy();
-
-            if (data.wilayas.length === 0) {
-                ctx.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">🗺️</div><p>Pas de données</p></div>';
-                return;
-            }
-
-            geoChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: data.wilayas.slice(0, 8).map(w => w.nom),
-                    datasets: [{ label: 'Visites', data: data.wilayas.slice(0, 8).map(w => w.visites), backgroundColor: 'rgba(34, 197, 94, 0.7)', borderRadius: 6 }]
-                },
-                options: {
-                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#a1a1aa' } },
-                        y: { grid: { display: false }, ticks: { color: '#a1a1aa' } }
-                    }
-                }
-            });
-        }
-
         function createTeamTable(data) {
             const tbody = document.getElementById('teamTableBody');
             if (!tbody) return;
@@ -885,16 +1042,20 @@
             if (!list) return;
             list.innerHTML = '';
 
-            if (data.wilayas.length === 0) { list.innerHTML = '<div class="no-data">Pas de données</div>'; return; }
+            if (data.wilayas.length === 0) {
+                list.innerHTML = '<div class="no-data">Pas de données</div>';
+                return;
+            }
 
-            const colors = ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
-            data.wilayas.slice(0, 6).forEach((w, i) => {
+            const colors = ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#ec4899', '#10b981'];
+            data.wilayas.forEach((w, i) => {
+                const color = w.ca >= 50000 ? '#22c55e' : w.ca >= 10000 ? '#f59e0b' : '#ef4444';
                 list.innerHTML += `
                     <div class="wilaya-item">
-                        <div class="wilaya-name"><span style="color: ${colors[i]}">●</span> ${w.nom}</div>
+                        <div class="wilaya-name"><span style="color: ${color}; font-size: 1.5rem;">●</span> ${w.nom}</div>
                         <div class="wilaya-stats">
-                            <span>Visites: <strong>${w.visites}</strong></span>
-                            <span>CA: <strong>${formatDA(w.ca)}</strong></span>
+                            <span>📍 <strong>${w.visites}</strong> visites</span>
+                            <span>💰 <strong>${formatDA(w.ca)}</strong></span>
                         </div>
                     </div>
                 `;
@@ -904,9 +1065,9 @@
         function updateDashboard() {
             const data = getCurrentData();
             updateKPIs(data);
+            updateMap(data);
             createPerformanceChart(data);
             createCAChart(data);
-            createGeoChart(data);
             createTeamTable(data);
             createWilayaList(data);
         }
@@ -924,6 +1085,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             updateDate();
+            initMap();
             updateDashboard();
         });
     </script>
