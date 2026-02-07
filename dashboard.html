@@ -135,6 +135,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.75rem;
+            margin-top: 0.5rem;
         }
 
         .btn-logout:hover {
@@ -149,7 +150,7 @@
 
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
@@ -191,7 +192,7 @@
         }
 
         .kpi-value {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
@@ -214,6 +215,11 @@
         .kpi-change.neutral {
             background: rgba(245, 158, 11, 0.15);
             color: var(--warning);
+        }
+
+        .kpi-change.negative {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
         }
 
         .charts-grid {
@@ -262,7 +268,7 @@
         .team-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 700px;
+            min-width: 900px;
         }
 
         .team-table th {
@@ -270,8 +276,9 @@
             padding: 1rem;
             color: var(--text-secondary);
             font-weight: 500;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
         }
 
         .team-table td {
@@ -307,7 +314,7 @@
             gap: 0.25rem;
             padding: 0.375rem 0.75rem;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
         }
 
@@ -331,7 +338,7 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
             overflow: hidden;
-            width: 100px;
+            width: 80px;
         }
 
         .progress-fill {
@@ -425,7 +432,7 @@
             }
 
             .kpi-value {
-                font-size: 1.75rem;
+                font-size: 1.5rem;
             }
         }
 
@@ -436,9 +443,26 @@
         }
 
         .no-data-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             opacity: 0.5;
+        }
+
+        .objectives-row {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .obj-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .obj-item span {
+            color: var(--text-secondary);
         }
     </style>
 </head>
@@ -482,6 +506,7 @@
     </header>
 
     <div class="container">
+        <!-- KPIs avec objectifs -->
         <div class="kpi-grid">
             <div class="kpi-card animate-in">
                 <div class="kpi-header">
@@ -493,16 +518,32 @@
             </div>
             <div class="kpi-card animate-in">
                 <div class="kpi-header">
+                    <span class="kpi-title">Objectif CA Équipe</span>
+                    <div class="kpi-icon" style="background: rgba(99, 102, 241, 0.15);">🎯</div>
+                </div>
+                <div class="kpi-value" id="objectifCA">880 000 DA</div>
+                <span class="kpi-change neutral" id="tauxCA">0%</span>
+            </div>
+            <div class="kpi-card animate-in">
+                <div class="kpi-header">
                     <span class="kpi-title">Visites Terrain</span>
-                    <div class="kpi-icon" style="background: rgba(99, 102, 241, 0.15);">📍</div>
+                    <div class="kpi-icon" style="background: rgba(245, 158, 11, 0.15);">📍</div>
                 </div>
                 <div class="kpi-value" id="totalVisites">--</div>
                 <span class="kpi-change neutral" id="visitesInfo">8 commerciaux</span>
             </div>
             <div class="kpi-card animate-in">
                 <div class="kpi-header">
+                    <span class="kpi-title">Objectif Prospection</span>
+                    <div class="kpi-icon" style="background: rgba(139, 92, 246, 0.15);">🔍</div>
+                </div>
+                <div class="kpi-value" id="objectifProsp">320</div>
+                <span class="kpi-change neutral" id="tauxProsp">0%</span>
+            </div>
+            <div class="kpi-card animate-in">
+                <div class="kpi-header">
                     <span class="kpi-title">Wilayas Couvertes</span>
-                    <div class="kpi-icon" style="background: rgba(245, 158, 11, 0.15);">🗺️</div>
+                    <div class="kpi-icon" style="background: rgba(6, 182, 212, 0.15);">🗺️</div>
                 </div>
                 <div class="kpi-value" id="totalWilayas">--</div>
                 <span class="kpi-change positive">Région Ouest</span>
@@ -510,7 +551,7 @@
             <div class="kpi-card animate-in">
                 <div class="kpi-header">
                     <span class="kpi-title">CA / Visite</span>
-                    <div class="kpi-icon" style="background: rgba(139, 92, 246, 0.15);">📊</div>
+                    <div class="kpi-icon" style="background: rgba(236, 72, 153, 0.15);">📊</div>
                 </div>
                 <div class="kpi-value" id="caParVisite">--</div>
                 <span class="kpi-change neutral">Productivité</span>
@@ -519,7 +560,7 @@
 
         <div class="charts-grid">
             <div class="chart-card animate-in">
-                <h3 class="chart-title">📈 Performance par Commercial</h3>
+                <h3 class="chart-title">📈 Performance CA par Commercial</h3>
                 <div class="chart-container"><canvas id="performanceChart"></canvas></div>
             </div>
             <div class="chart-card animate-in">
@@ -529,15 +570,17 @@
         </div>
 
         <div class="team-section animate-in">
-            <h3 class="chart-title">👥 Performance Équipe</h3>
+            <h3 class="chart-title">👥 Performance Équipe (Objectifs CA: 110 000 DA | Prospection: 40 visites)</h3>
             <table class="team-table">
                 <thead>
                     <tr>
                         <th>Commercial</th>
                         <th>Wilaya</th>
                         <th>Visites</th>
-                        <th>CA</th>
-                        <th>Objectif</th>
+                        <th>Prospection</th>
+                        <th>CA Réalisé</th>
+                        <th>Obj. CA</th>
+                        <th>Obj. Prosp.</th>
                         <th>Statut</th>
                     </tr>
                 </thead>
@@ -564,39 +607,52 @@
 
     <script>
         // ============================================
-        // DONNÉES PAR MOIS - À METTRE À JOUR CHAQUE SEMAINE
+        // DONNÉES PAR MOIS - MISES À JOUR HEBDOMADAIRES
+        // Objectif CA: 110 000 DA | Objectif Prospection: 40 visites
         // ============================================
         const DATA_PAR_MOIS = {
             '01': { // Janvier 2026
-                summary: { totalCA: 312960, totalVisites: 168, totalWilayas: 10 },
+                summary: { totalCA: 307480, totalVisites: 167, totalProspection: 73, totalWilayas: 9 },
                 commerciaux: [
-                    { nom: "SABRINA BARKAT", wilaya: "AIN TEMOUCHENT", visites: 41, ca: 94500, objectif: 100000, initiales: "SB" },
-                    { nom: "HICHEM KHOUDRIA", wilaya: "MEDEA", visites: 26, ca: 95000, objectif: 100000, initiales: "HK" },
-                    { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 19, ca: 59460, objectif: 100000, initiales: "HA" },
-                    { nom: "NADJAT AISSOU", wilaya: "MOSTAGANEM", visites: 16, ca: 37000, objectif: 80000, initiales: "NA" },
-                    { nom: "YASMINA TAIBI", wilaya: "SIDI BEL ABBES", visites: 23, ca: 9000, objectif: 80000, initiales: "YT" },
-                    { nom: "BEKKAL-BRIKCI", wilaya: "TLEMCEN", visites: 29, ca: 6500, objectif: 80000, initiales: "BB" },
-                    { nom: "AISSA DAHMOUNE", wilaya: "DJELFA", visites: 17, ca: 0, objectif: 60000, initiales: "AD" },
-                    { nom: "BELBALI SLYMAN", wilaya: "ADRAR", visites: 3, ca: 11500, objectif: 40000, initiales: "BS" }
+                    { nom: "HICHEM KHOUDRIA", wilaya: "MEDEA", visites: 26, prospection: 20, ca: 95000, objectifCA: 110000, objectifProsp: 40, initiales: "HK" },
+                    { nom: "SABRINA BARKAT", wilaya: "AIN TEMOUCHENT", visites: 39, prospection: 6, ca: 94500, objectifCA: 110000, objectifProsp: 40, initiales: "SB" },
+                    { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 14, prospection: 1, ca: 53980, objectifCA: 110000, objectifProsp: 40, initiales: "HA" },
+                    { nom: "NADJAT AISSOU", wilaya: "MOSTAGANEM", visites: 16, prospection: 5, ca: 37000, objectifCA: 110000, objectifProsp: 40, initiales: "NA" },
+                    { nom: "BELBALI SLYMAN", wilaya: "ADRAR", visites: 3, prospection: 1, ca: 11500, objectifCA: 110000, objectifProsp: 40, initiales: "BS" },
+                    { nom: "YASMINA TAIBI", wilaya: "SIDI BEL ABBES", visites: 23, prospection: 15, ca: 9000, objectifCA: 110000, objectifProsp: 40, initiales: "YT" },
+                    { nom: "BEKKAL-BRIKCI", wilaya: "TLEMCEN", visites: 29, prospection: 24, ca: 6500, objectifCA: 110000, objectifProsp: 40, initiales: "BB" },
+                    { nom: "AISSA DAHMOUNE", wilaya: "DJELFA", visites: 17, prospection: 1, ca: 0, objectifCA: 110000, objectifProsp: 40, initiales: "AD" }
                 ],
                 wilayas: [
                     { nom: "AIN TEMOUCHENT", visites: 39, ca: 94500 },
-                    { nom: "TLEMCEN", visites: 28, ca: 6500 },
-                    { nom: "SIDI BEL ABBES", visites: 21, ca: 9000 },
-                    { nom: "MEDEA", visites: 20, ca: 7000 },
-                    { nom: "DJELFA", visites: 19, ca: 8000 },
+                    { nom: "TLEMCEN", visites: 29, ca: 6500 },
+                    { nom: "MEDEA", visites: 26, ca: 95000 },
+                    { nom: "SIDI BEL ABBES", visites: 23, ca: 9000 },
+                    { nom: "DJELFA", visites: 17, ca: 0 },
                     { nom: "MOSTAGANEM", visites: 16, ca: 37000 },
-                    { nom: "ORAN", visites: 15, ca: 59460 },
-                    { nom: "TIARET", visites: 4, ca: 80000 },
-                    { nom: "ADRAR", visites: 3, ca: 11500 },
-                    { nom: "MASCARA", visites: 1, ca: 0 }
+                    { nom: "ORAN", visites: 14, ca: 53980 },
+                    { nom: "ADRAR", visites: 3, ca: 11500 }
                 ]
             },
-            '02': { // Février 2026 - À COMPLÉTER
-                summary: { totalCA: 0, totalVisites: 0, totalWilayas: 0 },
-                commerciaux: [],
-                wilayas: []
-            }
+            '02': { // Février 2026
+                summary: { totalCA: 5480, totalVisites: 1, totalProspection: 0, totalWilayas: 1 },
+                commerciaux: [
+                    { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 1, prospection: 0, ca: 5480, objectifCA: 110000, objectifProsp: 40, initiales: "HA" }
+                ],
+                wilayas: [
+                    { nom: "ORAN", visites: 1, ca: 5480 }
+                ]
+            },
+            '03': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '04': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '05': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '06': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '07': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '08': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '09': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '10': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '11': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] },
+            '12': { summary: { totalCA: 0, totalVisites: 0, totalProspection: 0, totalWilayas: 0 }, commerciaux: [], wilayas: [] }
         };
 
         const MOIS_NOMS = {
@@ -620,15 +676,17 @@
         function getCurrentData() {
             const mois = document.getElementById('monthSelect').value;
             if (mois === 'all') {
-                let totalCA = 0, totalVisites = 0;
+                let totalCA = 0, totalVisites = 0, totalProspection = 0;
                 const commerciauxMap = {}, wilayasMap = {};
 
                 Object.values(DATA_PAR_MOIS).forEach(data => {
                     totalCA += data.summary.totalCA;
                     totalVisites += data.summary.totalVisites;
+                    totalProspection += data.summary.totalProspection || 0;
                     data.commerciaux.forEach(c => {
-                        if (!commerciauxMap[c.nom]) commerciauxMap[c.nom] = { ...c, visites: 0, ca: 0 };
+                        if (!commerciauxMap[c.nom]) commerciauxMap[c.nom] = { ...c, visites: 0, prospection: 0, ca: 0 };
                         commerciauxMap[c.nom].visites += c.visites;
+                        commerciauxMap[c.nom].prospection += c.prospection || 0;
                         commerciauxMap[c.nom].ca += c.ca;
                     });
                     data.wilayas.forEach(w => {
@@ -639,7 +697,7 @@
                 });
 
                 return {
-                    summary: { totalCA, totalVisites, totalWilayas: Object.keys(wilayasMap).length },
+                    summary: { totalCA, totalVisites, totalProspection, totalWilayas: Object.keys(wilayasMap).length },
                     commerciaux: Object.values(commerciauxMap).sort((a, b) => b.ca - a.ca),
                     wilayas: Object.values(wilayasMap).sort((a, b) => b.visites - a.visites)
                 };
@@ -650,22 +708,43 @@
         function updateKPIs(data) {
             const mois = document.getElementById('monthSelect').value;
             const periode = mois === 'all' ? 'Année 2026' : MOIS_NOMS[mois] + ' 2026';
+            const nbCommerciaux = data.commerciaux.length || 8;
+
+            // Calcul des objectifs équipe
+            const objectifCAEquipe = nbCommerciaux * 110000;
+            const objectifProspEquipe = nbCommerciaux * 40;
 
             document.getElementById('totalCA').textContent = formatDA(data.summary.totalCA);
             document.getElementById('totalVisites').textContent = data.summary.totalVisites;
             document.getElementById('totalWilayas').textContent = data.summary.totalWilayas;
             document.getElementById('caPeriod').textContent = periode;
 
+            // Objectifs
+            document.getElementById('objectifCA').textContent = formatDA(objectifCAEquipe);
+            document.getElementById('objectifProsp').textContent = objectifProspEquipe;
+
+            // Taux de réalisation
+            const tauxCA = objectifCAEquipe > 0 ? Math.round((data.summary.totalCA / objectifCAEquipe) * 100) : 0;
+            const tauxProsp = objectifProspEquipe > 0 ? Math.round(((data.summary.totalProspection || 0) / objectifProspEquipe) * 100) : 0;
+
+            document.getElementById('tauxCA').textContent = tauxCA + '% atteint';
+            document.getElementById('tauxCA').className = 'kpi-change ' + (tauxCA >= 80 ? 'positive' : tauxCA >= 50 ? 'neutral' : 'negative');
+
+            document.getElementById('tauxProsp').textContent = tauxProsp + '% atteint';
+            document.getElementById('tauxProsp').className = 'kpi-change ' + (tauxProsp >= 80 ? 'positive' : tauxProsp >= 50 ? 'neutral' : 'negative');
+
             const caParVisite = data.summary.totalVisites > 0 ? Math.round(data.summary.totalCA / data.summary.totalVisites) : 0;
             document.getElementById('caParVisite').textContent = formatDA(caParVisite);
         }
 
         function createPerformanceChart(data) {
-            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const ctx = document.getElementById('performanceChart');
+            if (!ctx) return;
+
             if (performanceChart) performanceChart.destroy();
 
             if (data.commerciaux.length === 0) {
-                ctx.canvas.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">📊</div><p>Pas de données</p></div>';
+                ctx.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">📊</div><p>Pas de données</p></div>';
                 return;
             }
 
@@ -675,7 +754,7 @@
                     labels: data.commerciaux.map(c => c.nom.split(' ').pop()),
                     datasets: [
                         { label: 'CA Réalisé', data: data.commerciaux.map(c => c.ca), backgroundColor: 'rgba(99, 102, 241, 0.8)', borderRadius: 8 },
-                        { label: 'Objectif', data: data.commerciaux.map(c => c.objectif), backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: 8 }
+                        { label: 'Objectif CA', data: data.commerciaux.map(c => c.objectifCA), backgroundColor: 'rgba(255, 255, 255, 0.15)', borderRadius: 8 }
                     ]
                 },
                 options: {
@@ -690,12 +769,14 @@
         }
 
         function createCAChart(data) {
-            const ctx = document.getElementById('caChart').getContext('2d');
+            const ctx = document.getElementById('caChart');
+            if (!ctx) return;
+
             if (caChart) caChart.destroy();
 
             const filtered = data.commerciaux.filter(c => c.ca > 0);
             if (filtered.length === 0) {
-                ctx.canvas.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">🥧</div><p>Pas de CA</p></div>';
+                ctx.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">🥧</div><p>Pas de CA</p></div>';
                 return;
             }
 
@@ -718,11 +799,13 @@
         }
 
         function createGeoChart(data) {
-            const ctx = document.getElementById('geoChart').getContext('2d');
+            const ctx = document.getElementById('geoChart');
+            if (!ctx) return;
+
             if (geoChart) geoChart.destroy();
 
             if (data.wilayas.length === 0) {
-                ctx.canvas.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">🗺️</div><p>Pas de données</p></div>';
+                ctx.parentElement.innerHTML = '<div class="no-data"><div class="no-data-icon">🗺️</div><p>Pas de données</p></div>';
                 return;
             }
 
@@ -745,26 +828,52 @@
 
         function createTeamTable(data) {
             const tbody = document.getElementById('teamTableBody');
+            if (!tbody) return;
             tbody.innerHTML = '';
 
             if (data.commerciaux.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-secondary);">Pas de données</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 2rem; color: var(--text-secondary);">Pas de données pour cette période</td></tr>';
                 return;
             }
 
             data.commerciaux.forEach(c => {
-                const progress = Math.min(100, Math.round((c.ca / c.objectif) * 100));
-                let statusClass = 'status-ok', statusText = 'En bonne voie', progressColor = '#22c55e';
-                if (progress < 30) { statusClass = 'status-critical'; statusText = 'Critique'; progressColor = '#ef4444'; }
-                else if (progress < 70) { statusClass = 'status-attention'; statusText = 'Attention'; progressColor = '#f59e0b'; }
+                const progressCA = Math.min(100, Math.round((c.ca / c.objectifCA) * 100));
+                const progressProsp = Math.min(100, Math.round(((c.prospection || 0) / c.objectifProsp) * 100));
+
+                let statusClass = 'status-ok', statusText = 'En bonne voie';
+                let progressColorCA = '#22c55e', progressColorProsp = '#22c55e';
+
+                if (progressCA < 30) { statusClass = 'status-critical'; statusText = 'Critique'; progressColorCA = '#ef4444'; }
+                else if (progressCA < 70) { statusClass = 'status-attention'; statusText = 'Attention'; progressColorCA = '#f59e0b'; }
+
+                if (progressProsp < 30) progressColorProsp = '#ef4444';
+                else if (progressProsp < 70) progressColorProsp = '#f59e0b';
 
                 tbody.innerHTML += `
                     <tr>
                         <td><div class="commercial-name"><div class="avatar">${c.initiales}</div><span>${c.nom}</span></div></td>
                         <td>${c.wilaya}</td>
                         <td><strong>${c.visites}</strong></td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <strong>${c.prospection || 0}</strong>
+                                <div class="progress-bar"><div class="progress-fill" style="width: ${progressProsp}%; background: ${progressColorProsp};"></div></div>
+                                <span style="font-size: 0.7rem; color: var(--text-secondary);">${progressProsp}%</span>
+                            </div>
+                        </td>
                         <td><strong>${formatDA(c.ca)}</strong></td>
-                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><div class="progress-bar"><div class="progress-fill" style="width: ${progress}%; background: ${progressColor};"></div></div><span style="font-size: 0.75rem; color: var(--text-secondary);">${progress}%</span></div></td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div class="progress-bar"><div class="progress-fill" style="width: ${progressCA}%; background: ${progressColorCA};"></div></div>
+                                <span style="font-size: 0.7rem; color: var(--text-secondary);">${progressCA}%</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div class="progress-bar"><div class="progress-fill" style="width: ${progressProsp}%; background: ${progressColorProsp};"></div></div>
+                                <span style="font-size: 0.7rem; color: var(--text-secondary);">${progressProsp}%</span>
+                            </div>
+                        </td>
                         <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                     </tr>
                 `;
@@ -773,6 +882,7 @@
 
         function createWilayaList(data) {
             const list = document.getElementById('wilayaList');
+            if (!list) return;
             list.innerHTML = '';
 
             if (data.wilayas.length === 0) { list.innerHTML = '<div class="no-data">Pas de données</div>'; return; }
