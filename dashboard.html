@@ -39,11 +39,11 @@
 
         .header {
             background: var(--bg2);
-            padding: .5rem 1rem;
-            border-bottom: 1px solid var(--border);
+            padding: .75rem 1.5rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            border-bottom: 1px solid var(--border);
             flex-wrap: wrap
         }
 
@@ -54,15 +54,15 @@
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, var(--accent), var(--green));
-            border-radius: 6px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: .9rem
+            font-size: 1rem
         }
 
         .logo h1 {
@@ -70,23 +70,24 @@
         }
 
         .logo span {
-            font-size: .65rem;
+            font-size: .6rem;
             color: var(--text2)
         }
 
         .tabs {
             display: flex;
-            gap: .25rem
+            gap: .5rem
         }
 
         .tab {
-            background: var(--card);
+            background: transparent;
             border: 1px solid var(--border);
             color: var(--text2);
-            padding: .4rem .75rem;
-            border-radius: 5px;
+            padding: .4rem .8rem;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: .7rem
+            font-size: .7rem;
+            transition: all .2s
         }
 
         .tab:hover,
@@ -98,9 +99,8 @@
 
         .filters {
             display: flex;
-            gap: .75rem;
-            margin-left: auto;
-            flex-wrap: wrap
+            gap: .5rem;
+            margin-left: auto
         }
 
         .filter-dropdown {
@@ -111,17 +111,10 @@
             background: var(--card);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: .35rem .6rem;
-            border-radius: 4px;
-            font-size: .7rem;
+            padding: .4rem .8rem;
+            border-radius: 6px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: .3rem
-        }
-
-        .filter-btn:hover {
-            border-color: var(--accent)
+            font-size: .65rem
         }
 
         .filter-menu {
@@ -148,41 +141,37 @@
             align-items: center;
             gap: .4rem;
             padding: .3rem;
-            font-size: .7rem;
-            cursor: pointer;
-            border-radius: 3px
+            font-size: .65rem;
+            cursor: pointer
         }
 
         .filter-menu label:hover {
-            background: rgba(88, 166, 255, .1)
-        }
-
-        .filter-menu input {
-            accent-color: var(--accent)
+            background: var(--bg)
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: .75rem;
-            font-size: .7rem;
+            gap: 1rem
+        }
+
+        #currentDate {
+            font-size: .65rem;
             color: var(--text2)
         }
 
         .btn-logout {
             background: rgba(248, 81, 73, .15);
-            border: 1px solid rgba(248, 81, 73, .4);
             color: var(--red);
-            padding: .3rem .5rem;
-            border-radius: 4px;
+            border: none;
+            padding: .4rem .8rem;
+            border-radius: 6px;
             cursor: pointer;
             font-size: .65rem
         }
 
-        .dashboard {
-            padding: 1rem;
-            max-width: 1700px;
-            margin: 0 auto
+        .main {
+            padding: 1rem
         }
 
         .page {
@@ -193,128 +182,70 @@
             display: block
         }
 
-        .section-title {
-            font-size: .75rem;
-            color: var(--text2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: .75rem;
-            padding-left: .4rem;
-            border-left: 3px solid var(--accent)
+        .grid {
+            display: grid;
+            gap: 1rem
         }
 
         .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: .75rem;
-            margin-bottom: 1rem
+            grid-template-columns: repeat(4, 1fr)
         }
 
         .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: .75rem;
-            margin-bottom: 1rem
+            grid-template-columns: repeat(3, 1fr)
         }
 
         .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: .75rem;
-            margin-bottom: 1rem
-        }
-
-        .grid-2-1 {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: .75rem;
-            margin-bottom: 1rem
-        }
-
-        @media(max-width:1200px) {
-
-            .grid-4,
-            .grid-3 {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .grid-2-1 {
-                grid-template-columns: 1fr
-            }
-        }
-
-        @media(max-width:768px) {
-
-            .grid-4,
-            .grid-3,
-            .grid-2,
-            .grid-2-1 {
-                grid-template-columns: 1fr
-            }
+            grid-template-columns: repeat(2, 1fr)
         }
 
         .card {
             background: var(--card);
-            border-radius: 6px;
-            padding: .75rem;
+            border-radius: 12px;
+            padding: 1rem;
             border: 1px solid var(--border)
         }
 
-        .card h3 {
+        .card-title {
             font-size: .7rem;
             color: var(--text2);
-            margin-bottom: .6rem;
+            margin-bottom: .75rem;
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: .4rem
+            letter-spacing: .5px
         }
 
         .kpi-card {
-            background: var(--card);
-            border-radius: 6px;
-            padding: .75rem;
-            border: 1px solid var(--border);
-            position: relative
+            text-align: center;
+            padding: 1rem;
+            border-left: 3px solid var(--border)
         }
 
-        .kpi-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            border-radius: 6px 6px 0 0
+        .kpi-card.green {
+            border-left-color: var(--green)
         }
 
-        .kpi-card.green::before {
-            background: var(--green)
+        .kpi-card.orange {
+            border-left-color: var(--orange)
         }
 
-        .kpi-card.orange::before {
-            background: var(--orange)
-        }
-
-        .kpi-card.red::before {
-            background: var(--red)
+        .kpi-card.red {
+            border-left-color: var(--red)
         }
 
         .kpi-label {
-            font-size: .6rem;
+            font-size: .65rem;
             color: var(--text2);
-            margin-bottom: .3rem;
-            text-transform: uppercase
+            margin-bottom: .25rem
         }
 
         .kpi-value {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 700
         }
 
         .kpi-sub {
             font-size: .6rem;
-            margin-top: .2rem
+            margin-top: .25rem
         }
 
         .kpi-sub.green {
@@ -329,67 +260,51 @@
             color: var(--red)
         }
 
-        .chart-box {
-            height: 200px;
-            position: relative
-        }
-
         .gauge-box {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: .5rem
+            align-items: center
         }
 
         .gauge-svg {
-            width: 140px;
-            height: 80px
+            width: 100%;
+            max-width: 140px
         }
 
         .gauge-value {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-top: -5px
+            margin-top: -1.5rem
         }
 
         .gauge-label {
-            font-size: .65rem;
+            font-size: .6rem;
             color: var(--text2);
-            text-align: center
+            margin-top: .25rem
         }
 
         .star-mini {
             display: flex;
             align-items: center;
-            gap: .6rem;
-            padding: .5rem
+            gap: .75rem
         }
 
         .star-avatar {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: linear-gradient(135deg, gold, orange);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
             font-weight: 700;
-            border: 2px solid gold;
-            flex-shrink: 0
-        }
-
-        .star-info {
-            flex: 1;
-            min-width: 0
+            font-size: 1rem;
+            border: 2px solid gold
         }
 
         .star-name {
-            font-size: .8rem;
             font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis
+            font-size: .8rem
         }
 
         .star-stats {
@@ -400,8 +315,7 @@
         .star-badges {
             display: flex;
             gap: .3rem;
-            margin-top: .3rem;
-            flex-wrap: wrap
+            margin-top: .25rem
         }
 
         .badge {
@@ -427,8 +341,7 @@
         }
 
         .table-wrap {
-            overflow-x: auto;
-            max-height: 250px
+            overflow-x: auto
         }
 
         .data-table {
@@ -439,102 +352,76 @@
 
         .data-table th {
             text-align: left;
-            padding: .4rem;
+            padding: .5rem;
             color: var(--text2);
             border-bottom: 1px solid var(--border);
-            font-size: .55rem;
-            text-transform: uppercase;
-            position: sticky;
-            top: 0;
-            background: var(--card)
+            font-size: .6rem;
+            text-transform: uppercase
         }
 
         .data-table td {
-            padding: .4rem;
+            padding: .5rem;
             border-bottom: 1px solid var(--border)
         }
 
-        .data-table tr:hover {
-            background: rgba(88, 166, 255, .05)
-        }
-
         .progress-mini {
-            width: 40px;
-            height: 4px;
+            width: 50px;
+            height: 6px;
             background: var(--bg);
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
             display: inline-block;
-            vertical-align: middle;
-            margin-right: .2rem
+            margin-right: .3rem
         }
 
         .progress-fill {
             height: 100%;
-            border-radius: 2px
+            border-radius: 3px
+        }
+
+        .chart-container {
+            height: 180px
         }
 
         #mapBox {
-            height: 250px;
-            border-radius: 5px;
-            overflow: hidden
+            height: 300px;
+            border-radius: 8px
         }
 
         .top-item {
             display: flex;
             align-items: center;
             gap: .5rem;
-            padding: .35rem;
-            background: rgba(255, 255, 255, .02);
-            border-radius: 4px;
-            margin-bottom: .35rem
+            padding: .4rem 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .top-item:last-child {
+            border-bottom: none
         }
 
         .top-rank {
-            width: 18px;
-            height: 18px;
-            border-radius: 3px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .55rem;
-            font-weight: 700
-        }
-
-        .top-rank.gold {
-            background: linear-gradient(135deg, #ffd700, #ffb300);
-            color: #000
-        }
-
-        .top-rank.silver {
-            background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
-            color: #000
-        }
-
-        .top-rank.bronze {
-            background: linear-gradient(135deg, #cd7f32, #a0522d);
-            color: #fff
-        }
-
-        .top-rank.other {
-            background: var(--bg2);
-            color: var(--text2)
+            font-size: .6rem;
+            font-weight: 600
         }
 
         .top-info {
-            flex: 1;
-            min-width: 0
+            flex: 1
         }
 
         .top-name {
-            font-size: .65rem;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis
+            font-size: .7rem;
+            font-weight: 500
         }
 
-        .top-detail {
+        .top-sub {
             font-size: .55rem;
             color: var(--text2)
         }
@@ -542,60 +429,57 @@
         .top-value {
             font-size: .7rem;
             font-weight: 600;
-            color: var(--accent)
+            color: var(--green)
         }
 
-        .leaflet-popup-content-wrapper {
-            background: var(--card);
-            color: var(--text);
-            border-radius: 6px
+        .coaching-card {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: .75rem;
+            margin-bottom: .5rem;
+            border-left: 3px solid var(--red)
         }
 
-        .leaflet-popup-tip {
-            background: var(--card)
-        }
-
-        .footer {
-            background: var(--bg2);
-            border-top: 1px solid var(--border);
-            padding: 1rem;
-            margin-top: 1rem
-        }
-
-        .footer-content {
-            max-width: 1700px;
-            margin: 0 auto;
-            text-align: center
-        }
-
-        .footer-version {
-            font-size: .7rem;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: .4rem
-        }
-
-        .footer-support {
+        .coaching-header {
             display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: .4rem
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: .5rem
         }
 
-        .footer-support span {
-            font-size: .65rem;
+        .coaching-body {
+            font-size: .6rem;
             color: var(--text2)
         }
 
-        .footer-support a {
-            color: var(--accent);
-            text-decoration: none
+        .coaching-body p {
+            margin: .25rem 0
         }
 
-        .footer-copy {
-            font-size: .55rem;
-            color: var(--text2)
+        @media (max-width: 1200px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-4,
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .filters {
+                margin-left: 0;
+                width: 100%;
+                flex-wrap: wrap
+            }
         }
     </style>
 </head>
@@ -605,7 +489,7 @@
         <div class="logo">
             <div class="logo-icon">M</div>
             <div>
-                <h1>PILOTAGE B2B</h1><span>Dashboard v2.1</span>
+                <h1>PILOTAGE B2B</h1><span>Dashboard v2.2 - Prorata</span>
             </div>
         </div>
         <nav class="tabs">
@@ -640,31 +524,36 @@
         </div>
     </header>
 
-    <main class="dashboard">
-        <!-- PAGE 1: COCKPIT -->
-        <section id="page-cockpit" class="page active">
-            <h2 class="section-title">🎛️ Cockpit Opérationnel - Feux Tricolores</h2>
-            <div class="grid-4" id="kpiGrid"></div>
-            <div class="grid-4">
+    <main class="main">
+        <!-- COCKPIT -->
+        <div id="page-cockpit" class="page active">
+            <div class="grid grid-4" id="kpiGrid" style="margin-bottom:1rem"></div>
+            <div class="grid grid-3" style="margin-bottom:1rem">
                 <div class="card">
-                    <h3>🎯 Jauge CA</h3>
+                    <div class="card-title">📈 Jauge CA</div>
                     <div class="gauge-box" id="gaugeCA"></div>
                 </div>
                 <div class="card">
-                    <h3>🔍 Jauge Prospection</h3>
+                    <div class="card-title">🔍 Jauge Prospection</div>
                     <div class="gauge-box" id="gaugeProsp"></div>
                 </div>
                 <div class="card">
-                    <h3>⭐ Star du Mois</h3>
+                    <div class="card-title">⭐ Star du Mois</div>
                     <div id="starBox"></div>
                 </div>
+            </div>
+            <div class="grid grid-2" style="margin-bottom:1rem">
                 <div class="card">
-                    <h3>🥧 Répartition CA</h3>
-                    <div class="chart-box"><canvas id="caChart"></canvas></div>
+                    <div class="card-title">📊 Répartition CA</div>
+                    <div class="chart-container"><canvas id="caChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">📍 Visites par Commercial</div>
+                    <div class="chart-container"><canvas id="visitesChart"></canvas></div>
                 </div>
             </div>
             <div class="card">
-                <h3>👥 Tableau Équipe - Système Feux Tricolores (🟢≥85% | 🟠70-84% | 🔴&lt;70%)</h3>
+                <div class="card-title">👥 Performance Équipe (Objectifs Prorata)</div>
                 <div class="table-wrap">
                     <table class="data-table">
                         <thead>
@@ -673,6 +562,7 @@
                                 <th>Wilaya</th>
                                 <th>Visites</th>
                                 <th>Prosp.</th>
+                                <th>Obj CA</th>
                                 <th>CA</th>
                                 <th>% CA</th>
                                 <th>% Prosp</th>
@@ -684,83 +574,50 @@
                     </table>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- PAGE 2: TERRITOIRE -->
-        <section id="page-territoire" class="page">
-            <h2 class="section-title">🗺️ Stratégie Territoire & Grands Comptes</h2>
-            <div class="grid-2-1">
+        <!-- TERRITOIRE -->
+        <div id="page-territoire" class="page">
+            <div class="grid grid-2" style="margin-bottom:1rem">
                 <div class="card">
-                    <h3>🗺️ Carte Performance Wilayas</h3>
+                    <div class="card-title">🗺️ Carte des Wilayas</div>
                     <div id="mapBox"></div>
                 </div>
                 <div class="card">
-                    <h3>🏆 Top 5 Clients</h3>
+                    <div class="card-title">📊 Top 5 Wilayas (CA)</div>
+                    <div class="chart-container"><canvas id="wilayaChart"></canvas></div>
+                </div>
+            </div>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-title">🏆 Top 5 Clients</div>
                     <div id="topClients"></div>
                 </div>
-            </div>
-            <div class="grid-3">
                 <div class="card">
-                    <h3>📦 Top Produits</h3>
+                    <div class="card-title">📦 Top 5 Produits</div>
                     <div id="topProduits"></div>
                 </div>
-                <div class="card">
-                    <h3>📊 CA par Wilaya</h3>
-                    <div class="chart-box"><canvas id="wilayaChart"></canvas></div>
-                </div>
-                <div class="card">
-                    <h3>📈 Visites vs Prospection</h3>
-                    <div class="chart-box"><canvas id="visitesChart"></canvas></div>
-                </div>
             </div>
-        </section>
+        </div>
 
-        <!-- PAGE 3: COACHING -->
-        <section id="page-coaching" class="page">
-            <h2 class="section-title">📊 Matrice de Coaching & Performance</h2>
-            <div class="grid-2">
+        <!-- COACHING -->
+        <div id="page-coaching" class="page">
+            <div class="grid grid-2" style="margin-bottom:1rem">
                 <div class="card">
-                    <h3>📈 Matrice Effort vs Résultat</h3>
-                    <div class="chart-box" style="height:280px"><canvas id="matriceChart"></canvas></div>
+                    <div class="card-title">📊 Matrice Effort/Résultat</div>
+                    <div class="chart-container" style="height:250px"><canvas id="matriceChart"></canvas></div>
                 </div>
                 <div class="card">
-                    <h3>📊 Performance par Commercial</h3>
-                    <div class="chart-box" style="height:280px"><canvas id="perfChart"></canvas></div>
+                    <div class="card-title">🎯 Radar Performance</div>
+                    <div class="chart-container" style="height:250px"><canvas id="perfChart"></canvas></div>
                 </div>
             </div>
             <div class="card">
-                <h3>📋 Plan d'Actions Coaching</h3>
-                <div class="table-wrap">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Commercial</th>
-                                <th>Zone</th>
-                                <th>CA</th>
-                                <th>% Obj</th>
-                                <th>Visites</th>
-                                <th>Prosp.</th>
-                                <th>Diagnostic</th>
-                                <th>Action Recommandée</th>
-                            </tr>
-                        </thead>
-                        <tbody id="coachingTable"></tbody>
-                    </table>
-                </div>
+                <div class="card-title">⚡ Alertes Coaching</div>
+                <div id="coachingList"></div>
             </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-version">📊 Dashboard B2B Mobilis v2.1.0 | Février 2026</div>
-            <div class="footer-support">
-                <span>📞 Support: <a href="tel:0661686562">0661686562</a></span>
-                <span>📧 <a href="mailto:Brahim.BOUDRAA@mobilis.dz">Brahim.BOUDRAA@mobilis.dz</a></span>
-            </div>
-            <div class="footer-copy">© 2026 Mobilis B2B - Manager Région Ouest: Brahim BOUDRAA</div>
         </div>
-    </footer>
+    </main>
 
     <script src="dashboard.js"></script>
 </body>
