@@ -153,15 +153,15 @@ function updateAll() {
     updateMatrice(d); updatePerfChart(d); updateCoaching(d);
 }
 
-// KPIs - VERSION PRORATA
+// KPIs - VERSION PRORATA CORRIGÉE
 function updateKPIs(d) {
     const nb = d.commerciaux.length || 8;
     const numMois = d.summary.numMois || 1;
 
-    // Objectifs prorata : somme des objectifs cumulés des commerciaux
-    // OU fallback sur nb commerciaux × objectif mensuel × nombre de mois
-    const objCA = d.commerciaux.reduce((acc, c) => acc + c.objectifCA, 0) || (nb * OBJECTIF_CA_MENSUEL * numMois);
-    const objP = d.commerciaux.reduce((acc, c) => acc + c.objectifProsp, 0) || (nb * OBJECTIF_PROSP_MENSUEL * numMois);
+    // Objectifs = 110 000 DA × nombre commerciaux × nombre de mois
+    // Exemple: 3 mois, 8 commerciaux = 110000 × 8 × 3 = 2 640 000 DA
+    const objCA = nb * OBJECTIF_CA_MENSUEL * numMois;
+    const objP = nb * OBJECTIF_PROSP_MENSUEL * numMois;
 
     const pctCA = Math.round(d.summary.totalCA / objCA * 100) || 0;
     const pctP = Math.round((d.summary.totalProspection || 0) / objP * 100) || 0;
@@ -169,63 +169,58 @@ function updateKPIs(d) {
 
     document.getElementById('kpiGrid').innerHTML = `
     <div class="kpi-card ${getStatus(pctCA)}"><div class="kpi-label">💰 CA Réalisé</div><div class="kpi-value">${fmt(d.summary.totalCA)}</div><div class="kpi-sub ${getStatus(pctCA)}">${getIcon(pctCA)} ${pctCA}% objectif</div></div>
-    <div class="kpi-card ${getStatus(pctCA)}"><div class="kpi-label">🎯 Objectif CA</div><div class="kpi-value">${fmt(objCA)}</div><div class="kpi-sub">📅 Période: ${numMois} mois</div></div>
+    <div class="kpi-card ${getStatus(pctCA)}"><div class="kpi-label">🎯 Objectif CA</div><div class="kpi-value">${fmt(objCA)}</div><div class="kpi-sub">${nb} comm. × ${numMois} mois</div></div>
     <div class="kpi-card ${getStatus(pctP)}"><div class="kpi-label">🔍 Prospection</div><div class="kpi-value">${d.summary.totalProspection || 0} / ${objP}</div><div class="kpi-sub ${getStatus(pctP)}">${getIcon(pctP)} ${pctP}% objectif</div></div>
     <div class="kpi-card"><div class="kpi-label">📍 Visites / Wilayas</div><div class="kpi-value">${d.summary.totalVisites} / ${d.summary.totalWilayas}</div><div class="kpi-sub">CA/visite: ${fmt(caPerV)}</div></div>`;
 }
 
-// JAUGES - VERSION PRORATA
+// JAUGES - VERSION PRORATA CORRIGÉE
 function updateGauges(d) {
     const nb = d.commerciaux.length || 8;
     const numMois = d.summary.numMois || 1;
 
-    // Objectifs prorata
-    const objCA = d.commerciaux.reduce((acc, c) => acc + c.objectifCA, 0) || (nb * OBJECTIF_CA_MENSUEL * numMois);
+    // Objectifs = nb commerciaux × objectif mensuel × nombre mois
+    const objCA = nb * OBJECTIF_CA_MENSUEL * numMois;
     const pctCA = Math.min(100, d.summary.totalCA / objCA * 100) || 0;
     const angCA = -90 + pctCA * 1.8;
     document.getElementById('gaugeCA').innerHTML = `<svg class="gauge-svg" viewBox="0 0 140 80"><defs><linearGradient id="gCA"><stop offset="0%" stop-color="#f85149"/><stop offset="50%" stop-color="#d29922"/><stop offset="100%" stop-color="#3fb950"/></linearGradient></defs><path d="M 15 70 A 55 55 0 0 1 125 70" fill="none" stroke="#30363d" stroke-width="10" stroke-linecap="round"/><path d="M 15 70 A 55 55 0 0 1 125 70" fill="none" stroke="url(#gCA)" stroke-width="10" stroke-linecap="round" stroke-dasharray="173" stroke-dashoffset="${173 - pctCA * 1.73}"/><line x1="70" y1="70" x2="${70 + 40 * Math.cos(angCA * Math.PI / 180)}" y2="${70 + 40 * Math.sin(angCA * Math.PI / 180)}" stroke="#f0f6fc" stroke-width="2" stroke-linecap="round"/><circle cx="70" cy="70" r="4" fill="#f0f6fc"/></svg><div class="gauge-value">${Math.round(pctCA)}%</div><div class="gauge-label">${fmt(d.summary.totalCA)} / ${fmt(objCA)}</div>`;
 
     // Jauge Prosp
-    const objP = d.commerciaux.reduce((acc, c) => acc + c.objectifProsp, 0) || (nb * OBJECTIF_PROSP_MENSUEL * numMois);
+    const objP = nb * OBJECTIF_PROSP_MENSUEL * numMois;
     const pctP = Math.min(100, (d.summary.totalProspection || 0) / objP * 100) || 0;
     const angP = -90 + pctP * 1.8;
     document.getElementById('gaugeProsp').innerHTML = `<svg class="gauge-svg" viewBox="0 0 140 80"><defs><linearGradient id="gP"><stop offset="0%" stop-color="#f85149"/><stop offset="50%" stop-color="#d29922"/><stop offset="100%" stop-color="#3fb950"/></linearGradient></defs><path d="M 15 70 A 55 55 0 0 1 125 70" fill="none" stroke="#30363d" stroke-width="10" stroke-linecap="round"/><path d="M 15 70 A 55 55 0 0 1 125 70" fill="none" stroke="url(#gP)" stroke-width="10" stroke-linecap="round" stroke-dasharray="173" stroke-dashoffset="${173 - pctP * 1.73}"/><line x1="70" y1="70" x2="${70 + 40 * Math.cos(angP * Math.PI / 180)}" y2="${70 + 40 * Math.sin(angP * Math.PI / 180)}" stroke="#f0f6fc" stroke-width="2" stroke-linecap="round"/><circle cx="70" cy="70" r="4" fill="#f0f6fc"/></svg><div class="gauge-value">${Math.round(pctP)}%</div><div class="gauge-label">${d.summary.totalProspection || 0} / ${objP} prospects</div>`;
 }
 
-// STAR - VERSION PRORATA
+// STAR - VERSION PRORATA CORRIGÉE
 function updateStar(d) {
     if (!d.commerciaux.length) { document.getElementById('starBox').innerHTML = '<p style="text-align:center;color:var(--text2);font-size:.7rem">Pas de données</p>'; return; }
+    const numMois = d.summary.numMois || 1;
+    const objCAPerComm = OBJECTIF_CA_MENSUEL * numMois;
+    const objPPerComm = OBJECTIF_PROSP_MENSUEL * numMois;
+
     const star = d.commerciaux.reduce((a, b) => {
-        // Score basé sur les objectifs prorata
-        const sA = (a.ca / a.objectifCA) + (a.prospection / a.objectifProsp);
-        const sB = (b.ca / b.objectifCA) + (b.prospection / b.objectifProsp);
+        const sA = (a.ca / objCAPerComm) + (a.prospection / objPPerComm);
+        const sB = (b.ca / objCAPerComm) + (b.prospection / objPPerComm);
         return sA > sB ? a : b;
     });
-    const pCA = Math.round(star.ca / star.objectifCA * 100), pP = Math.round(star.prospection / star.objectifProsp * 100);
+    const pCA = Math.round(star.ca / objCAPerComm * 100), pP = Math.round(star.prospection / objPPerComm * 100);
     document.getElementById('starBox').innerHTML = `<div class="star-mini"><div class="star-avatar">${star.initiales}</div><div class="star-info"><div class="star-name">${star.nom}</div><div class="star-stats">${star.wilaya} • ${star.visites}v • ${fmt(star.ca)}</div><div class="star-badges"><span class="badge ${getStatus(pCA)}">CA:${pCA}%</span><span class="badge ${getStatus(pP)}">Pr:${pP}%</span></div></div></div>`;
 }
 
-// TEAM TABLE - VERSION PRORATA avec colonne Objectif
+// TEAM TABLE - VERSION PRORATA CORRIGÉE
 function updateTeamTable(d) {
     const tb = document.getElementById('teamTable');
-    if (!d.commerciaux.length) { tb.innerHTML = '<tr><td colspan="10" style="text-align:center">Pas de données</td></tr>'; return; }
+    if (!d.commerciaux.length) { tb.innerHTML = '<tr><td colspan="9" style="text-align:center">Pas de données</td></tr>'; return; }
+    const numMois = d.summary.numMois || 1;
+    const objCAPerComm = OBJECTIF_CA_MENSUEL * numMois;
+    const objPPerComm = OBJECTIF_PROSP_MENSUEL * numMois;
+
     tb.innerHTML = d.commerciaux.map(c => {
-        // Utilisation des objectifs prorata cumulés
-        const pCA = Math.round(c.ca / c.objectifCA * 100);
-        const pP = Math.round(c.prospection / c.objectifProsp * 100);
+        const pCA = Math.round(c.ca / objCAPerComm * 100);
+        const pP = Math.round(c.prospection / objPPerComm * 100);
         const action = pCA < 70 ? '⚡ Coaching urgent' : pCA < 85 ? '📞 Suivi hebdo' : '✅ Maintenir';
-        return `<tr>
-            <td><strong>${c.nom}</strong></td>
-            <td>${c.wilaya}</td>
-            <td>${c.visites}</td>
-            <td>${c.prospection}</td>
-            <td style="font-size:.65rem;color:var(--text2)">${fmt(c.objectifCA)}</td>
-            <td>${fmt(c.ca)}</td>
-            <td><div class="progress-mini"><div class="progress-fill" style="width:${Math.min(100, pCA)}%;background:var(--${getStatus(pCA)})"></div></div>${pCA}%</td>
-            <td><div class="progress-mini"><div class="progress-fill" style="width:${Math.min(100, pP)}%;background:var(--${getStatus(pP)})"></div></div>${pP}%</td>
-            <td><span class="badge ${getStatus(pCA)}">${getIcon(pCA)}</span></td>
-            <td style="font-size:.55rem">${action}</td>
-        </tr>`;
+        return `<tr><td><strong>${c.nom}</strong></td><td>${c.wilaya}</td><td>${c.visites}</td><td>${c.prospection}</td><td>${fmt(c.ca)}</td><td><div class="progress-mini"><div class="progress-fill" style="width:${Math.min(100, pCA)}%;background:var(--${getStatus(pCA)})"></div></div>${pCA}%</td><td><div class="progress-mini"><div class="progress-fill" style="width:${Math.min(100, pP)}%;background:var(--${getStatus(pP)})"></div></div>${pP}%</td><td><span class="badge ${getStatus(pCA)}">${getIcon(pCA)}</span></td><td style="font-size:.55rem">${action}</td></tr>`;
     }).join('');
 }
 
