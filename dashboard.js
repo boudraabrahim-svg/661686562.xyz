@@ -1,56 +1,415 @@
 // ============================================
-// DASHBOARD DIRECTION COMMERCIALE B2B
+// DASHBOARD B2B
 // Version 3.0 - Stratégique & Prédictif
 // ============================================
 
 // DONNÉES
 const DATA = {
-    '01': {
-        summary: { totalCA: 312960, totalVisites: 168, totalProspection: 73, totalWilayas: 12, joursOuvrables: 22 },
-        commerciaux: [
-            { nom: "HICHEM KHOUDRIA", wilaya: "MEDEA", visites: 26, prospection: 20, ca: 95000, initiales: "HK" },
-            { nom: "SABRINA BARKAT", wilaya: "AIN TEMOUCHENT", visites: 39, prospection: 6, ca: 94500, initiales: "SB" },
-            { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 14, prospection: 1, ca: 59460, initiales: "HA" },
-            { nom: "NADJAT AISSOU", wilaya: "MOSTAGANEM", visites: 16, prospection: 5, ca: 37000, initiales: "NA" },
-            { nom: "BELBALI SLYMAN", wilaya: "ADRAR", visites: 3, prospection: 1, ca: 11500, initiales: "BS" },
-            { nom: "YASMINA TAIBI", wilaya: "SIDI BEL ABBES", visites: 23, prospection: 15, ca: 9000, initiales: "YT" },
-            { nom: "BEKKAL-BRIKCI", wilaya: "TLEMCEN", visites: 29, prospection: 24, ca: 6500, initiales: "BB" },
-            { nom: "AISSA DAHMOUNE", wilaya: "DJELFA", visites: 17, prospection: 1, ca: 0, initiales: "AD" }
+    "01": {
+        "summary": {
+            "totalCA": 307480,
+            "totalVisites": 173,
+            "totalProspection": 73,
+            "totalWilayas": 12,
+            "joursOuvrables": 22,
+            "nbCommerciaux": 8,
+            "objectifCA": 880000,
+            "objectifProsp": 320
+        },
+        "commerciaux": [
+            {
+                "nom": "HICHEM KHOUDRIA",
+                "wilaya": "MEDEA",
+                "visites": 26,
+                "prospection": 20,
+                "ca": 95000,
+                "initiales": "HK"
+            },
+            {
+                "nom": "SABRINA BARKAT",
+                "wilaya": "AIN TEMOUCHENT",
+                "visites": 41,
+                "prospection": 6,
+                "ca": 94500,
+                "initiales": "SB"
+            },
+            {
+                "nom": "HANKOUR AMINE",
+                "wilaya": "ORAN",
+                "visites": 18,
+                "prospection": 1,
+                "ca": 53980,
+                "initiales": "HA"
+            },
+            {
+                "nom": "NADJAT AISSOU",
+                "wilaya": "MOSTAGANEM",
+                "visites": 16,
+                "prospection": 5,
+                "ca": 37000,
+                "initiales": "NA"
+            },
+            {
+                "nom": "BELBALI SLYMAN",
+                "wilaya": "ADRAR",
+                "visites": 3,
+                "prospection": 1,
+                "ca": 11500,
+                "initiales": "BS"
+            },
+            {
+                "nom": "YASMINA TAIBI",
+                "wilaya": "SIDI BEL ABBES",
+                "visites": 23,
+                "prospection": 15,
+                "ca": 9000,
+                "initiales": "YT"
+            },
+            {
+                "nom": "MOHAMMED-ABDELHAFID BEKKAL-BRIKCI",
+                "wilaya": "TLEMCEN",
+                "visites": 29,
+                "prospection": 24,
+                "ca": 6500,
+                "initiales": "MB"
+            },
+            {
+                "nom": "AISSA DAHMOUNE",
+                "wilaya": "DJELFA",
+                "visites": 17,
+                "prospection": 1,
+                "ca": 0,
+                "initiales": "AD"
+            }
         ],
-        wilayas: [
-            { nom: "AIN TEMOUCHENT", visites: 39, ca: 94500, potentiel: "Élevé" },
-            { nom: "TIARET", visites: 4, ca: 80000, potentiel: "Élevé" },
-            { nom: "ORAN", visites: 15, ca: 59460, potentiel: "Très élevé" },
-            { nom: "MOSTAGANEM", visites: 16, ca: 37000, potentiel: "Moyen" },
-            { nom: "ADRAR", visites: 3, ca: 11500, potentiel: "Faible" },
-            { nom: "SIDI BEL ABBES", visites: 21, ca: 9000, potentiel: "Moyen" },
-            { nom: "DJELFA", visites: 19, ca: 8000, potentiel: "Moyen" },
-            { nom: "MEDEA", visites: 20, ca: 7000, potentiel: "Moyen" },
-            { nom: "TLEMCEN", visites: 28, ca: 6500, potentiel: "Moyen" }
+        "wilayas": [
+            {
+                "nom": "AIN TEMOUCHENT",
+                "visites": 41,
+                "ca": 94500,
+                "potentiel": "Très élevé"
+            },
+            {
+                "nom": "TIARET",
+                "visites": 4,
+                "ca": 80000,
+                "potentiel": "Très élevé"
+            },
+            {
+                "nom": "ORAN",
+                "visites": 18,
+                "ca": 53980,
+                "potentiel": "Très élevé"
+            },
+            {
+                "nom": "MOSTAGANEM",
+                "visites": 16,
+                "ca": 37000,
+                "potentiel": "Élevé"
+            },
+            {
+                "nom": "ADRAR",
+                "visites": 3,
+                "ca": 11500,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "SIDI BEL ABBES",
+                "visites": 21,
+                "ca": 9000,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "DJELFA",
+                "visites": 19,
+                "ca": 8000,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "MEDEA",
+                "visites": 20,
+                "ca": 7000,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "TLEMCEN",
+                "visites": 28,
+                "ca": 6500,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "BLIDA",
+                "visites": 1,
+                "ca": 0,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "MASCARA",
+                "visites": 1,
+                "ca": 0,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "SAIDA",
+                "visites": 1,
+                "ca": 0,
+                "potentiel": "Moyen"
+            }
         ],
-        topClients: [
-            { nom: "EPIC TIARET NADHAFA", ca: 80000, wilaya: "TIARET" },
-            { nom: "EURL CODIPROV ORAN", ca: 42000, wilaya: "AIN TEMOUCHENT" },
-            { nom: "SARL LILAUZ", ca: 28000, wilaya: "AIN TEMOUCHENT" },
-            { nom: "SPA SONATRACH LQS", ca: 15000, wilaya: "ORAN" },
-            { nom: "EURL MIMOZA LUMIERE", ca: 15000, wilaya: "MOSTAGANEM" }
+        "topClients": [
+            {
+                "nom": "ETABLISSEMENT EPIC TIARET NADHAFA",
+                "ca": 80000,
+                "wilaya": "TIARET"
+            },
+            {
+                "nom": "EURL CODIPROV ORAN UNITE DE AIN TEMOUCEHNT",
+                "ca": 42000,
+                "wilaya": "AIN TEMOUCHENT"
+            },
+            {
+                "nom": "SARL LILAUZ",
+                "ca": 28000,
+                "wilaya": "AIN TEMOUCHENT"
+            },
+            {
+                "nom": "EURL MIMOZA LUMIERE",
+                "ca": 15000,
+                "wilaya": "MOSTAGANEM"
+            },
+            {
+                "nom": "SPA SONATRACH LQS",
+                "ca": 15000,
+                "wilaya": "ORAN"
+            }
         ],
-        topProduits: [
-            { nom: "SKY-BUSINESS 1000 CONTROL", quantite: 8, ca: 56000 },
-            { nom: "Revo Business 3500 Libre", quantite: 3, ca: 31500 },
-            { nom: "Revo Business 1500 Ctrl", quantite: 3, ca: 13500 },
-            { nom: "CARTE DE RECHARGE 2000 DA", quantite: 4, ca: 8000 },
-            { nom: "BePro 2000", quantite: 2, ca: 4000 }
+        "topProduits": [
+            {
+                "nom": "INTERNET ONLY 15GO (sous validation)",
+                "quantite": 1,
+                "ca": 80000
+            },
+            {
+                "nom": "Revo Business 3500  Libre & Ctrl",
+                "quantite": 3,
+                "ca": 52500
+            },
+            {
+                "nom": "ARSSELLI 2000 DA",
+                "quantite": 1,
+                "ca": 28000
+            },
+            {
+                "nom": "Revo Business 1500 Ctrl",
+                "quantite": 3,
+                "ca": 24000
+            },
+            {
+                "nom": "CARTE DE RECHARGE 2000 DA",
+                "quantite": 4,
+                "ca": 22000
+            }
         ]
     },
-    '02': {
-        summary: { totalCA: 5480, totalVisites: 1, totalProspection: 0, totalWilayas: 1, joursOuvrables: 20 },
-        commerciaux: [
-            { nom: "HANKOUR AMINE", wilaya: "ORAN", visites: 1, prospection: 0, ca: 5480, initiales: "HA" }
+    "02": {
+        "summary": {
+            "totalCA": 803300,
+            "totalVisites": 112,
+            "totalProspection": 33,
+            "totalWilayas": 11,
+            "joursOuvrables": 22,
+            "nbCommerciaux": 8,
+            "objectifCA": 880000,
+            "objectifProsp": 320
+        },
+        "commerciaux": [
+            {
+                "nom": "YASMINA TAIBI",
+                "wilaya": "SIDI BEL ABBES",
+                "visites": 15,
+                "prospection": 6,
+                "ca": 547000,
+                "initiales": "YT"
+            },
+            {
+                "nom": "BELBALI SLYMAN",
+                "wilaya": "ADRAR",
+                "visites": 3,
+                "prospection": 1,
+                "ca": 60600,
+                "initiales": "BS"
+            },
+            {
+                "nom": "NADJAT AISSOU",
+                "wilaya": "MOSTAGANEM",
+                "visites": 17,
+                "prospection": 5,
+                "ca": 52000,
+                "initiales": "NA"
+            },
+            {
+                "nom": "MOHAMMED-ABDELHAFID BEKKAL-BRIKCI",
+                "wilaya": "TLEMCEN",
+                "visites": 9,
+                "prospection": 3,
+                "ca": 46500,
+                "initiales": "MB"
+            },
+            {
+                "nom": "SABRINA BARKAT",
+                "wilaya": "AIN TEMOUCHENT",
+                "visites": 28,
+                "prospection": 5,
+                "ca": 39100,
+                "initiales": "SB"
+            },
+            {
+                "nom": "HANKOUR AMINE",
+                "wilaya": "ORAN",
+                "visites": 13,
+                "prospection": 5,
+                "ca": 31200,
+                "initiales": "HA"
+            },
+            {
+                "nom": "HICHEM KHOUDRIA",
+                "wilaya": "MEDEA",
+                "visites": 11,
+                "prospection": 8,
+                "ca": 26900,
+                "initiales": "HK"
+            },
+            {
+                "nom": "AISSA DAHMOUNE",
+                "wilaya": "DJELFA",
+                "visites": 16,
+                "prospection": 0,
+                "ca": 0,
+                "initiales": "AD"
+            }
         ],
-        wilayas: [{ nom: "ORAN", visites: 1, ca: 5480, potentiel: "Très élevé" }],
-        topClients: [{ nom: "SPA SNTF", ca: 5480, wilaya: "ORAN" }],
-        topProduits: [{ nom: "SIM VOIX MVPN", quantite: 10, ca: 5480 }]
+        "wilayas": [
+            {
+                "nom": "SIDI BEL ABBES",
+                "visites": 14,
+                "ca": 403000,
+                "potentiel": "Très élevé"
+            },
+            {
+                "nom": "SAIDA",
+                "visites": 1,
+                "ca": 144000,
+                "potentiel": "Très élevé"
+            },
+            {
+                "nom": "ADRAR",
+                "visites": 3,
+                "ca": 60600,
+                "potentiel": "Très élevé"
+            },
+            {
+                "nom": "MOSTAGANEM",
+                "visites": 17,
+                "ca": 52000,
+                "potentiel": "Très élevé"
+            },
+            {
+                "nom": "TLEMCEN",
+                "visites": 8,
+                "ca": 46500,
+                "potentiel": "Élevé"
+            },
+            {
+                "nom": "AIN TEMOUCHENT",
+                "visites": 29,
+                "ca": 39100,
+                "potentiel": "Élevé"
+            },
+            {
+                "nom": "ORAN",
+                "visites": 11,
+                "ca": 31200,
+                "potentiel": "Élevé"
+            },
+            {
+                "nom": "MEDEA",
+                "visites": 11,
+                "ca": 26900,
+                "potentiel": "Élevé"
+            },
+            {
+                "nom": "ALGER",
+                "visites": 1,
+                "ca": 0,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "BORDJ BOU ARRERIDJ",
+                "visites": 1,
+                "ca": 0,
+                "potentiel": "Moyen"
+            },
+            {
+                "nom": "DJELFA",
+                "visites": 16,
+                "ca": 0,
+                "potentiel": "Moyen"
+            }
+        ],
+        "topClients": [
+            {
+                "nom": "GROUPEMENT CHIALI SERVICES",
+                "ca": 368000,
+                "wilaya": "SIDI BEL ABBES"
+            },
+            {
+                "nom": "EPIC EP ADE SAIDA",
+                "ca": 144000,
+                "wilaya": "SAIDA"
+            },
+            {
+                "nom": "SPA SDC DD ADRAR",
+                "ca": 55600,
+                "wilaya": "ADRAR"
+            },
+            {
+                "nom": "SPA UTE DESALADORA HONAINE",
+                "ca": 37500,
+                "wilaya": "TLEMCEN"
+            },
+            {
+                "nom": "SARL ORAVIO",
+                "ca": 32000,
+                "wilaya": "MOSTAGANEM"
+            }
+        ],
+        "topProduits": [
+            {
+                "nom": "Revo ProControl 1200",
+                "quantite": 1,
+                "ca": 360000
+            },
+            {
+                "nom": "SIM VPN 4G 1500",
+                "quantite": 2,
+                "ca": 150000
+            },
+            {
+                "nom": "Pack Revo-connect +Modem 4G 450Go",
+                "quantite": 4,
+                "ca": 75000
+            },
+            {
+                "nom": "SIM Sonelgaz 250",
+                "quantite": 2,
+                "ca": 69500
+            },
+            {
+                "nom": "CARTE DE RECHARGE 2000 DA",
+                "quantite": 3,
+                "ca": 50000
+            }
+        ]
     }
 };
 
@@ -81,7 +440,7 @@ let caChart, activityChart, rankingChart, compChart, wilayaChart, matriceChart;
 
 // UTILITAIRES
 const fmt = n => new Intl.NumberFormat('fr-DZ').format(Math.round(n)) + ' DA';
-const fmtK = n => n >= 1000000 ? (n / 1000000).toFixed(1) + 'M' : n >= 1000 ? (n / 1000).toFixed(0) + 'K' : n;
+const fmtK = n => new Intl.NumberFormat('fr-DZ').format(Math.round(n));
 const getStatusClass = pct => pct >= SEUIL_OBJECTIF ? 'success' : pct >= SEUIL_ALERTE_ORANGE ? 'warning' : 'danger';
 const getStatusIcon = pct => pct >= SEUIL_OBJECTIF ? '🟢' : pct >= SEUIL_ALERTE_ORANGE ? '🟠' : '🔴';
 const getGradient = pct => pct >= SEUIL_OBJECTIF ? 'success' : pct >= SEUIL_ALERTE_ORANGE ? 'warning' : 'danger';
