@@ -1,261 +1,751 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion - Dashboard B2B Mobilis</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-primary: #0a0a0f;
-      --bg-card: #1a1a24;
-      --accent: #6366f1;
-      --accent-light: #818cf8;
-      --text-primary: #ffffff;
-      --text-secondary: #a1a1aa;
-      --border: rgba(255, 255, 255, 0.1);
-      --danger: #ef4444;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande de Devis - Géolocalisation Véhiculaire | Ide-Net & IASYS Technologie</title>
+    <meta name="description" content="Demandez votre devis gratuit pour la géolocalisation professionnelle de véhicules en Algérie. IVMS, CANLog, immobilisation à distance. Réponse sous 24h.">
+    <meta name="keywords" content="géolocalisation, GPS, véhicule, Algérie, devis, IVMS, CANLog, fleet management">
+    <meta property="og:title" content="Demande de Devis - Géolocalisation Véhiculaire">
+    <meta property="og:description" content="Solution de géolocalisation professionnelle pour flottes de véhicules en Algérie. Devis gratuit, réponse sous 24h.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%); 
+            min-height: 100vh; 
+            padding: 20px;
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .container { 
+            max-width: 620px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            box-shadow: 0 25px 80px rgba(0,0,0,0.35);
+            animation: slideUp 0.6s ease-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header { 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            color: white; 
+            padding: 28px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+            animation: headerGlow 6s ease-in-out infinite;
+        }
+        @keyframes headerGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 10px); }
+        }
+        .header .logos { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 30px; 
+            margin-bottom: 20px; 
+            flex-wrap: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+        .header .logos img { 
+            width: 140px; 
+            border-radius: 8px;
+            background: white;
+            padding: 4px;
+            transition: transform 0.3s ease;
+        }
+        .header .logos img:hover {
+            transform: scale(1.05);
+        }
+        @media (max-width: 480px) { .header .logos img { width: 110px; } }
+        .header h1 { font-size: 22px; margin-bottom: 8px; position: relative; z-index: 1; }
+        .header p { opacity: 0.9; font-size: 13px; position: relative; z-index: 1; }
+        .form-content { padding: 28px; }
+        .section { 
+            margin-bottom: 22px; 
+            padding-bottom: 22px; 
+            border-bottom: 1px solid #eef0f4; 
+        }
+        .section:last-of-type { border-bottom: none; }
+        .section-title { 
+            color: #1e3c72; 
+            font-size: 15px; 
+            margin-bottom: 14px; 
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 2px;
+        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 5px; 
+            color: #333; 
+            font-weight: 500; 
+            font-size: 13px; 
+        }
+        .form-group label .required { color: #e74c3c; }
+        .form-group input[type="text"], 
+        .form-group input[type="email"], 
+        .form-group input[type="tel"], 
+        .form-group input[type="number"], 
+        .form-group select { 
+            width: 100%; 
+            padding: 11px 14px; 
+            border: 1.5px solid #dde1e8; 
+            border-radius: 8px; 
+            font-size: 13px; 
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s; 
+            background: #fafbfc;
+        }
+        .form-group input:focus, .form-group select:focus { 
+            outline: none; 
+            border-color: #1e3c72; 
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+            background: white;
+        }
+        .form-group input.invalid, .form-group select.invalid {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+        .error-msg {
+            color: #e74c3c;
+            font-size: 11px;
+            margin-top: 4px;
+            display: none;
+        }
+        .error-msg.visible { display: block; }
+        .checkbox-group { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 8px; 
+        }
+        .checkbox-item { 
+            display: flex; 
+            align-items: flex-start; 
+            padding: 12px; 
+            border: 1.5px solid #dde1e8; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+        .checkbox-item:hover { 
+            border-color: #1e3c72; 
+            background: #f0f4ff;
+            transform: translateY(-1px);
+        }
+        .checkbox-item input { 
+            margin-right: 8px; 
+            width: 16px; 
+            height: 16px; 
+            accent-color: #1e3c72; 
+            margin-top: 2px; 
+        }
+        .checkbox-item span { font-size: 12px; line-height: 1.4; }
+        .checkbox-item .service-desc { display: block; color: #666; font-size: 11px; margin-top: 3px; }
+        .checkbox-item.checked { 
+            border-color: #1e3c72; 
+            background: #e8f0fe;
+            box-shadow: 0 2px 8px rgba(30, 60, 114, 0.12);
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        .submit-btn { 
+            width: 100%; 
+            padding: 15px; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            font-family: inherit;
+            cursor: pointer; 
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s;
+        }
+        .submit-btn:hover:not(:disabled)::after {
+            left: 100%;
+        }
+        .submit-btn:hover:not(:disabled) { 
+            transform: translateY(-2px); 
+            box-shadow: 0 12px 35px rgba(30,60,114,0.4); 
+        }
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .submit-btn .btn-text { position: relative; z-index: 1; }
+        .submit-btn .btn-loader {
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+        .submit-btn.loading .btn-text { display: none; }
+        .submit-btn.loading .btn-loader { display: inline-flex; align-items: center; gap: 8px; }
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
+        /* Honeypot - hidden from users, visible to bots */
+        .hp-field { 
+            position: absolute; 
+            left: -9999px; 
+            opacity: 0; 
+            height: 0; 
+            width: 0;
+            overflow: hidden;
+            tab-index: -1;
+        }
 
-    .login-container {
-      width: 100%;
-      max-width: 420px;
-    }
+        /* Success / Error message */
+        .result-message {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .result-message.success {
+            display: block;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border: 1px solid #4caf50;
+            color: #2e7d32;
+        }
+        .result-message.error {
+            display: block;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            border: 1px solid #e53935;
+            color: #c62828;
+        }
+        .result-message h3 { margin-bottom: 8px; font-size: 16px; }
+        .result-message p { font-size: 13px; line-height: 1.5; }
 
-    .login-card {
-      background: var(--bg-card);
-      border-radius: 24px;
-      padding: 3rem 2rem;
-      border: 1px solid var(--border);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-
-    .logo {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .logo-icon {
-      width: 72px;
-      height: 72px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-      border-radius: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-    }
-
-    .logo h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .logo p {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 1rem 1.25rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: var(--text-primary);
-      font-size: 1rem;
-      font-family: inherit;
-      transition: all 0.3s;
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      background: rgba(99, 102, 241, 0.1);
-      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-    }
-
-    .form-input::placeholder {
-      color: var(--text-secondary);
-    }
-
-    .btn-login {
-      width: 100%;
-      padding: 1rem;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-      border: none;
-      border-radius: 12px;
-      color: white;
-      font-size: 1rem;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 0.5rem;
-    }
-
-    .btn-login:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-    }
-
-    .error-message {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: var(--danger);
-      padding: 0.75rem 1rem;
-      border-radius: 10px;
-      font-size: 0.875rem;
-      margin-bottom: 1rem;
-      display: none;
-      text-align: center;
-    }
-
-    .error-message.show {
-      display: block;
-      animation: shake 0.5s ease;
-    }
-
-    @keyframes shake {
-
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-
-      25% {
-        transform: translateX(-5px);
-      }
-
-      75% {
-        transform: translateX(5px);
-      }
-    }
-
-    .footer-text {
-      text-align: center;
-      margin-top: 2rem;
-      color: var(--text-secondary);
-      font-size: 0.75rem;
-    }
-
-    .secure-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(34, 197, 94, 0.1);
-      color: #22c55e;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      margin-top: 1.5rem;
-    }
-  </style>
+        .footer { 
+            text-align: center; 
+            padding: 18px; 
+            background: #f8f9fa; 
+            color: #666; 
+            font-size: 11px;
+            border-top: 1px solid #eef0f4;
+        }
+        .footer .legal-text { margin-bottom: 8px; }
+        .footer .legal-text:last-child { margin-bottom: 0; }
+        .footer .warranty { 
+            color: #1e3c72; 
+            font-weight: 600; 
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(30, 60, 114, 0.05);
+            border-radius: 6px;
+        }
+        @media (max-width: 480px) { 
+            .checkbox-group { grid-template-columns: 1fr; } 
+            .header .logos { flex-direction: column; gap: 10px; }
+            body { padding: 10px; }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="login-container">
-    <div class="login-card">
-      <div class="logo">
-        <div class="logo-icon">M</div>
-        <h1>Dashboard B2B</h1>
-        <p>Région Ouest - Accès sécurisé</p>
-      </div>
-
-      <div class="error-message" id="errorMsg">Identifiants incorrects.</div>
-
-      <form id="loginForm">
-        <div class="form-group">
-          <label class="form-label" for="username">Identifiant</label>
-          <input type="text" class="form-input" id="username" placeholder="Votre identifiant" required>
+    <div class="container">
+        <div class="header">
+            <div class="logos">
+                <img src="logo_geo_tracking.jpeg" alt="IASYS Technologie - Geo Tracking" width="130">
+                <img src="logo_Idenet.jpeg" alt="Ide-Net Géolocalisation" width="130">
+            </div>
+            <h1>Demande de Devis</h1>
+            <p>Solution de Géolocalisation Professionnelle — Algérie</p>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="password">Mot de passe</label>
-          <input type="password" class="form-input" id="password" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn-login">Se connecter</button>
-      </form>
 
-      <div style="text-align: center;">
-        <div class="secure-badge">🔒 Connexion sécurisée</div>
-      </div>
+        <div class="form-content">
+            <!-- Result message area -->
+            <div id="resultMessage" class="result-message"></div>
+
+            <form id="devisForm" novalidate>
+                <!-- Honeypot anti-spam (invisible pour les humains) -->
+                <div class="hp-field" aria-hidden="true">
+                    <label for="website">Site web</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div class="section">
+                    <div class="section-title">1. Identification</div>
+                    <div class="form-group">
+                        <label>Nom complet <span class="required">*</span></label>
+                        <input type="text" name="nom" id="field-nom" required placeholder="Votre nom et prénom" minlength="3">
+                        <div class="error-msg" id="err-nom">Veuillez saisir votre nom complet (min. 3 caractères)</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fonction dans l'entreprise <span class="required">*</span></label>
+                        <select name="fonction" id="field-fonction" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="PDG / DG (Directeur Général)">PDG / DG (Directeur Général)</option>
+                            <option value="Chef de projet">Chef de projet</option>
+                            <option value="Directeur commercial">Directeur commercial</option>
+                            <option value="Responsable logistique">Responsable logistique</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                        <div class="error-msg" id="err-fonction">Veuillez sélectionner votre fonction</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Entreprise</label>
+                        <input type="text" name="entreprise" id="field-entreprise" placeholder="Nom de l'entreprise">
+                    </div>
+                    <div class="form-group">
+                        <label>Forme juridique <span class="required">*</span></label>
+                        <select name="forme_juridique" id="field-forme" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Personne Physique (Entrepreneur individuel)">Personne Physique (Entrepreneur individuel)</option>
+                            <option value="Auto-entrepreneur (Régime simplifié)">Auto-entrepreneur (Régime simplifié)</option>
+                            <option value="EURL (Entreprise Unipersonnelle à Responsabilité Limitée)">EURL</option>
+                            <option value="SARL (Société à Responsabilité Limitée)">SARL</option>
+                            <option value="SPA (Société Par Actions)">SPA</option>
+                            <option value="SNC (Société en Nom Collectif)">SNC</option>
+                            <option value="SCS (Société en Commandite Simple)">SCS</option>
+                        </select>
+                        <div class="error-msg" id="err-forme">Veuillez sélectionner la forme juridique</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" name="email" id="field-email" required placeholder="votre@email.com">
+                        <div class="error-msg" id="err-email">Veuillez saisir une adresse email valide</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone <span class="required">*</span></label>
+                        <input type="tel" name="telephone" id="field-tel" required placeholder="+213 5XX XXX XXX ou 05XX XXX XXX" 
+                               pattern="(\+213|0)[5-7][0-9\s]{7,11}">
+                        <div class="error-msg" id="err-tel">Format attendu : +213 5XX XXX XXX ou 05XX XX XX XX</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">2. Besoins</div>
+                    <div class="form-group">
+                        <label>Type de véhicules <span class="required">*</span></label>
+                        <div class="checkbox-group" id="vehicules-group">
+                            <label class="checkbox-item"><input type="checkbox" name="type_vehicules" value="Voiture"> <span>Voiture</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="type_vehicules" value="Camion"> <span>Camion</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="type_vehicules" value="Moto"> <span>Moto</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="type_vehicules" value="Engins"> <span>Engins</span></label>
+                        </div>
+                        <div class="error-msg" id="err-vehicules">Veuillez sélectionner au moins un type de véhicule</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre de véhicules <span class="required">*</span></label>
+                        <input type="number" name="nombre_vehicules" id="field-nombre" required min="1" placeholder="Nombre de véhicules à équiper">
+                        <div class="error-msg" id="err-nombre">Veuillez indiquer un nombre (minimum 1)</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Wilaya <span class="required">*</span></label>
+                        <select name="wilaya" id="field-wilaya" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Adrar">Adrar</option>
+                            <option value="Chlef">Chlef</option>
+                            <option value="Laghouat">Laghouat</option>
+                            <option value="Oum El Bouaghi">Oum El Bouaghi</option>
+                            <option value="Batna">Batna</option>
+                            <option value="Béjaïa">Béjaïa</option>
+                            <option value="Biskra">Biskra</option>
+                            <option value="Béchar">Béchar</option>
+                            <option value="Blida">Blida</option>
+                            <option value="Bouira">Bouira</option>
+                            <option value="Tamanrasset">Tamanrasset</option>
+                            <option value="Tébessa">Tébessa</option>
+                            <option value="Tlemcen">Tlemcen</option>
+                            <option value="Tiaret">Tiaret</option>
+                            <option value="Tizi Ouzou">Tizi Ouzou</option>
+                            <option value="Alger">Alger</option>
+                            <option value="Djelfa">Djelfa</option>
+                            <option value="Jijel">Jijel</option>
+                            <option value="Sétif">Sétif</option>
+                            <option value="Saïda">Saïda</option>
+                            <option value="Skikda">Skikda</option>
+                            <option value="Sidi Bel Abbès">Sidi Bel Abbès</option>
+                            <option value="Annaba">Annaba</option>
+                            <option value="Guelma">Guelma</option>
+                            <option value="Constantine">Constantine</option>
+                            <option value="Médéa">Médéa</option>
+                            <option value="Mostaganem">Mostaganem</option>
+                            <option value="M'Sila">M'Sila</option>
+                            <option value="Mascara">Mascara</option>
+                            <option value="Ouargla">Ouargla</option>
+                            <option value="Oran">Oran</option>
+                            <option value="El Bayadh">El Bayadh</option>
+                            <option value="Illizi">Illizi</option>
+                            <option value="Bordj Bou Arreridj">Bordj Bou Arreridj</option>
+                            <option value="Boumerdès">Boumerdès</option>
+                            <option value="El Tarf">El Tarf</option>
+                            <option value="Tindouf">Tindouf</option>
+                            <option value="Tissemsilt">Tissemsilt</option>
+                            <option value="El Oued">El Oued</option>
+                            <option value="Khenchela">Khenchela</option>
+                            <option value="Souk Ahras">Souk Ahras</option>
+                            <option value="Tipaza">Tipaza</option>
+                            <option value="Mila">Mila</option>
+                            <option value="Aïn Defla">Aïn Defla</option>
+                            <option value="Naâma">Naâma</option>
+                            <option value="Aïn Témouchent">Aïn Témouchent</option>
+                            <option value="Ghardaïa">Ghardaïa</option>
+                            <option value="Relizane">Relizane</option>
+                            <option value="Timimoun">Timimoun</option>
+                            <option value="Bordj Badji Mokhtar">Bordj Badji Mokhtar</option>
+                            <option value="Ouled Djellal">Ouled Djellal</option>
+                            <option value="Béni Abbès">Béni Abbès</option>
+                            <option value="In Salah">In Salah</option>
+                            <option value="In Guezzam">In Guezzam</option>
+                            <option value="Touggourt">Touggourt</option>
+                            <option value="Djanet">Djanet</option>
+                            <option value="El M'Ghaier">El M'Ghaier</option>
+                            <option value="El Meniaa">El Meniaa</option>
+                            <option value="Aflou">Aflou</option>
+                            <option value="El Abiodh Sidi Cheikh">El Abiodh Sidi Cheikh</option>
+                            <option value="El Aricha">El Aricha</option>
+                            <option value="El Kantara">El Kantara</option>
+                            <option value="Barika">Barika</option>
+                            <option value="Bou Saâda">Bou Saâda</option>
+                            <option value="Bir El Ater">Bir El Ater</option>
+                            <option value="Ksar El Boukhari">Ksar El Boukhari</option>
+                            <option value="Ksar Chellala">Ksar Chellala</option>
+                            <option value="Aïn Oussera">Aïn Oussera</option>
+                            <option value="Messaâd">Messaâd</option>
+                        </select>
+                        <div class="error-msg" id="err-wilaya">Veuillez sélectionner votre wilaya</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">3. Services</div>
+                    <div class="form-group">
+                        <label>Options (plusieurs choix possibles)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="IVMS"> 
+                                <span>IVMS<small class="service-desc">Suivi en temps réel, rapport de conduite et analyses des comportements</small></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="CANLog"> 
+                                <span>CANLog<small class="service-desc">Données techniques véhicule (consommation, régime moteur, vitesse...)</small></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="Relais d'Immobilisation"> 
+                                <span>Relais d'Immobilisation<small class="service-desc">Arrêt moteur à distance en cas de vol ou urgence — sécurité antipirate</small></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">4. Contrat</div>
+                    <div class="form-group">
+                        <label>Durée souhaitée <span class="required">*</span></label>
+                        <select name="duree" id="field-duree" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="12 mois">12 mois</option>
+                            <option value="24 mois">24 mois</option>
+                            <option value="36 mois">36 mois</option>
+                        </select>
+                        <div class="error-msg" id="err-duree">Veuillez sélectionner une durée</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text">Envoyer ma demande de devis</span>
+                    <span class="btn-loader"><span class="spinner"></span> Envoi en cours...</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <div class="legal-text">Vos informations restent strictement confidentielles</div>
+            <div class="legal-text">Sans engagement</div>
+            <div class="warranty">Solution conforme à la réglementation algérienne (B2B)<br>Contrat incluant service après-vente gratuit 7J/7</div>
+            <div style="margin-top: 10px;">© 2026 — Ide-Net Géolocalisation | Réponse sous 24h</div>
+        </div>
     </div>
-    <p class="footer-text">Dashboard B2B Mobilis • Manager Ouest<br>© 2026 - Accès réservé</p>
-  </div>
 
-  <script>
-    // Utilisateurs autorisés
-    const USERS = {
-      // Direction
-      'hamza': 'directeur2026',
-      // Manager
-      'brahim': 'manager2026',
-      // Équipe Commerciale
-      'barkat': 'barkat2026',
-      'khoudria': 'khoudria2026',
-      'hankour': 'hankour2026',
-      'aissou': 'aissou2026',
-      'taibi': 'taibi2026',
-      'brikci': 'brikci2026',
-      'dahmoune': 'dahmoune2026',
-      'belbali': 'belbali2026'
-    };
+    <script>
+    (function() {
+        'use strict';
 
-    if (sessionStorage.getItem('dashboard_auth') === 'true') {
-      window.location.href = 'dashboard.html';
-    }
+        // ============================================================
+        // CONFIGURATION — Remplacer par l'URL de votre Google Apps Script Web App
+        // Voir le fichier APPS-SCRIPT-FINAL.js pour les instructions de déploiement
+        // ============================================================
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbz6RDIKH2YummLqTUhP7IYKnfP9X_hOfIO6BEEt_G3UQBPbWRtRk3ZBzugtxnIC27BU/exec';
+        // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
 
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const username = document.getElementById('username').value.toLowerCase().trim();
-      const password = document.getElementById('password').value;
-      const errorMsg = document.getElementById('errorMsg');
+        const form = document.getElementById('devisForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultMsg = document.getElementById('resultMessage');
 
-      if (USERS[username] && USERS[username] === password) {
-        sessionStorage.setItem('dashboard_auth', 'true');
-        sessionStorage.setItem('dashboard_user', username);
-        window.location.href = 'dashboard.html';
-      } else {
-        errorMsg.classList.add('show');
-        document.getElementById('password').value = '';
-        setTimeout(() => errorMsg.classList.remove('show'), 3000);
-      }
-    });
-  </script>
+        // Toggle checkbox visual feedback
+        document.querySelectorAll('.checkbox-item input').forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                this.parentElement.classList.toggle('checked', this.checked);
+            });
+        });
+
+        // Real-time validation — clear errors on input
+        document.querySelectorAll('input, select').forEach(function(el) {
+            el.addEventListener('input', function() {
+                this.classList.remove('invalid');
+                var errEl = document.getElementById('err-' + this.id.replace('field-', ''));
+                if (errEl) errEl.classList.remove('visible');
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Honeypot check — if filled, it's a bot
+            if (document.getElementById('website').value) {
+                showResult('success', 'Merci !', 'Votre demande a été envoyée avec succès.');
+                return;
+            }
+
+            // Validate all fields
+            if (!validateForm()) return;
+
+            // Collect data
+            var data = collectFormData();
+
+            // Check if WEBAPP_URL is configured
+            if (WEBAPP_URL === 'https://script.google.com/macros/s/AKfycbz6RDIKH2YummLqTUhP7IYKnfP9X_hOfIO6BEEt_G3UQBPbWRtRk3ZBzugtxnIC27BU/exec') {
+                // Fallback: open mailto with form data
+                sendViaMailto(data);
+                return;
+            }
+
+            // Send to Google Apps Script Web App
+            sendToWebApp(data);
+        });
+
+        function validateForm() {
+            var isValid = true;
+
+            // Required text/email/tel/number fields
+            var fields = [
+                { id: 'field-nom', errId: 'err-nom' },
+                { id: 'field-fonction', errId: 'err-fonction' },
+                { id: 'field-forme', errId: 'err-forme' },
+                { id: 'field-email', errId: 'err-email' },
+                { id: 'field-tel', errId: 'err-tel' },
+                { id: 'field-nombre', errId: 'err-nombre' },
+                { id: 'field-wilaya', errId: 'err-wilaya' },
+                { id: 'field-duree', errId: 'err-duree' }
+            ];
+
+            fields.forEach(function(f) {
+                var el = document.getElementById(f.id);
+                var errEl = document.getElementById(f.errId);
+                if (!el.value || !el.value.trim() || !el.checkValidity()) {
+                    el.classList.add('invalid');
+                    if (errEl) errEl.classList.add('visible');
+                    isValid = false;
+                } else {
+                    el.classList.remove('invalid');
+                    if (errEl) errEl.classList.remove('visible');
+                }
+            });
+
+            // Phone — additional pattern check
+            var telField = document.getElementById('field-tel');
+            var telVal = telField.value.replace(/\s/g, '');
+            var phoneRegex = /^(\+213|0)[5-7]\d{8}$/;
+            if (telVal && !phoneRegex.test(telVal)) {
+                telField.classList.add('invalid');
+                document.getElementById('err-tel').classList.add('visible');
+                isValid = false;
+            }
+
+            // Checkbox group — at least one vehicle type
+            var vehicleChecked = document.querySelectorAll('input[name="type_vehicules"]:checked');
+            var errVeh = document.getElementById('err-vehicules');
+            if (vehicleChecked.length === 0) {
+                errVeh.classList.add('visible');
+                isValid = false;
+            } else {
+                errVeh.classList.remove('visible');
+            }
+
+            // Scroll to first error
+            if (!isValid) {
+                var firstError = document.querySelector('.invalid, .error-msg.visible');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            return isValid;
+        }
+
+        function collectFormData() {
+            var vehicules = [];
+            document.querySelectorAll('input[name="type_vehicules"]:checked').forEach(function(cb) {
+                vehicules.push(cb.value);
+            });
+
+            var services = [];
+            document.querySelectorAll('input[name="services"]:checked').forEach(function(cb) {
+                services.push(cb.value);
+            });
+
+            return {
+                nom: document.getElementById('field-nom').value.trim(),
+                fonction: document.getElementById('field-fonction').value,
+                entreprise: document.getElementById('field-entreprise').value.trim() || '-',
+                forme_juridique: document.getElementById('field-forme').value,
+                email: document.getElementById('field-email').value.trim(),
+                telephone: document.getElementById('field-tel').value.trim(),
+                type_vehicules: vehicules.join(', '),
+                nombre_vehicules: document.getElementById('field-nombre').value,
+                wilaya: document.getElementById('field-wilaya').value,
+                services: services.length > 0 ? services.join(', ') : 'Aucun',
+                duree: document.getElementById('field-duree').value,
+                date: new Date().toLocaleString('fr-DZ')
+            };
+        }
+
+        function sendToWebApp(data) {
+            setLoading(true);
+
+            fetch(WEBAPP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(data).toString()
+            })
+            .then(function() {
+                // With no-cors, we can't read the response, but if no network error, it's sent
+                showResult('success', 
+                    '✅ Demande envoyée avec succès !', 
+                    'Merci <strong>' + escapeHtml(data.nom) + '</strong>. Notre équipe vous contactera sous 24h à l\'adresse <strong>' + escapeHtml(data.email) + '</strong>.'
+                );
+                form.reset();
+                document.querySelectorAll('.checkbox-item').forEach(function(item) {
+                    item.classList.remove('checked');
+                });
+            })
+            .catch(function(error) {
+                console.error('Erreur envoi:', error);
+                showResult('error', 
+                    '❌ Erreur d\'envoi', 
+                    'Une erreur réseau s\'est produite. Veuillez réessayer ou nous contacter directement par téléphone.'
+                );
+            })
+            .finally(function() {
+                setLoading(false);
+            });
+        }
+
+        function sendViaMailto(data) {
+            // Fallback if Web App URL is not configured
+            var subject = encodeURIComponent('Nouvelle demande de devis - ' + data.nom);
+            var body = encodeURIComponent(
+                'NOUVELLE DEMANDE DE DEVIS\n' +
+                '========================\n\n' +
+                'Date: ' + data.date + '\n\n' +
+                'IDENTIFICATION\n' +
+                '--------------\n' +
+                'Nom: ' + data.nom + '\n' +
+                'Fonction: ' + data.fonction + '\n' +
+                'Entreprise: ' + data.entreprise + '\n' +
+                'Forme juridique: ' + data.forme_juridique + '\n' +
+                'Email: ' + data.email + '\n' +
+                'Téléphone: ' + data.telephone + '\n\n' +
+                'BESOINS\n' +
+                '-------\n' +
+                'Type véhicules: ' + data.type_vehicules + '\n' +
+                'Nombre: ' + data.nombre_vehicules + '\n' +
+                'Wilaya: ' + data.wilaya + '\n\n' +
+                'SERVICES\n' +
+                '--------\n' +
+                'Services: ' + data.services + '\n\n' +
+                'CONTRAT\n' +
+                '-------\n' +
+                'Durée: ' + data.duree + '\n'
+            );
+
+            window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+            
+            showResult('success', 
+                '📧 Redirection vers votre messagerie', 
+                'Votre client email va s\'ouvrir avec les informations pré-remplies. Envoyez l\'email pour compléter votre demande.'
+            );
+        }
+
+        function setLoading(loading) {
+            submitBtn.disabled = loading;
+            submitBtn.classList.toggle('loading', loading);
+        }
+
+        function showResult(type, title, message) {
+            resultMsg.className = 'result-message ' + type;
+            resultMsg.innerHTML = '<h3>' + title + '</h3><p>' + message + '</p>';
+            resultMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    })();
+    </script>
 </body>
-
 </html>
