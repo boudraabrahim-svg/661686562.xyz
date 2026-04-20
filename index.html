@@ -293,12 +293,45 @@
             background: rgba(30, 60, 114, 0.05);
             border-radius: 6px;
         }
-        @media (max-width: 480px) { 
-            .checkbox-group { grid-template-columns: 1fr; } 
-            .header .logos { flex-direction: column; gap: 10px; }
-            body { padding: 10px; }
-        }
-    </style>
+            @media (max-width: 480px) { 
+                .checkbox-group { grid-template-columns: 1fr; } 
+                .header .logos { flex-direction: column; gap: 10px; }
+                body { padding: 10px; }
+            }
+
+            /* Bouton WhatsApp Flottant */
+            .whatsapp-float {
+                position: fixed;
+                width: 60px;
+                height: 60px;
+                bottom: 40px;
+                right: 40px;
+                background-color: #25d366;
+                color: #FFF;
+                border-radius: 50px;
+                text-align: center;
+                font-size: 30px;
+                box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                animation: bounceIn 1s ease-out;
+            }
+            .whatsapp-float:hover {
+                transform: scale(1.1) translateY(-5px);
+                background-color: #128c7e;
+                box-shadow: 2px 5px 15px rgba(0,0,0,0.3);
+            }
+            @keyframes bounceIn {
+                0% { opacity: 0; transform: scale(0.3); }
+                50% { opacity: 0.9; transform: scale(1.1); }
+                80% { opacity: 1; transform: scale(0.9); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+        </style>
 </head>
 <body>
     <div class="container">
@@ -332,7 +365,7 @@
                     <div class="form-group">
                         <label>Fonction dans l'entreprise <span class="required">*</span></label>
                         <select name="fonction" id="field-fonction" required>
-                            <option value="">Sélectionner...</option>
+                            <option value="Gérant">Gérant</option>
                             <option value="PDG / DG (Directeur Général)">PDG / DG (Directeur Général)</option>
                             <option value="Chef de projet">Chef de projet</option>
                             <option value="Directeur commercial">Directeur commercial</option>
@@ -366,9 +399,9 @@
                     </div>
                     <div class="form-group">
                         <label>Téléphone <span class="required">*</span></label>
-                        <input type="tel" name="telephone" id="field-tel" required placeholder="+213 5XX XXX XXX ou 05XX XXX XXX" 
+                        <input type="tel" name="telephone" id="field-tel" required placeholder="0661 68 65 62" 
                                pattern="(\+213|0)[5-7][0-9\s]{7,11}">
-                        <div class="error-msg" id="err-tel">Format attendu : +213 5XX XXX XXX ou 05XX XX XX XX</div>
+                        <div class="error-msg" id="err-tel">Veuillez saisir un numéro valide (ex: 06XX XX XX XX)</div>
                     </div>
                 </div>
 
@@ -517,6 +550,11 @@
         </div>
     </div>
 
+    <!-- Bouton WhatsApp Flottant -->
+    <a href="https://wa.me/213560097801" class="whatsapp-float" target="_blank" title="Contactez-nous sur WhatsApp">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="white"><path d="M12.031 6.062c-3.111 0-5.632 2.521-5.632 5.632 0 1.055.289 2.04.793 2.883l-.841 3.07 3.141-.824c.795.433 1.704.682 2.671.682 3.111 0 5.632-2.521 5.632-5.632 0-3.111-2.521-5.632-5.632-5.632zm3.327 7.915c-.144.405-.72.733-1.002.775-.282.042-.64.07-1.01-.013-.277-.062-.591-.144-.984-.316-1.631-.715-2.73-2.38-2.812-2.49-.081-.11-.663-.883-.663-1.684s.41-.12.556-.264c.146-.144.32-.18.423-.18s.205 0 .293.013c.093.013.22.035.345.345.144.345.485 1.187.525 1.267s.07.167.013.284c-.057.117-.113.18-.21.284-.097.117-.205.264-.293.352-.097.1-.2.21-.081.417.117.207.518.855 1.11 1.383.76.678 1.403.887 1.603.99s.345.07.485-.093c.14-.163.603-.702.766-.938.163-.236.326-.197.55-.117s1.42.67 1.666.79.246.12.41.173.467.27.057.097.057.563-.087.97z"/></svg>
+    </a>
+
     <script>
     (function() {
         'use strict';
@@ -564,8 +602,8 @@
             // Collect data
             var data = collectFormData();
 
-            // Check if WEBAPP_URL is configured
-            if (WEBAPP_URL === 'https://script.google.com/macros/s/AKfycbz6RDIKH2YummLqTUhP7IYKnfP9X_hOfIO6BEEt_G3UQBPbWRtRk3ZBzugtxnIC27BU/exec') {
+            // Check if WEBAPP_URL is configured (only if it's still the placeholder)
+            if (WEBAPP_URL === 'VOTRE_URL_WEBAPP_ICI') {
                 // Fallback: open mailto with form data
                 sendViaMailto(data);
                 return;
