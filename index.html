@@ -582,7 +582,7 @@
         // CONFIGURATION — Remplacer par l'URL de votre Google Apps Script Web App
         // Voir le fichier APPS-SCRIPT-FINAL.js pour les instructions de déploiement
         // ============================================================
-        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyU8dnM9ASSjpZlEu-0qTNpW3H1pmRNakCAbWOwqjFRQM7uCY2DwAOkR2vJpSiUF_vE/exec';
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzYOZ8U2b1gV3WTUVkfRtF5T5q0wVYQjvdnhxmUMiannnY9ucJwoXkxVvdGPJ6OQEUjSQ/exec';
         // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
 
         const form = document.getElementById('devisForm');
@@ -707,6 +707,7 @@
                 wilaya: document.getElementById('field-wilaya').value,
                 services: services.length > 0 ? services.join(', ') : 'Aucun',
                 duree: document.getElementById('field-duree').value,
+                source: new URLSearchParams(window.location.search).get('source') === 'qrcode' ? 'QR Code' : 'Lien direct',
                 date: new Date().toLocaleString('fr-DZ')
             };
         }
