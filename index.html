@@ -365,6 +365,7 @@
                     <div class="form-group">
                         <label>Fonction dans l'entreprise <span class="required">*</span></label>
                         <select name="fonction" id="field-fonction" required>
+                            <option value="">Sélectionner...</option>
                             <option value="Gérant">Gérant</option>
                             <option value="PDG / DG (Directeur Général)">PDG / DG (Directeur Général)</option>
                             <option value="Chef de projet">Chef de projet</option>
@@ -399,7 +400,7 @@
                     </div>
                     <div class="form-group">
                         <label>Téléphone <span class="required">*</span></label>
-                        <input type="tel" name="telephone" id="field-tel" required placeholder="0661 68 65 62" 
+                        <input type="tel" name="telephone" id="field-tel" required placeholder="06XX XX XX XX" 
                                pattern="(\+213|0)[5-7][0-9\s]{7,11}">
                         <div class="error-msg" id="err-tel">Veuillez saisir un numéro valide (ex: 06XX XX XX XX)</div>
                     </div>
@@ -563,7 +564,7 @@
         // CONFIGURATION — Remplacer par l'URL de votre Google Apps Script Web App
         // Voir le fichier APPS-SCRIPT-FINAL.js pour les instructions de déploiement
         // ============================================================
-        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbz6RDIKH2YummLqTUhP7IYKnfP9X_hOfIO6BEEt_G3UQBPbWRtRk3ZBzugtxnIC27BU/exec';
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyU8dnM9ASSjpZlEu-0qTNpW3H1pmRNakCAbWOwqjFRQM7uCY2DwAOkR2vJpSiUF_vE/exec';
         // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
 
         const form = document.getElementById('devisForm');
